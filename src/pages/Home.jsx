@@ -51,7 +51,7 @@ export default function Home() {
 
       {/* Título principal */}
       <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold', letterSpacing: 1 }}>
-        ¡Hola! Soy Miss Material UI
+        ¡Hola! Mi nombre es Aday Álvarez
       </Typography>
 
       {/* Subtítulo o descripción con estilo */}
