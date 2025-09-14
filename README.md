@@ -1,7 +1,6 @@
-# 🧠 Interactive CV MUI
-
-Este proyecto es la **segunda parte** de la píldora formativa iniciada en [mui-card](https://github.com/Aday25/mui-card).  
-Aquí ampliamos el aprendizaje para crear un **CV interactivo** con React y Material UI, añadiendo más componentes y funcionalidades para hacer una práctica más completa, paso a paso.
+# Mi Portfolio 🚀
+Este proyecto empezó como [interactive-cv-mui](https://github.com/Aday25/interactive-cv-mui)  
+y lo he adaptado para usarlo como mi portfolio personal.
 
 ---
 
