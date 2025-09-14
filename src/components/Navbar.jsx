@@ -5,6 +5,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from '../theme/ThemeContext';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from "react-i18next";
 
 // Definimos las opciones del menú con sus etiquetas y rutas
 const navItems = [
@@ -19,6 +20,7 @@ export default function Navbar() {
   const theme = useTheme();
   // Contexto para poder cambiar el modo de color (tema claro/oscuro)
   const colorMode = useContext(ColorModeContext);
+  const { t, i18n } = useTranslation();
 
   return (
     <AppBar position="static">
@@ -50,6 +52,17 @@ export default function Navbar() {
           {/* Cambiamos el icono según el tema actual */}
           {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 1 }}>
+          {/* Título sobre los botones */}
+          <Box sx={{ fontSize: '1.3rem', mb: 0.5 }}>Idioma</Box>
+
+          {/* Botones de idioma */}
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <Button color="inherit" onClick={() => i18n.changeLanguage('es')}>🇪🇸</Button>
+            <Button color="inherit" onClick={() => i18n.changeLanguage('en')}>🇬🇧</Button>
+          </Box>
+        </Box>
       </Toolbar>
     </AppBar>
   );
