@@ -74,7 +74,7 @@ function App() {
                   }}
                   gutterBottom             // margen inferior para separar del siguiente elemento
                 >
-                  ¡Bienvenid@ a mi web!
+                  ¡Bienvenid@!
                 </Typography>
 
                 {/* Imagen de portada, responsive y con sombra para destacar */}

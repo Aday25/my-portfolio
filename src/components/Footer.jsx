@@ -13,7 +13,7 @@ export default function Footer() {
         py: 2,
         px: 2,
         textAlign: 'center',
-        bgcolor: '#fac844', // Fondo estilo cómic
+        bgcolor: '#4e8056ff', // Fondo estilo cómic
         color: '#000',
         borderTop: '2px solid black',
       }}

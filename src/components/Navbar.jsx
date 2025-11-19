@@ -9,10 +9,10 @@ import { useTranslation } from "react-i18next";
 
 // Definimos las opciones del menú con sus etiquetas y rutas
 const navItems = [
-  { label: 'Home', path: '/home' },
-  { label: 'About', path: '/about' },
-  { label: 'Skills', path: '/skills' },
-  { label: 'Certificates', path: '/certificates' },
+  { label: 'Inicio', path: '/home' },
+  { label: 'Sobre mí', path: '/about' },
+  { label: 'Habilidades', path: '/skills' },
+  { label: 'Certificados', path: '/certificates' },
 ];
 
 export default function Navbar() {
