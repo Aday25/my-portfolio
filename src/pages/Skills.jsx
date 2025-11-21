@@ -39,11 +39,10 @@ const skillCategories = [
     skills: [
       { name: 'HTML', icon: <FaHtml5 color="#E34F26" size={24} /> },
       { name: 'CSS', icon: <FaCss3Alt color="#1572B6" size={24} /> },
-      { name: 'Tailwind', icon: <SiTailwindcss color="#06B6D4" size={24} /> },
-      { name: 'Material UI', icon: <FaPaintBrush color="#007FFF" size={24} /> },
-      { name: 'Figma', icon: <FaFigma color="#F24E1E" size={24} /> },
       { name: 'JavaScript', icon: <FaJsSquare color="#F7DF1E" size={24} /> },
       { name: 'TypeScript', icon: <SiTypescript color="#3178C6" size={24} /> },
+      { name: 'Material UI', icon: <FaPaintBrush color="#007FFF" size={24} /> },
+      { name: 'Tailwind', icon: <SiTailwindcss color="#06B6D4" size={24} /> },
       { name: 'React', icon: <FaReact color="#61DAFB" size={24} /> },
       { name: 'React Router', icon: <FaReact color="#CA4245" size={24} /> },
       { name: 'React Hook Form', icon: <FaReact color="#EC5990" size={24} /> }
@@ -70,6 +69,24 @@ const skillCategories = [
     ]
   },
   {
+    category: 'Testing',
+    color: '#d32f2f',
+    skills: [
+      { name: 'Jest', icon: <SiJest color="#C21325" size={24} /> },
+      { name: 'Supertest', icon: <SiJest color="#C21325" size={24} /> },
+      { name: 'Vitest', icon: <SiVitest color="#FCC72B" size={24} /> },
+      { name: 'TDD', icon: <FaCode color="#4CAF50" size={24} /> }
+    ]
+  },
+  {
+    category: 'Seguridad',
+    color: '#d037afff',
+    skills: [
+      { name: 'JWT', icon: <FaShieldAlt color="#FBC02D" size={24} /> },
+      { name: 'Bcrypt', icon: <FaShieldAlt color="#4CAF50" size={24} /> }
+    ]
+  },
+  {
     category: 'Diseño',
     color: '#ed6c02',
     skills: [
@@ -78,12 +95,22 @@ const skillCategories = [
       { name: 'Photoshop', icon: <SiAdobephotoshop color="#31A8FF" size={24} /> }
     ]
   },
-  ,
+  {
+    category: 'Herramientas',
+    color: '#814330ff',
+    skills: [
+      { name: 'Git', icon: <FaGitAlt color="#F05032" size={24} /> },
+      { name: 'Github', icon: <FaGithub color="#181717" size={24} /> },
+      { name: 'VSCode', icon: <FaCode color="#007ACC" size={24} /> },
+      { name: 'Postman', icon: <SiPostman color="#FF6C37" size={24} /> },
+      { name: 'Scrum', icon: <FaCode color="#FF6B35" size={24} /> },
+      { name: 'Jira', icon: <SiJira color="#0052CC" size={24} /> }
+    ]
+  },
   {
     category: 'Buenas prácticas',
-    color: '#0288d1',
+    color: '#08256dff',
     skills: [
-      { name: 'Gitflow', icon: <FaGitAlt color="#F05032" size={24} /> },
       { name: 'Clean Code', icon: <FaCode color="#4CAF50" size={24} /> },
       { name: 'MVC', icon: <FaCode color="#FF9800" size={24} /> },
       { name: 'SOLID', icon: <FaCode color="#9C27B0" size={24} /> },
@@ -100,47 +127,17 @@ const skillCategories = [
       { name: 'Docker Hub', icon: <FaDocker color="#2496ED" size={24} /> },
       { name: 'Terminal', icon: <FaTerminal color="#4D4D4D" size={24} /> },
       { name: 'Gitflow', icon: <FaGitAlt color="#F05032" size={24} /> },
-      { name: 'Trunk Based Development', icon: <FaCode color="#7952B3" size={24} /> },
+      { name: 'Trunk', icon: <FaCode color="#7952B3" size={24} /> },
       { name: 'Conventional commits', icon: <FaGitAlt color="#F05032" size={24} /> },
       { name: 'Github Projects', icon: <FaGithub color="#7952B3" size={24} /> },
       { name: 'Github Actions', icon: <FaGithub color="#2088FF" size={24} /> }
-    ]
-  },
-  {
-    category: 'Testing',
-    color: '#d32f2f',
-    skills: [
-      { name: 'Jest', icon: <SiJest color="#C21325" size={24} /> },
-      { name: 'Supertest', icon: <SiJest color="#C21325" size={24} /> },
-      { name: 'Vitest', icon: <SiVitest color="#FCC72B" size={24} /> },
-      { name: 'TDD', icon: <FaCode color="#4CAF50" size={24} /> }
-    ]
-  },
-  {
-    category: 'Seguridad',
-    color: '#7b1fa2',
-    skills: [
-      { name: 'JWT', icon: <FaShieldAlt color="#FBC02D" size={24} /> },
-      { name: 'Bcrypt', icon: <FaShieldAlt color="#4CAF50" size={24} /> }
-    ]
-  },
-  {
-    category: 'Herramientas',
-    color: '#5d4037',
-    skills: [
-      { name: 'Git', icon: <FaGitAlt color="#F05032" size={24} /> },
-      { name: 'Github', icon: <FaGithub color="#181717" size={24} /> },
-      { name: 'VSCode', icon: <FaCode color="#007ACC" size={24} /> },
-      { name: 'Postman', icon: <SiPostman color="#FF6C37" size={24} /> },
-      { name: 'Scrum', icon: <FaCode color="#FF6B35" size={24} /> },
-      { name: 'Jira', icon: <SiJira color="#0052CC" size={24} /> }
     ]
   }
 ];
 
 export default function Skills() {
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ p: 3.5 }}>
       <Typography variant="h3" gutterBottom align="center" sx={{ mb: 4, fontWeight: 'bold' }}>
         Mis Habilidades Técnicas
       </Typography>

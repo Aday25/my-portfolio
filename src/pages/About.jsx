@@ -1,57 +1,98 @@
-import { Box, Typography, Paper, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
 import CodeIcon from '@mui/icons-material/Code';
-import ReactIcon from '@mui/icons-material/DeveloperMode'; // Icono parecido a React
-import JavascriptIcon from '@mui/icons-material/AutoAwesome'; // Icono para JS (no oficial)
-import StorageIcon from '@mui/icons-material/Storage';
+import GroupIcon from '@mui/icons-material/Group';
+import TargetIcon from '@mui/icons-material/Flag';
+import WorkIcon from '@mui/icons-material/WorkHistory';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function About() {
-  // Array con experiencias, cada una con icono, título y descripción
-  const experiences = [
+  const sections = [
     {
-      icon: <CodeIcon color="primary" />,
-      title: 'Desarrollo Frontend con React',
-      desc: 'Creación de interfaces interactivas y responsivas usando React.js y hooks para mejorar la experiencia de usuario.'
+      icon: <PersonIcon color="primary" sx={{ fontSize: 30 }} />,
+      title: '💻 PERFIL PROFESIONAL',
+      content: 'Desarrolladora Web Full Stack y DevOps, finalizando el Módulo de Grado Superior de Desarrollo de Aplicaciones Web (DAW). Actualmente centrada en el aprendizaje práctico de tecnologías como JavaScript, React y Node.js, con una orientación clara hacia el desarrollo de soluciones reales y eficientes.',
+      chips: ['Full Stack', 'DevOps', 'JavaScript', 'React', 'Node.js']
     },
     {
-      icon: <JavascriptIcon color="secondary" />,
-      title: 'JavaScript Avanzado',
-      desc: 'Dominio de ES6+, programación funcional y asincronía para construir aplicaciones dinámicas y eficientes.'
+      icon: <GroupIcon color="secondary" sx={{ fontSize: 30 }} />,
+      title: '✅ COMPETENCIAS PERSONALES',
+      content: 'Soy una persona resolutiva, constante y comprometida. Tengo facilidad para organizarme, trabajar de forma autónoma y tomar decisiones con criterio cuando la situación lo requiere. Aporto paciencia, empatía, implicación personal y la capacidad de mantener la calma y la eficiencia incluso bajo presión. Me implico mucho con mis compañeros, aporto al equipo y me esfuerzo en generar un entorno colaborativo, positivo y confiable.',
+      chips: ['Resolutiva', 'Constante', 'Organizada', 'Empática', 'Trabajo en equipo']
     },
     {
-      icon: <StorageIcon color="success" />,
-      title: 'Integración con APIs REST',
-      desc: 'Consumo y gestión de datos a través de APIs, utilizando fetch y axios para una comunicación fluida con el backend.'
+      icon: <TargetIcon color="success" sx={{ fontSize: 30 }} />,
+      title: '👩🏻‍💻 OBJETIVO PROFESIONAL',
+      content: 'Incorporarme a un entorno de desarrollo donde pueda seguir creciendo, aportar valor desde el inicio y enfrentar retos reales. Busco una oportunidad que me permita aplicar lo aprendido y continuar mi evolución como desarrolladora, en un equipo dinámico y con visión de futuro.',
+      chips: ['Crecimiento', 'Aportar valor', 'Retos reales', 'Evolución profesional']
     },
     {
-      icon: <ReactIcon color="warning" />,
-      title: 'Optimización y buenas prácticas',
-      desc: 'Aplicación de Clean Code, testing con Jest y optimización de rendimiento para mantener código robusto y mantenible.'
+      icon: <WorkIcon color="warning" sx={{ fontSize: 30 }} />,
+      title: '📆 EXPERIENCIA LABORAL - Técnico Superior en Administración y Finanzas',
+      content: 'Trayectoria previa en los sectores de hostelería, sanidad y comercio, desempeñando funciones administrativas y de atención al cliente. Estas experiencias me permitieron desarrollar competencias clave como la organización, la responsabilidad, la comunicación efectiva y la adaptabilidad en entornos exigentes. En ciertos contextos asumí la responsabilidad total de la operativa, lo que fortaleció mi capacidad de autogestión, priorización de tareas, resolución ágil de incidencias y toma de decisiones sin supervisión directa, manteniendo siempre un trato cercano, profesional y eficiente con los usuarios.',
+      chips: ['Administración', 'Atención al cliente', 'Autogestión', 'Resolución de incidencias']
     }
   ];
 
   return (
-    // Contenedor general con padding
     <Box sx={{ p: 3 }}>
-      {/* Título principal */}
-      <Typography variant="h4" gutterBottom>Experiencias Profesionales</Typography>
-
-      {/* Descripción breve */}
-      <Typography mb={3}>
-        Desarrollo web centrado en tecnologías modernas, con enfoque en calidad, rendimiento y experiencia de usuario.
+      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
+        Sobre Mí
       </Typography>
 
-      {/* Tarjeta con lista de experiencias */}
-      <Paper elevation={3} sx={{ p: 2 }}>
-        <List>
-          {/* Recorremos el array y mostramos cada experiencia con su icono, título y descripción */}
-          {experiences.map(({icon, title, desc}, i) => (
-            <ListItem key={i}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={title} secondary={desc} />
-            </ListItem>
-          ))}
-        </List>
-      </Paper>
+      <Stack spacing={4}>
+        {sections.map((section, index) => (
+          <Paper 
+            key={index}
+            elevation={2} 
+            sx={{ 
+              p: 3,
+              borderLeft: `4px solid`,
+              borderLeftColor: 'primary.main',
+              '&:hover': {
+                boxShadow: 4,
+                transition: 'all 0.3s ease'
+              }
+            }}
+          >
+            {/* Header de la sección */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              {section.icon}
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  ml: 2, 
+                  fontWeight: 'bold',
+                  fontSize: '1.1rem'
+                }}
+              >
+                {section.title}
+              </Typography>
+            </Box>
+
+            <Divider sx={{ mb: 2 }} />
+
+            {/* Contenido */}
+            <Typography variant="body1" paragraph sx={{ lineHeight: 1.6 }}>
+              {section.content}
+            </Typography>
+
+            {/* Chips de habilidades/competencias */}
+            <Box sx={{ mt: 2 }}>
+              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                {section.chips.map((chip, chipIndex) => (
+                  <Chip
+                    key={chipIndex}
+                    label={chip}
+                    size="small"
+                    variant="outlined"
+                    sx={{ mb: 1 }}
+                  />
+                ))}
+              </Stack>
+            </Box>
+          </Paper>
+        ))}
+      </Stack>
     </Box>
   );
 }

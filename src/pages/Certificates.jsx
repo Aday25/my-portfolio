@@ -1,35 +1,87 @@
 import React, { useState } from 'react'
-import { Box, Typography, Card, CardMedia, CardContent, Grid, Modal, IconButton } from '@mui/material'
+import { Box, Typography, Card, CardMedia, CardContent, Grid, Modal, IconButton, Chip } from '@mui/material'
 import { motion, AnimatePresence } from 'framer-motion'
 import CloseIcon from '@mui/icons-material/Close'
 
-// Importamos imágenes de certificados
-import responsiveImg from '../assets/certificates/responsive.png'
-import jsImg from '../assets/certificates/js.png'
-import reactImg from '../assets/certificates/react.png'
-import uiuxImg from '../assets/certificates/uiux.png'
+// Importamos imágenes de certificados actualizadas
+import bootcampImg from '../assets/certificates/certificado-bootcamp.jpeg'
+import portafolioImg from '../assets/certificates/portafolio.png'
+import hackathonImg from '../assets/certificates/hackathon.jpg'
+import canvaImg from '../assets/certificates/canva.png'
+import presentacionImg from '../assets/certificates/presentación.png'
+import iaImg from '../assets/certificates/ia.png'
+import equipoImg from '../assets/certificates/equipo.png'
 
-// Array con datos de certificados: título, imagen y detalles
+// Array con datos de certificados ordenados por importancia y fecha (más reciente primero)
 const certificates = [
   {
-    title: 'Responsive Web Design',
-    image: responsiveImg,
-    details: 'Emitido en abril de 2024 · Minds & Code Institute · Madrid, España'
+    title: 'Bootcamp Fullstack Developer',
+    issuer: 'Factoría F5',
+    image: bootcampImg,
+    date: 'may. 2025 - nov. 2025',
+    skills: ['HTML5', 'CSS', 'JavaScript', 'TypeScript', 'Figma', 'Tailwind CSS', 'React.js', 'React Router'],
+    details: 'Formación intensiva en desarrollo fullstack con tecnologías modernas y metodologías ágiles.',
+    type: 'bootcamp'
   },
   {
-    title: 'JavaScript Avanzado',
-    image: jsImg,
-    details: 'Emitido en febrero de 2024 · Minds & Code Institute · Barcelona, España'
+    title: 'Tu portafolio como desarrollador',
+    issuer: 'Capacítate para el Empleo',
+    image: portafolioImg,
+    date: 'nov. 2025',
+    credentialId: '8408ac86-4d65-4d7c-8595-a5f7536c455c',
+    skills: ['Portafolio Digital', 'Desarrollo', 'Promoción Profesional'],
+    details: 'Identificación de información necesaria, estructura y herramientas disponibles para la gestión de un portafolio digital para promocionar tu perfil como desarrollador.',
+    type: 'certification'
   },
   {
-    title: 'React Pro Developer',
-    image: reactImg,
-    details: 'Emitido en marzo de 2024 · Minds & Code Institute · Online'
+    title: 'Finalista - Hackathon',
+    issuer: 'Somos F5 y Sanitas',
+    image: hackathonImg,
+    date: 'sept. 2025',
+    credentialId: '',
+    skills: ['Trabajo en equipo', 'Frontend', 'Colaboración'],
+    details: 'Diploma Finalista en la Hackathon de 48h, en la que construimos una web para controlar la toma de medicamentos.',
+    type: 'certification'
   },
   {
-    title: 'UI/UX Design Essentials',
-    image: uiuxImg,
-    details: 'Emitido en junio de 2025 · Minds & Code Institute · Valencia, España'
+    title: 'Fundamentos para docentes',
+    issuer: 'Canva',
+    image: canvaImg,
+    date: 'sept. 2025',
+    credentialId: 'a02a11',
+    skills: ['Trabajo en equipo', 'Diseño Visual', 'Colaboración'],
+    details: 'Curso que enseña a utilizar las herramientas esenciales de Canva para crear contenidos visuales, organizar proyectos y trabajar de forma eficiente en equipo.',
+    type: 'certification'
+  },
+  {
+    title: 'Habilidades de presentación',
+    issuer: 'Capacítate para el Empleo',
+    image: presentacionImg,
+    date: 'sept. 2025',
+    credentialId: '966c3517-ac5b-4223-bcfa-24f91ccb739a',
+    skills: ['Presentaciones', 'Comunicación', 'Oratoria'],
+    details: 'Capacitación en habilidades para estructurar y realizar presentaciones efectivas, controlar la información, manejar el protocolo y usar recursos adecuados.',
+    type: 'certification'
+  },
+  {
+    title: 'IA Generativa',
+    issuer: 'Capacítate para el Empleo',
+    image: iaImg,
+    date: 'sept. 2025',
+    credentialId: 'c3011c35-e311-463c-b2ce-ba9baafd9baf',
+    skills: ['IA generativa', 'PROMPT', 'Inteligencia Artificial'],
+    details: 'Certificación en inteligencia artificial generativa y técnicas de prompt engineering.',
+    type: 'certification'
+  },
+  {
+    title: 'Trabajo en equipo',
+    issuer: 'Capacítate para el Empleo',
+    image: equipoImg,
+    date: 'sept. 2025',
+    credentialId: '8624c7bd-6c21-4a07-bec5-782eeaa6f5fa',
+    skills: ['Trabajo en equipo', 'Coordinación', 'Liderazgo'],
+    details: 'Formación en trabajo en equipo: desarrollo de habilidades para coordinar roles, seguir etapas clave y alcanzar objetivos comunes bajo un liderazgo efectivo.',
+    type: 'certification'
   }
 ]
 
@@ -40,46 +92,47 @@ const collapseVariants = {
 }
 
 export default function Certificates() {
-  // Estado para saber qué tarjeta está expandida
   const [expandedCard, setExpandedCard] = useState(null)
-  // Estado para controlar el modal abierto o cerrado
   const [openModal, setOpenModal] = useState(false)
-  // Imagen que se muestra en el modal
   const [modalImg, setModalImg] = useState('')
 
-  // Función para expandir/colapsar tarjeta al hacer click
   const toggleExpand = (index) => {
     setExpandedCard(expandedCard === index ? null : index)
   }
 
-  // Abrir modal y mostrar imagen del certificado
   const handleOpenModal = (img) => {
     setModalImg(img)
     setOpenModal(true)
   }
 
-  // Cerrar modal y limpiar imagen
   const handleCloseModal = () => {
     setOpenModal(false)
     setModalImg('')
   }
 
   return (
-    <Box sx={{ mt: 5 }}>
+    <Box sx={{  p: 3 }}>
       {/* Título de la sección */}
-      <Typography variant="h4" align="center" gutterBottom>
-        Certificados
+      <Typography variant="h3" align="center" gutterBottom sx={{ mb: 4, fontWeight: 'bold' }}>
+        Certificaciones y Formación
       </Typography>
 
       {/* Grid para tarjetas */}
       <Grid container spacing={3}>
         {certificates.map((cert, index) => (
-          <Grid item xs={12} sm={6} md={6} key={index}>
+          <Grid item xs={12} md={6} lg={4} key={index}>
             <Card
               component={motion.div}
-              whileHover={{ scale: 1.02 }}  // Efecto al pasar el ratón
-              sx={{ cursor: 'pointer', transition: '0.3s' }}
-              onClick={() => toggleExpand(index)} // Toggle expansión al click
+              whileHover={{ scale: 1.02 }}
+              sx={{ 
+                cursor: 'pointer', 
+                transition: '0.3s',
+                width: '340px',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+              onClick={() => toggleExpand(index)}
             >
               <CardMedia
                 component="img"
@@ -87,13 +140,34 @@ export default function Certificates() {
                 image={cert.image}
                 alt={cert.title}
                 onClick={(e) => {
-                  e.stopPropagation()  // Evita que se expanda la tarjeta si clicas en la imagen
+                  e.stopPropagation()
                   handleOpenModal(cert.image)
                 }}
                 sx={{ cursor: 'pointer' }}
               />
-              <CardContent>
-                <Typography variant="h6">{cert.title}</Typography>
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" gutterBottom>
+                  {cert.title}
+                </Typography>
+                <Typography variant="subtitle1" color="primary" gutterBottom>
+                  {cert.issuer}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" gutterBottom>
+                  Expedición: {cert.date}
+                </Typography>
+                
+                {/* Chips de habilidades */}
+                <Box sx={{ mt: 1, mb: 1 }}>
+                  {cert.skills.slice(0, 3).map((skill, skillIndex) => (
+                    <Chip
+                      key={skillIndex}
+                      label={skill}
+                      size="small"
+                      sx={{ mr: 0.5, mb: 0.5 }}
+                      variant="outlined"
+                    />
+                  ))}
+                </Box>
               </CardContent>
 
               {/* Animación para mostrar/ocultar detalles */}
@@ -109,9 +183,14 @@ export default function Certificates() {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                   >
                     <CardContent sx={{ pt: 0 }}>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" color="text.secondary" paragraph>
                         {cert.details}
                       </Typography>
+                      {cert.credentialId && (
+                        <Typography variant="caption" color="text.secondary">
+                          ID de credencial: {cert.credentialId}
+                        </Typography>
+                      )}
                     </CardContent>
                   </motion.div>
                 )}
@@ -142,7 +221,6 @@ export default function Certificates() {
             alignItems: 'center',
           }}
         >
-          {/* Botón para cerrar el modal */}
           <IconButton
             onClick={handleCloseModal}
             sx={{ position: 'absolute', top: 8, right: 8, color: 'black', zIndex: 10 }}
@@ -150,10 +228,9 @@ export default function Certificates() {
             <CloseIcon />
           </IconButton>
 
-          {/* Imagen del certificado */}
           <img
             src={modalImg}
-            alt="Certificado grande"
+            alt="Certificado ampliado"
             style={{
               maxWidth: '100%',
               maxHeight: '85vh',

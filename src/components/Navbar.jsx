@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 const navItems = [
   { label: 'Inicio', path: '/home' },
   { label: 'Sobre mí', path: '/about' },
+  { label: 'Proyectos', path: '/projects' }, // ← CAMBIADO: Ahora apunta a la página principal de proyectos
   { label: 'Habilidades', path: '/skills' },
   { label: 'Certificados', path: '/certificates' },
 ];
@@ -40,7 +41,6 @@ export default function Navbar() {
                 },
                 mx: 1, // margen horizontal
               }}
-              end={path === '/'}  // Para que el '/' solo se active en exacto
             >
               {label}
             </Button>

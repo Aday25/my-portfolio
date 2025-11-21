@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Avatar, Typography, Paper, Button } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
-import PhoneIcon from '@mui/icons-material/Phone'
+import GitHubIcon from '@mui/icons-material/GitHub';
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -13,9 +13,9 @@ export default function Home() {
 
   // Datos personales con iconos y etiquetas
   const dataItems = [
-    { icon: <AccountCircleIcon sx={{ color: '#1976d2', fontSize: 30 }} />, label: 'Miss Material UI' },
-    { icon: <PhoneIcon sx={{ color: '#388e3c', fontSize: 30 }} />, label: '+34 600 123 456' },
-    { icon: <EmailIcon sx={{ color: '#d32f2f', fontSize: 30 }} />, label: 'miss.material@muiheroes.com' },
+    { icon: <AccountCircleIcon sx={{ color: '#1976d2', fontSize: 30 }} />, label: 'Aday Álvarez Sánchez-Campíns' },
+    { icon: <GitHubIcon sx={{ color: '#090909ff', fontSize: 30 }} />, label: '+34 600 123 456' },
+    { icon: <EmailIcon sx={{ color: '#d32f2f', fontSize: 30 }} />, label: 'aday.it25@gmail.com' },
     { icon: <LocationOnIcon sx={{ color: '#fbc02d', fontSize: 30 }} />, label: 'Madrid, España' },
   ]
 
@@ -51,7 +51,7 @@ export default function Home() {
 
       {/* Título principal */}
       <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold', letterSpacing: 1 }}>
-        ¡Hola! Mi nombre es Aday Álvarez
+        ¡Hola! Mi nombre es Aday
       </Typography>
 
       {/* Subtítulo o descripción con estilo */}
@@ -66,7 +66,7 @@ export default function Home() {
           lineHeight: 1.4,
         }}
       >
-        Tu superheroína del desarrollo web, experta en construir interfaces increíbles con React y Material UI.
+        Programar y diseñar experiencias web me motiva muchísimo; es un entorno tan creativo que siempre estoy construyendo algo nuevo. Aquí tienes la recopilación de todos mis proyectos.
       </Typography>
 
       {/* Botón para mostrar/ocultar datos personales */}

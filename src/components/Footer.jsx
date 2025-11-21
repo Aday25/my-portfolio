@@ -13,7 +13,7 @@ export default function Footer() {
         py: 2,
         px: 2,
         textAlign: 'center',
-        bgcolor: '#4e8056ff', // Fondo estilo cómic
+        bgcolor: '#7db286ff',
         color: '#000',
         borderTop: '2px solid black',
       }}
@@ -31,7 +31,7 @@ export default function Footer() {
         variant="body2"
         sx={{ fontWeight: 'bold', mb: 1 }}
       >
-        © {new Date().getFullYear()} Miss Material UI — CV interactivo
+        © {new Date().getFullYear()} Portafolio de Aday 
       </Typography>
 
       {/* Línea inferior: contacto + iconos */}
