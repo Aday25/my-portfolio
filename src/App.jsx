@@ -5,7 +5,7 @@ import { Container, Box, Typography, Paper } from '@mui/material';
 
 // Importamos componentes reutilizables que forman la estructura común de la app
 import Navbar from './components/Navbar';
-import Footer from './components/Footer'; 
+import Footer from './components/Footer';
 
 // Importamos la imagen de portada que se mostrará en la página principal
 import coverImage from './assets/cover.png';
@@ -13,8 +13,11 @@ import coverImage from './assets/cover.png';
 // Importamos las páginas que componen el portfolio
 import Home from './pages/Home';
 import About from './pages/About';
+import Projects from './pages/Projects';
 import Skills from './pages/Skills';
 import Certificates from './pages/Certificates';
+import BootcampProjects from './pages/BootcampPojects';
+import PersonalProjects from './pages/PersonalProjects';
 
 function App() {
   return (
@@ -39,8 +42,11 @@ function App() {
           {/* Rutas hacia las diferentes páginas del portfolio */}
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/certificates" element={<Certificates />} />
+          <Route path="/projects/bootcamp" element={<BootcampProjects />} />
+          <Route path="/projects/personales" element={<PersonalProjects />} />
 
           {/* Ruta principal "/", que muestra un Paper con título e imagen */}
           <Route
