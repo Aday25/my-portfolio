@@ -1,37 +1,31 @@
-// Importamos React, contexto, estado y memoriza funciones para optimizar
-import React, { createContext, useState, useMemo } from 'react';
-// Importamos funciones para crear y proveer el tema de Material UI
-import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { createContext, useState, useMemo, useContext } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { getTheme } from './theme';
 
-// Creamos el contexto para manejar el modo claro/oscuro
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+// Contexto para el modo del tema
+export const ThemeContext = createContext({
+  mode: 'light',
+  toggleTheme: () => {},
+});
 
-export default function ThemeContextProvider({ children }) {
-  // Estado para controlar el modo actual (claro o oscuro)
+// Hook personalizado para usar el tema
+export const useThemeMode = () => useContext(ThemeContext);
+
+// Proveedor del tema
+export default function CustomThemeProvider({ children }) {
   const [mode, setMode] = useState('light');
 
-  // Memoriza la función que cambia el modo, para no recrearla en cada render
-  const colorMode = useMemo(() => ({
-    toggleColorMode: () => {
-      // Cambia el modo de 'light' a 'dark' o viceversa
-      setMode(prev => (prev === 'light' ? 'dark' : 'light'));
-    }
-  }), []);
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  };
 
-  // Creamos el tema de Material UI, que depende del modo actual
-  const theme = useMemo(() =>
-    createTheme({
-      palette: {
-        mode, // Aquí aplicamos 'light' o 'dark'
-      },
-    }), [mode]);
+  const theme = useMemo(() => getTheme(mode), [mode]);
 
-  // Proveemos el contexto y el tema a todos los hijos
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <MuiThemeProvider theme={theme}>
+    <ThemeContext.Provider value={{ mode, toggleTheme }}>
+      <ThemeProvider theme={theme}>
         {children}
-      </MuiThemeProvider>
-    </ColorModeContext.Provider>
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
