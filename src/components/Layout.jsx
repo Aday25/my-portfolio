@@ -1,4 +1,3 @@
-// src/components/Layout.jsx
 import { Box, Container } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -9,15 +8,12 @@ const Layout = ({ children }) => {
       {/* Navbar siempre visible */}
       <Navbar />
       
-      {/* Contenido principal que crece para empujar el footer abajo */}
+      {/* Contenido principal - SIN ESPACIOS FIJOS */}
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Container
           sx={{
-            mt: 4,
-            mb: 4,
-            minHeight: '60vh',
-            display: 'flex',
-            flexDirection: 'column',
+            py: 2, // ← Padding vertical reducido y opcional
+            minHeight: 0, // ← Elimina altura mínima forzada
           }}
         >
           {children}
