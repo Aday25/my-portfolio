@@ -357,7 +357,13 @@ export default function Navbar() {
           zIndex: 20,
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar sx={{ 
+          justifyContent: 'space-between',
+          // Solución aplicada aquí:
+          minHeight: { xs: 56, sm: 64 },
+          padding: { xs: '0 8px', sm: '0 16px' },
+          overflow: 'hidden'
+        }}>
           {/* VERSIÓN DESKTOP - Se muestra solo en pantallas >= md (900px) */}
           {!isMobile && (
             <>
@@ -461,12 +467,18 @@ export default function Navbar() {
           {isMobile && (
             <>
               {/* Logo o título (opcional) */}
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+              <Typography variant="h6" sx={{ 
+                fontWeight: 'bold',
+                fontSize: { xs: '1rem', sm: '1.25rem' } // Título más pequeño
+              }}>
                 Portfolio
               </Typography>
 
               {/* Controles derechos móvil */}
-              <Box sx={{ display: 'flex', gap: 1 }}>
+              <Box sx={{ 
+                display: 'flex', 
+                gap: { xs: 0.5, sm: 1 } // Gap reducido en móvil
+              }}>
                 {/* Control de música móvil */}
                 <IconButton 
                   onClick={togglePlay} 
@@ -475,6 +487,10 @@ export default function Navbar() {
                     transition: 'transform 0.3s ease',
                     '&:hover': {
                       transform: 'scale(1.1)',
+                    },
+                    padding: { xs: '6px', sm: '8px' },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: { xs: '1.2rem', sm: '1.5rem' }
                     }
                   }}
                 >
@@ -489,6 +505,10 @@ export default function Navbar() {
                     transition: 'transform 0.5s ease',
                     '&:hover': {
                       transform: 'rotate(180deg)',
+                    },
+                    padding: { xs: '6px', sm: '8px' },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: { xs: '1.2rem', sm: '1.5rem' }
                     }
                   }}
                 >
@@ -502,6 +522,10 @@ export default function Navbar() {
                   sx={{
                     '&:hover': {
                       bgcolor: 'rgba(255,255,255,0.1)',
+                    },
+                    padding: { xs: '6px', sm: '8px' },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: { xs: '1.2rem', sm: '1.5rem' }
                     }
                   }}
                 >
