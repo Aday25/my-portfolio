@@ -1,5 +1,6 @@
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Box, Container, Typography, Paper } from '@mui/material';
+import { Box, Container, Button, Avatar, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 // Componentes de layout
@@ -14,127 +15,140 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Skills from './pages/Skills';
 import Certificates from './pages/Certificates';
-import BootcampProjects from './pages/BootcampPojects';
-import PersonalProjects from './pages/PersonalProjects';
+import Bootcamp from './pages/Bootcamp';
+import Personal from './pages/Personal';
 import Contact from './pages/Contact';
 
-function App() {
+// Componente de portada minimalista
+const CoverPage = () => {
   const { t } = useTranslation();
 
-  return (
-    <Router>
-      {/* ScrollToTop para volver arriba al cambiar de página */}
-      <ScrollToTop />
+  const handleStart = () => {
+    console.log('🚀 Botón Comenzar presionado');
+    
+    // Verificar que audioPlayer esté disponible
+    if (window.audioPlayer) {
+      console.log('🎵 window.audioPlayer encontrado');
+      console.log('📊 Estado actual:', window.audioPlayer.getState());
       
-      {/* Estructura principal con Flexbox para footer pegado abajo */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-        }}
-      >
-        {/* Navbar fijo arriba */}
-        <Navbar />
+      // Inicializar y reproducir
+      window.audioPlayer.play();
+      
+      // Verificar estado después de reproducir
+      setTimeout(() => {
+        console.log('📊 Estado después de play():', window.audioPlayer.getState());
+      }, 500);
+    } else {
+      console.error('❌ window.audioPlayer NO está disponible');
+      console.log('🔍 Objetos disponibles en window:', Object.keys(window).filter(k => k.includes('audio')));
+    }
+    
+    // Navegar a home
+    window.location.href = '/#/home';
+  };
 
-        {/* Contenido principal que crece para empujar el footer */}
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            mt: 8, // Margen superior para el navbar fijo
-            mb: 2, // Margen inferior pequeño
-          }}
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexGrow: 1,
+        minHeight: '80vh',
+        background: 'transparent',
+      }}
+    >
+      <Container maxWidth="sm">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          style={{ textAlign: 'center' }}
         >
-          <Container
-            maxWidth="xl"
+          {/* Avatar circular con imagen */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+          >
+            <Avatar
+              src={coverImage}
+              sx={{
+                width: 200,
+                height: 200,
+                mx: 'auto',
+                mb: 3,
+                border: '3px solid',
+                borderColor: 'primary.main',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+              }}
+            />
+          </motion.div>
+
+          {/* Título de bienvenida */}
+          <Typography
+            variant="h3"
             sx={{
-              flexGrow: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              py: 3,
+              fontWeight: 700,
+              mb: 2,
+              color: 'text.primary',
             }}
           >
+            {t('¡Bienvenid@!')}
+          </Typography>
+
+          {/* Botón comenzar pequeño */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              variant="contained"
+              size="small"
+              onClick={handleStart}
+              sx={{
+                px: 3,
+                py: 1,
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                borderRadius: 2,
+              }}
+            >
+              {t('Comenzar')} →
+            </Button>
+          </motion.div>
+        </motion.div>
+      </Container>
+    </Box>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
+
+        <Box component="main" sx={{ flexGrow: 1, mt: 8, mb: 2 }}>
+          <Container maxWidth="xl" sx={{ flexGrow: 1, py: 3, pb: { xs: 2, md: 1 } }}>
             <Routes>
-              {/* Rutas principales */}
               <Route path="/home" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/skills" element={<Skills />} />
               <Route path="/certificates" element={<Certificates />} />
-              <Route path="/projects/bootcamp" element={<BootcampProjects />} />
-              <Route path="/projects/personales" element={<PersonalProjects />} />
+              <Route path="/bootcamp" element={<Bootcamp />} />
+              <Route path="/personal" element={<Personal />} />
               <Route path="/contact" element={<Contact />} />
 
-              {/* Ruta principal "/" con portada */}
-              <Route
-                path="/"
-                element={
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexGrow: 1,
-                      py: 4,
-                    }}
-                  >
-                    <Paper
-                      elevation={3}
-                      sx={{
-                        width: {
-                          xs: '90%',
-                          sm: '85%',
-                          md: 500
-                        },
-                        p: 3,
-                        borderRadius: 3,
-                        border: '3px solid black',
-                        backgroundColor: '#fffde7',
-                        textAlign: 'center',
-                        backdropFilter: 'blur(10px)',
-                      }}
-                    >
-                      <Typography
-                        variant="h4"
-                        sx={{
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          fontWeight: 'bold',
-                          color: 'black',
-                        }}
-                        gutterBottom
-                      >
-                        {t('¡Bienvenid@!')}
-                      </Typography>
+              {/* Portada minimalista */}
+              <Route path="/" element={<CoverPage />} />
 
-                      <Box
-                        component="img"
-                        src={coverImage}
-                        alt={t('Portada del portfolio')}
-                        sx={{
-                          width: '100%',
-                          height: 'auto',
-                          borderRadius: 2,
-                          boxShadow: 3,
-                          mt: 2,
-                        }}
-                      />
-                    </Paper>
-                  </Box>
-                }
-              />
-
-              {/* Ruta comodín */}
               <Route path="*" element={<Navigate to="/home" replace />} />
             </Routes>
           </Container>
         </Box>
 
-        {/* Footer siempre abajo */}
         <Footer />
       </Box>
     </Router>
