@@ -1,4 +1,3 @@
-// Navbar.jsx - Versión responsive profesional
 import { 
   AppBar, 
   Toolbar, 
@@ -25,9 +24,11 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import DownloadIcon from '@mui/icons-material/Download';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { useTranslation } from "react-i18next";
 import { useThemeMode } from '../theme/ThemeContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Definimos las opciones del menú con sus etiquetas y rutas
 const navItems = [
@@ -43,11 +44,38 @@ export default function Navbar() {
   const theme = useMuiTheme();
   const { mode, toggleTheme } = useThemeMode();
   const { t, i18n } = useTranslation();
+  const [isPlaying, setIsPlaying] = useState(false);
   const [cvModalOpen, setCvModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Detectar si estamos en móvil (menor a 900px)
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  // Sincronizar estado del audio
+  useEffect(() => {
+    const updateAudioState = (event) => {
+      setIsPlaying(event.detail.isPlaying);
+    };
+
+    // Estado inicial
+    if (window.audioPlayer) {
+      setIsPlaying(window.audioPlayer.getState().isPlaying);
+    }
+
+    // Escuchar cambios de estado
+    window.addEventListener('audioStateChange', updateAudioState);
+
+    return () => {
+      window.removeEventListener('audioStateChange', updateAudioState);
+    };
+  }, []);
+
+  // Función para controlar audio
+  const togglePlay = () => {
+    if (window.audioPlayer) {
+      window.audioPlayer.togglePlay();
+    }
+  };
 
   // Función para cambiar idioma
   const changeLanguage = (lng) => {
@@ -233,6 +261,28 @@ export default function Navbar() {
 
       <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', mx: 2 }} />
 
+      {/* Control de música móvil */}
+      <Box sx={{ px: 2, py: 2 }}>
+        <Button
+          fullWidth
+          variant="outlined"
+          startIcon={isPlaying ? <VolumeUpIcon /> : <VolumeOffIcon />}
+          onClick={togglePlay}
+          sx={{
+            color: 'white',
+            borderColor: 'white',
+            '&:hover': {
+              bgcolor: 'rgba(255,255,255,0.1)',
+              borderColor: 'white',
+            }
+          }}
+        >
+          {isPlaying ? t('Silenciar') : t('Sonido')}
+        </Button>
+      </Box>
+
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', mx: 2 }} />
+
       {/* Selector de idioma móvil */}
       <Box sx={{ px: 2, py: 2 }}>
         <Typography 
@@ -342,6 +392,20 @@ export default function Navbar() {
                   {t('Descargar CV')}
                 </Button>
 
+                {/* Control de música */}
+                <IconButton 
+                  onClick={togglePlay} 
+                  color="inherit"
+                  sx={{
+                    transition: 'transform 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.1)',
+                    }
+                  }}
+                >
+                  {isPlaying ? <VolumeUpIcon /> : <VolumeOffIcon />}
+                </IconButton>
+
                 {/* Selector de idioma */}
                 <Box sx={{ 
                   display: 'flex', 
@@ -403,6 +467,20 @@ export default function Navbar() {
 
               {/* Controles derechos móvil */}
               <Box sx={{ display: 'flex', gap: 1 }}>
+                {/* Control de música móvil */}
+                <IconButton 
+                  onClick={togglePlay} 
+                  color="inherit"
+                  sx={{
+                    transition: 'transform 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.1)',
+                    }
+                  }}
+                >
+                  {isPlaying ? <VolumeUpIcon /> : <VolumeOffIcon />}
+                </IconButton>
+
                 {/* Botón tema móvil */}
                 <IconButton 
                   onClick={toggleTheme} 

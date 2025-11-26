@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import NavigationButtons from './ActionButtons';
+import NavigationButtons from './PageNavigation';
 
 const Layout = ({ children }) => {
   return (
@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
       </Box>
 
       {/* Botones flotantes */}
-      <NavigationButtons />
+      <PageNavigation />
 
       <Footer />
     </Box>
