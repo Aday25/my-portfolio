@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useTranslation } from 'react-i18next';
 import { AnimatedTitle } from '../components/AnimatedTitle';
+import ActionButtons from '../components/ActionButtons';
+
 
 // Importar imágenes de las píldoras
 import arquitecturasImg from '../assets/projects/arquitecturas.jpg';
@@ -88,7 +90,7 @@ const pildorasFormativasData = [
     webUrl: 'https://aday25.github.io/PildoraMetodosHTTP/',
     demoUrl: 'https://aday25.github.io/PildoraMetodosHTTP/demo',
     githubUrl: 'https://github.com/Aday25/PildoraMetodosHTTP',
-    category: 'fundamentos',
+    category: 'frontend',
     date: 'Ago 2025',
     features: ['Guía interactiva', 'Test de conocimientos', 'Ejemplos prácticos', 'Fundamentos web'],
     color: '#655cec'
@@ -450,6 +452,12 @@ export default function PildorasFormativas() {
       />
     </Box>
   </Modal>
+  <ActionButtons
+              prevPage="/bootcamp"
+              prevLabel="Bootcamp"
+              nextPage="/skills"
+              nextLabel="Habilidades"
+            />
     </Container >
   );
 }

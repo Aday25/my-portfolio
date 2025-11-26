@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useTranslation } from 'react-i18next';
 import { AnimatedTitle } from '../components/AnimatedTitle';
+import ActionButtons from '../components/ActionButtons';
 
 // Importar imágenes de los proyectos
 import piedrasAngularesImg from '../assets/projects/piedras-angulares.jpg';
@@ -275,308 +276,314 @@ export default function BootcampProjects() {
             {t('Proyectos Bootcamp')}
           </AnimatedTitle>
         </Box>
-        </Box>
+      </Box>
 
-        {/* Grid para proyectos - 3 POR FILA */}
-        <Grid container spacing={3} justifyContent="center">
-          {bootcampProjects.map((project, index) => (
-            <Grid item xs={12} sm={6} md={4} key={project.id}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card sx={cardStyle}>
-                  {/* Línea superior decorativa - IGUAL que en "Sobre Mí" */}
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: '3px',
-                      background: project.color,
-                      borderRadius: '3px 3px 0 0'
-                    }}
-                  />
+      {/* Grid para proyectos - 3 POR FILA */}
+      <Grid container spacing={3} justifyContent="center">
+        {bootcampProjects.map((project, index) => (
+          <Grid item xs={12} sm={6} md={4} key={project.id}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card sx={cardStyle}>
+                {/* Línea superior decorativa - IGUAL que en "Sobre Mí" */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '3px',
+                    background: project.color,
+                    borderRadius: '3px 3px 0 0'
+                  }}
+                />
 
-                  {/* Badges */}
-                  <Box sx={{ position: 'absolute', top: 12, right: 10, zIndex: 2, display: 'flex', flexDirection: 'arrow', gap: 0.5 }}>
-                    {project.featured && (
-                      <Chip
-                        label={t('⭐ Destacado')}
-                        size="small"
+                {/* Badges */}
+                <Box sx={{ position: 'absolute', top: 12, right: 10, zIndex: 2, display: 'flex', flexDirection: 'arrow', gap: 0.5 }}>
+                  {project.featured && (
+                    <Chip
+                      label={t('⭐ Destacado')}
+                      size="small"
+                      sx={{
+                        bgcolor: project.color,
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        fontSize: '0.7rem',
+                        height: 22,
+                        '&:hover': {
+                          backgroundColor: alpha(project.color, 0.8),
+                        }
+                      }}
+                    />
+                  )}
+                  {project.teamProject && (
+                    <Chip
+                      icon={<GroupIcon sx={{ fontSize: 14 }} />}
+                      label={t('Equipo')}
+                      size="small"
+                      sx={{
+                        bgcolor: isDarkMode ? 'primary.dark' : 'primary.main',
+                        color: 'white',
+                        fontSize: '0.7rem',
+                        height: 22
+                      }}
+                    />
+                  )}
+                </Box>
+
+                {/* Contenido reorganizado */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
+                  {/* Fila superior: Avatar + Título y fecha en línea */}
+                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                    {/* Avatar circular */}
+                    <Avatar
+                      src={project.image}
+                      onClick={() => handleOpenModal(project.image)}
+                      sx={{
+                        width: 80,
+                        height: 80,
+                        border: `3px solid ${project.color}${isDarkMode ? '40' : '30'}`,
+                        cursor: 'pointer',
+                        flexShrink: 0,
+                        '&:hover': {
+                          border: `3px solid ${project.color}`,
+                          transform: 'scale(1.05)',
+                          transition: 'all 0.3s ease'
+                        }
+                      }}
+                    />
+
+                    {/* Título y fecha al lado del avatar */}
+                    <Box sx={{ flexGrow: 0.6, minWidth: 0, pt: 1.5 }}>
+                      <Typography
+                        variant="h5"
                         sx={{
-                          bgcolor: project.color,
-                          color: '#fff',
                           fontWeight: 'bold',
+                          color: project.color,
+                          mb: 0.5,
+                          lineHeight: 1.4,
+                          fontSize: '1.4rem',
+                          textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
+                        }}
+                      >
+                        {project.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          fontStyle: 'italic',
+                          display: 'block',
+                          fontSize: '0.8rem'
+                        }}
+                      >
+                        {project.date} • {project.category}
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  {/* Descripción debajo de la fila avatar+título+fecha */}
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    sx={{
+                      lineHeight: 1.5,
+                      fontSize: '0.9rem',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {project.description.includes('**') ? (
+                      <>
+                        {project.description.split('**')[0]}
+                        <strong style={{ color: project.color }}>
+                          {project.description.split('**')[1]}
+                        </strong>
+                        {project.description.split('**')[2]}
+                      </>
+                    ) : (
+                      project.description
+                    )}
+                  </Typography>
+                </Box>
+
+                {/* Tecnologías - CHIPS IDÉNTICOS a "Sobre Mí" */}
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
+                    {t('TECNOLOGÍAS:')}
+                  </Typography>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                      <Chip
+                        key={techIndex}
+                        label={tech}
+                        size="small"
+                        variant="filled"
+                        sx={{
+                          mb: 0.5,
                           fontSize: '0.7rem',
-                          height: 22,
+                          height: '24px',
+                          backgroundColor: project.color,
+                          color: '#fff',
+                          fontWeight: 500,
                           '&:hover': {
                             backgroundColor: alpha(project.color, 0.8),
                           }
                         }}
                       />
-                    )}
-                    {project.teamProject && (
-                      <Chip
-                        icon={<GroupIcon sx={{ fontSize: 14 }} />}
-                        label={t('Equipo')}
-                        size="small"
-                        sx={{
-                          bgcolor: isDarkMode ? 'primary.dark' : 'primary.main',
-                          color: 'white',
-                          fontSize: '0.7rem',
-                          height: 22
-                        }}
-                      />
-                    )}
+                    ))}
                   </Box>
+                </Box>
 
-                  {/* Contenido reorganizado */}
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
-                    {/* Fila superior: Avatar + Título y fecha en línea */}
-                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                      {/* Avatar circular */}
-                      <Avatar
-                        src={project.image}
-                        onClick={() => handleOpenModal(project.image)}
+                {/* Características - TODAS CON FONDO COMO LOS CHIPS */}
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
+                    {t('CARACTERÍSTICAS:')}
+                  </Typography>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {project.features.slice(0, 3).map((feature, i) => (
+                      <Chip
+                        key={i}
+                        label={feature}
+                        size="small"
+                        variant="filled"
                         sx={{
-                          width: 80,
-                          height: 80,
-                          border: `3px solid ${project.color}${isDarkMode ? '40' : '30'}`,
-                          cursor: 'pointer',
-                          flexShrink: 0,
+                          fontSize: '0.7rem',
+                          height: '24px',
+                          backgroundColor: project.color,
+                          color: '#fff',
+                          fontWeight: 500,
                           '&:hover': {
-                            border: `3px solid ${project.color}`,
-                            transform: 'scale(1.05)',
-                            transition: 'all 0.3s ease'
+                            backgroundColor: alpha(project.color, 0.8),
                           }
                         }}
                       />
-
-                      {/* Título y fecha al lado del avatar */}
-                      <Box sx={{ flexGrow: 0.6, minWidth: 0, pt: 1.5 }}>
-                        <Typography
-                          variant="h5"
-                          sx={{
-                            fontWeight: 'bold',
-                            color: project.color,
-                            mb: 0.5,
-                            lineHeight: 1.4,
-                            fontSize: '1.4rem',
-                            textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
-                          }}
-                        >
-                          {project.title}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{
-                            fontStyle: 'italic',
-                            display: 'block',
-                            fontSize: '0.8rem'
-                          }}
-                        >
-                          {project.date} • {project.category}
-                        </Typography>
-                      </Box>
-                    </Box>
-
-                    {/* Descripción debajo de la fila avatar+título+fecha */}
-                    <Typography
-                      variant="body2"
-                      color="text.primary"
-                      sx={{
-                        lineHeight: 1.5,
-                        fontSize: '0.9rem',
-                        textAlign: 'left'
-                      }}
-                    >
-                      {project.description.includes('**') ? (
-                        <>
-                          {project.description.split('**')[0]}
-                          <strong style={{ color: project.color }}>
-                            {project.description.split('**')[1]}
-                          </strong>
-                          {project.description.split('**')[2]}
-                        </>
-                      ) : (
-                        project.description
-                      )}
-                    </Typography>
+                    ))}
                   </Box>
+                </Box>
 
-                  {/* Tecnologías - CHIPS IDÉNTICOS a "Sobre Mí" */}
-                  <Box sx={{ mb: 2 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
-                      {t('TECNOLOGÍAS:')}
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {project.technologies.slice(0, 4).map((tech, techIndex) => (
-                        <Chip
-                          key={techIndex}
-                          label={tech}
-                          size="small"
-                          variant="filled"
-                          sx={{
-                            mb: 0.5,
-                            fontSize: '0.7rem',
-                            height: '24px',
-                            backgroundColor: project.color,
-                            color: '#fff',
-                            fontWeight: 500,
-                            '&:hover': {
-                              backgroundColor: alpha(project.color, 0.8),
-                            }
-                          }}
-                        />
-                      ))}
-                    </Box>
-                  </Box>
+                {/* Botones de acción - TODOS CONTAINED CON COLOR DE FONDO */}
+                <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
+                  {/* Web URL - SIEMPRE PRESENTE */}
+                  <Button
+                    variant="contained"
+                    size="small"
+                    href={project.webUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    startIcon={<LaunchIcon sx={{ fontSize: 16 }} />}
+                    sx={{
+                      flex: 1,
+                      bgcolor: project.color,
+                      fontSize: '0.75rem',
+                      py: 0.75,
+                      fontWeight: '600',
+                      '&:hover': {
+                        bgcolor: alpha(project.color, 0.8),
+                      }
+                    }}
+                  >
+                    {t('Web')}
+                  </Button>
 
-                  {/* Características - TODAS CON FONDO COMO LOS CHIPS */}
-                  <Box sx={{ mb: 2 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
-                      {t('CARACTERÍSTICAS:')}
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {project.features.slice(0, 3).map((feature, i) => (
-                        <Chip
-                          key={i}
-                          label={feature}
-                          size="small"
-                          variant="filled"
-                          sx={{
-                            fontSize: '0.7rem',
-                            height: '24px',
-                            backgroundColor: project.color,
-                            color: '#fff',
-                            fontWeight: 500,
-                            '&:hover': {
-                              backgroundColor: alpha(project.color, 0.8),
-                            }
-                          }}
-                        />
-                      ))}
-                    </Box>
-                  </Box>
+                  {/* Demo URL - SIEMPRE PRESENTE */}
+                  <Button
+                    variant="contained"
+                    size="small"
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    startIcon={<PlayArrowIcon sx={{ fontSize: 16 }} />}
+                    sx={{
+                      flex: 1,
+                      bgcolor: project.color,
+                      fontSize: '0.75rem',
+                      py: 0.75,
+                      fontWeight: '600',
+                      '&:hover': {
+                        bgcolor: alpha(project.color, 0.8),
+                      }
+                    }}
+                  >
+                    {t('Demo')}
+                  </Button>
 
-                  {/* Botones de acción - TODOS CONTAINED CON COLOR DE FONDO */}
-                  <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
-                    {/* Web URL - SIEMPRE PRESENTE */}
-                    <Button
-                      variant="contained"
-                      size="small"
-                      href={project.webUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      startIcon={<LaunchIcon sx={{ fontSize: 16 }} />}
-                      sx={{
-                        flex: 1,
-                        bgcolor: project.color,
-                        fontSize: '0.75rem',
-                        py: 0.75,
-                        fontWeight: '600',
-                        '&:hover': {
-                          bgcolor: alpha(project.color, 0.8),
-                        }
-                      }}
-                    >
-                      {t('Web')}
-                    </Button>
+                  {/* GitHub URL - SIEMPRE PRESENTE */}
+                  <Button
+                    variant="contained"
+                    size="small"
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    startIcon={<GitHubIcon sx={{ fontSize: 16 }} />}
+                    sx={{
+                      flex: 1,
+                      bgcolor: isDarkMode ? '#333' : '#666',
+                      color: '#fff',
+                      fontSize: '0.75rem',
+                      py: 0.75,
+                      fontWeight: '600',
+                      '&:hover': {
+                        bgcolor: isDarkMode ? '#555' : '#888',
+                      }
+                    }}
+                  >
+                    {t('Código')}
+                  </Button>
+                </Box>
+              </Card>
+            </motion.div>
+          </Grid>
+        ))}
+      </Grid>
 
-                    {/* Demo URL - SIEMPRE PRESENTE */}
-                    <Button
-                      variant="contained"
-                      size="small"
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      startIcon={<PlayArrowIcon sx={{ fontSize: 16 }} />}
-                      sx={{
-                        flex: 1,
-                        bgcolor: project.color,
-                        fontSize: '0.75rem',
-                        py: 0.75,
-                        fontWeight: '600',
-                        '&:hover': {
-                          bgcolor: alpha(project.color, 0.8),
-                        }
-                      }}
-                    >
-                      {t('Demo')}
-                    </Button>
-
-                    {/* GitHub URL - SIEMPRE PRESENTE */}
-                    <Button
-                      variant="contained"
-                      size="small"
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      startIcon={<GitHubIcon sx={{ fontSize: 16 }} />}
-                      sx={{
-                        flex: 1,
-                        bgcolor: isDarkMode ? '#333' : '#666',
-                        color: '#fff',
-                        fontSize: '0.75rem',
-                        py: 0.75,
-                        fontWeight: '600',
-                        '&:hover': {
-                          bgcolor: isDarkMode ? '#555' : '#888',
-                        }
-                      }}
-                    >
-                      {t('Código')}
-                    </Button>
-                  </Box>
-                </Card>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
-
-        {/* Modal para imagen ampliada */}
-        <Modal open={openModal} onClose={handleCloseModal} closeAfterTransition>
-          <Box
-            sx={{
-              position: 'fixed',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              maxWidth: '90vw',
-              maxHeight: '90vh',
-              bgcolor: 'background.paper',
-              boxShadow: 24,
-              p: 1,
-              borderRadius: 2,
-              outline: 'none',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+      {/* Modal para imagen ampliada */}
+      <Modal open={openModal} onClose={handleCloseModal} closeAfterTransition>
+        <Box
+          sx={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            maxWidth: '90vw',
+            maxHeight: '90vh',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 1,
+            borderRadius: 2,
+            outline: 'none',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <IconButton
+            onClick={handleCloseModal}
+            sx={{ position: 'absolute', top: 8, right: 8, color: 'black', zIndex: 10 }}
           >
-            <IconButton
-              onClick={handleCloseModal}
-              sx={{ position: 'absolute', top: 8, right: 8, color: 'black', zIndex: 10 }}
-            >
-              <CloseIcon />
-            </IconButton>
+            <CloseIcon />
+          </IconButton>
 
-            <img
-              src={modalImg}
-              alt={t('Vista previa del proyecto')}
-              style={{
-                maxWidth: '100%',
-                maxHeight: '85vh',
-                borderRadius: 8,
-                display: 'block',
-              }}
-            />
-          </Box>
-        </Modal>
+          <img
+            src={modalImg}
+            alt={t('Vista previa del proyecto')}
+            style={{
+              maxWidth: '100%',
+              maxHeight: '85vh',
+              borderRadius: 8,
+              display: 'block',
+            }}
+          />
+        </Box>
+      </Modal>
+      <ActionButtons
+        prevPage="/projects"
+        prevLabel="Mis Proyectos"
+        nextPage="/personal"
+        nextLabel="Personales"
+      />
     </Container>
   );
 }
