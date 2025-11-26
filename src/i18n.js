@@ -111,7 +111,7 @@ const resources = {
       "Inicio": "Home",
       "Atrás": "Back",
       "Mientras tanto, explora el resto del portfolio": "Meanwhile, explore the rest of the portfolio",
-      "Demo del Proyecto": "Project Demo"
+      "Demo del Proyecto": "Project Demo",
 
       // Proyectos del bootcamp - títulos y descripciones
       "SprintFlow": "SprintFlow",
@@ -483,14 +483,14 @@ const resources = {
 
       //página no encontrada
       "¡Ups! Página no encontrada": "¡Ups! Página no encontrada",
-    "Esta sección está en construcción. Disponible muy pronto 🤗": "Esta sección está en construcción. Disponible muy pronto 🤗",
-    "Volver al Inicio": "Volver al Inicio",
-    "Volver Atrás": "Volver Atrás",
-    "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?": "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?",
-    "Inicio": "Inicio",
-    "Atrás": "Atrás",
-    "Mientras tanto, explora el resto del portfolio": "Mientras tanto, explora el resto del portfolio",
-    "Demo del Proyecto": "Demo del Proyecto",
+      "Esta sección está en construcción. Disponible muy pronto 🤗": "Esta sección está en construcción. Disponible muy pronto 🤗",
+      "Volver al Inicio": "Volver al Inicio",
+      "Volver Atrás": "Volver Atrás",
+      "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?": "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?",
+      "Inicio": "Inicio",
+      "Atrás": "Atrás",
+      "Mientras tanto, explora el resto del portfolio": "Mientras tanto, explora el resto del portfolio",
+      "Demo del Proyecto": "Demo del Proyecto",
 
       // En la sección 'es' (español) - mantener igual:
       "Píldoras Formativas & Personales": "Píldoras Formativas & Personales",

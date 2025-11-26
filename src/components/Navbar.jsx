@@ -30,6 +30,10 @@ import { useTranslation } from "react-i18next";
 import { useThemeMode } from '../theme/ThemeContext';
 import { useState, useEffect } from 'react';
 
+// Importar imágenes de banderas - VERIFICA QUE ESTAS RUTAS EXISTAN
+import esFlag from '../assets/flags/es.png';
+import enFlag from '../assets/flags/en.png';
+
 // Definimos las opciones del menú con sus etiquetas y rutas
 const navItems = [
   { label: 'Inicio', path: '/home' },
@@ -305,7 +309,19 @@ export default function Navbar() {
               }
             }}
           >
-            🇪🇸 ES
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Box
+                component="img"
+                src={esFlag}
+                alt="Español"
+                sx={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                }}
+              />
+              ES
+            </Box>
           </Button>
           <Button 
             variant={i18n.language === 'en' ? 'contained' : 'outlined'}
@@ -320,7 +336,19 @@ export default function Navbar() {
               }
             }}
           >
-            🇬🇧 EN
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Box
+                component="img"
+                src={enFlag}
+                alt="English"
+                sx={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                }}
+              />
+              EN
+            </Box>
           </Button>
         </Box>
       </Box>
@@ -359,7 +387,6 @@ export default function Navbar() {
       >
         <Toolbar sx={{ 
           justifyContent: 'space-between',
-          // Solución aplicada aquí:
           minHeight: { xs: 56, sm: 64 },
           padding: { xs: '0 8px', sm: '0 16px' },
           overflow: 'hidden'
@@ -430,7 +457,16 @@ export default function Navbar() {
                         border: i18n.language === 'es' ? '1px solid white' : 'none'
                       }}
                     >
-                      🇪🇸
+                      <Box
+                        component="img"
+                        src={esFlag}
+                        alt="Español"
+                        sx={{
+                          width: 20,
+                          height: 20,
+                          borderRadius: '50%',
+                        }}
+                      />
                     </Button>
                     <Button 
                       color="inherit" 
@@ -441,7 +477,16 @@ export default function Navbar() {
                         border: i18n.language === 'en' ? '1px solid white' : 'none'
                       }}
                     >
-                      🇬🇧
+                      <Box
+                        component="img"
+                        src={enFlag}
+                        alt="English"
+                        sx={{
+                          width: 20,
+                          height: 20,
+                          borderRadius: '50%',
+                        }}
+                      />
                     </Button>
                   </Box>
                 </Box>
@@ -469,7 +514,7 @@ export default function Navbar() {
               {/* Logo o título (opcional) */}
               <Typography variant="h6" sx={{ 
                 fontWeight: 'bold',
-                fontSize: { xs: '1rem', sm: '1.25rem' } // Título más pequeño
+                fontSize: { xs: '1rem', sm: '1.25rem' }
               }}>
                 Portfolio
               </Typography>
@@ -477,7 +522,7 @@ export default function Navbar() {
               {/* Controles derechos móvil */}
               <Box sx={{ 
                 display: 'flex', 
-                gap: { xs: 0.5, sm: 1 } // Gap reducido en móvil
+                gap: { xs: 0.5, sm: 1 }
               }}>
                 {/* Control de música móvil */}
                 <IconButton 
