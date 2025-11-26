@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import CloseIcon from '@mui/icons-material/Close'
 import { useTranslation } from 'react-i18next';
 import { AnimatedTitle } from '../components/AnimatedTitle';
+import ActionButtons from '../components/ActionButtons';
 
 // Importamos imágenes de certificados actualizadas
 import bootcampImg from '../assets/certificates/certificado-bootcamp.jpeg'
@@ -153,11 +154,11 @@ export default function Certificates() {
 
   return (
     <Box sx={{ mb: 3 }}>
-    <Box sx={{ mb: 6 }}>
-      <AnimatedTitle>
-        {t('Certificaciones y Formación')}
-      </AnimatedTitle>
-</Box>
+      <Box sx={{ mb: 6 }}>
+        <AnimatedTitle>
+          {t('Certificaciones y Formación')}
+        </AnimatedTitle>
+      </Box>
       {/* Grid para tarjetas */}
       <Grid container spacing={3} justifyContent="center">
         {certificates.map((cert, index) => (
@@ -302,6 +303,12 @@ export default function Certificates() {
           />
         </Box>
       </Modal>
+      <ActionButtons
+        prevPage="/skills"
+        prevLabel="Habilidades"
+        nextPage="/contact"
+        nextLabel="Contacto"
+      />
     </Box>
   )
 }

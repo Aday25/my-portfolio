@@ -18,6 +18,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SendIcon from '@mui/icons-material/Send';
 import { AnimatedTitle } from '../components/AnimatedTitle';
+import ActionButtons from '../components/ActionButtons';
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -150,6 +151,11 @@ export default function Contact() {
           </Grid>
         ))}
       </Grid>
+
+      <ActionButtons
+              prevPage="/certificates"
+              prevLabel="Certificados"
+            />
     </Container>
   );
 }

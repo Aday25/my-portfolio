@@ -32,6 +32,7 @@ import {
 } from 'react-icons/si';
 import { useTranslation } from 'react-i18next';
 import { AnimatedTitle } from '../components/AnimatedTitle';
+import ActionButtons from '../components/ActionButtons';
 
 // Array de datos COMPLETO - fuera del componente
 const skillCategoriesData = [
@@ -167,8 +168,8 @@ export default function Skills() {
   };
 
   const cardVariants = {
-    hidden: { 
-      y: 20, 
+    hidden: {
+      y: 20,
       opacity: 0,
       scale: 0.95
     },
@@ -236,10 +237,10 @@ export default function Skills() {
                   variants={cardVariants}
                   whileHover={{
                     y: -3,
-                    transition: { 
-                      type: 'spring', 
+                    transition: {
+                      type: 'spring',
                       stiffness: 200,
-                      damping: 15 
+                      damping: 15
                     }
                   }}
                   elevation={0}
@@ -367,6 +368,12 @@ export default function Skills() {
             ))}
           </Grid>
         </motion.div>
+        <ActionButtons
+          prevPage="/personal"
+          prevLabel="Personales"
+          nextPage="/certificates"
+          nextLabel="Certificados"
+        />
       </Container>
     </Box>
   );

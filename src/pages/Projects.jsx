@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import bootcampCover from '../assets/projects/bootcamp-cover.jpg';
 import personalesCover from '../assets/projects/personales-cover.jpg';
 import { t } from 'i18next';
+import ActionButtons from '../components/ActionButtons';
 
 const categories = [
   {
@@ -17,7 +18,7 @@ const categories = [
     color: '#ed6c02',
     technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
     count: t('11 Proyectos'),
-    route: '/projects/bootcamp'
+    route: '/bootcamp'
   },
   {
     id: 'personales',
@@ -28,7 +29,7 @@ const categories = [
     color: '#1976d2',
     technologies: ['React', 'JavaScript', 'MUI', 'TypeScript'],
     count: t('6 Proyectos'),
-    route: '/projects/personales'
+    route: '/personal'
   }
 ];
 
@@ -39,20 +40,20 @@ export default function ProjectsMain() {
   const { t } = useTranslation();
 
   return (
-    <Container maxWidth="xl" sx={{ 
-      py: 6, 
-      display: 'flex', 
-      flexDirection: 'column', 
+    <Container maxWidth="xl" sx={{
+      py: 3,
+      display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       minHeight: '80vh',
       justifyContent: 'center'
     }}>
       {/* Header */}
-      <Box sx={{ textAlign: 'center', mb: 6 }}>
-        <Typography 
-          variant="h2" 
-          gutterBottom 
-          sx={{ 
+      <Box sx={{ textAlign: 'center', mb: 2 }}>
+        <Typography
+          variant="h2"
+          gutterBottom
+          sx={{
             fontWeight: 800,
             fontSize: { xs: '2.5rem', md: '3rem' },
             background: 'linear-gradient(45deg, #ed7302ff 40%, #1976d2 60%)',
@@ -64,9 +65,9 @@ export default function ProjectsMain() {
         >
           {t('Mis Proyectos')}
         </Typography>
-        <Typography 
-          variant="h5" 
-          sx={{ 
+        <Typography
+          variant="h5"
+          sx={{
             color: 'text.secondary',
             fontWeight: 400,
             fontSize: { xs: '1rem', md: '1.3rem' },
@@ -86,22 +87,22 @@ export default function ProjectsMain() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ 
+              whileHover={{
                 y: -6,
                 transition: { duration: 0.2 }
               }}
               style={{ height: '100%' }}
             >
-              <Card 
-                sx={{ 
+              <Card
+                sx={{
                   cursor: 'pointer',
                   position: 'relative',
                   overflow: 'hidden',
                   border: `2px solid ${category.color}${isDarkMode ? '30' : '20'}`,
                   borderRadius: 3,
                   p: 3,
-                  background: isDarkMode 
-                    ? `linear-gradient(135deg, ${category.color}15, ${category.color}10)` 
+                  background: isDarkMode
+                    ? `linear-gradient(135deg, ${category.color}15, ${category.color}10)`
                     : `linear-gradient(135deg, ${category.color}08, ${category.color}05)`,
                   backdropFilter: 'blur(10px)',
                   height: 320,
@@ -114,8 +115,8 @@ export default function ProjectsMain() {
                   '&:hover': {
                     border: `2px solid ${category.color}${isDarkMode ? '50' : '40'}`,
                     boxShadow: `0 12px 40px ${category.color}${isDarkMode ? '30' : '20'}`,
-                    background: isDarkMode 
-                      ? `linear-gradient(135deg, ${category.color}20, ${category.color}15)` 
+                    background: isDarkMode
+                      ? `linear-gradient(135deg, ${category.color}20, ${category.color}15)`
                       : `linear-gradient(135deg, ${category.color}12, ${category.color}08)`
                   },
                   '&::before': {
@@ -147,17 +148,17 @@ export default function ProjectsMain() {
                 <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                   {/* Header y descripción */}
                   <Box>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: category.color, mb: 2, fontSize: '1.7rem',textShadow: '1px 1px 2px rgba(0,0,0,0.7)', }}>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: category.color, mb: 2, fontSize: '1.7rem', textShadow: '1px 1px 2px rgba(0,0,0,0.7)', }}>
                       {category.title}
                     </Typography>
                     <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: '600', mb: 1.5, fontSize: '1rem' }}>
                       {category.subtitle}
                     </Typography>
-                    <Typography variant="body1" color="text.secondary" sx={{ 
-                      lineHeight: 1.4, 
+                    <Typography variant="body1" color="text.secondary" sx={{
+                      lineHeight: 1.4,
                       fontWeight: 'bold',
                       fontSize: '0.9rem',
-                      mb: 2 
+                      mb: 2
                     }}>
                       {category.description}
                     </Typography>
@@ -175,7 +176,7 @@ export default function ProjectsMain() {
                           label={tech}
                           size="small"
                           variant="filled"
-                          sx={{ 
+                          sx={{
                             fontSize: '0.75rem',
                             height: '24px',
                             backgroundColor: category.color,
@@ -194,9 +195,9 @@ export default function ProjectsMain() {
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     {/* Contador de proyectos */}
                     <Box>
-                      <Typography 
-                        variant="h6" 
-                        sx={{ 
+                      <Typography
+                        variant="h6"
+                        sx={{
                           color: category.color,
                           fontWeight: 'bold',
                           fontSize: '1.2rem',
@@ -220,18 +221,24 @@ export default function ProjectsMain() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
       >
-        <Typography 
-          variant="body1" 
-          color="text.secondary" 
-          align="center" 
-          sx={{ 
-            mt: 4, 
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          align="center"
+          sx={{
+            mt: 4,
             fontStyle: 'italic',
             fontSize: '1rem'
           }}
         >
           {t('👉 Selecciona una categoría para explorar los proyectos')}
         </Typography>
+        <ActionButtons
+          prevPage="/about"
+          prevLabel="Sobre mí"
+          nextPage="/bootcamp"
+          nextLabel="Bootcamp"
+        />
       </motion.div>
     </Container>
   );
