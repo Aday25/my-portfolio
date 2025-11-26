@@ -1,19 +1,29 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "vite.config.js",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
   "routes": [
     {
       "src": "/assets/(.*)",
       "headers": {
-        "cache-control": "s-maxage=31536000,immutable"
+        "cache-control": "s-maxage=31536000,immutable",
+        "content-type": "application/javascript"
       },
       "continue": true
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/my-portfolio/index.html"
     }
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "devCommand": "npm run dev",
   "framework": "vite"
 }
