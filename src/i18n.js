@@ -39,7 +39,7 @@ const resources = {
       "Elige la versión del CV que deseas descargar": "Choose the CV version you want to download",
 
       //Welcome
-       "Portada del portfolio": "Portfolio cover",
+      "Portada del portfolio": "Portfolio cover",
       "¡Bienvenid@!": "Welcome!",
       "Elige la versión del CV que deseas descargar": "Choose the CV version you want to download",
 
@@ -101,6 +101,17 @@ const resources = {
       "Web": "Web",
       "Demo": "Demo",
       "Código": "Code",
+
+      //página no encontrada
+      "¡Ups! Página no encontrada": "Oops! Page Not Found",
+      "Esta sección está en construcción. Disponible muy pronto 🤗": "This section is under construction. Available very soon 🤗",
+      "Volver al Inicio": "Back to Home",
+      "Volver Atrás": "Go Back",
+      "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?": "In the meantime, why not check out the rest of the portfolio?",
+      "Inicio": "Home",
+      "Atrás": "Back",
+      "Mientras tanto, explora el resto del portfolio": "Meanwhile, explore the rest of the portfolio",
+      "Demo del Proyecto": "Project Demo"
 
       // Proyectos del bootcamp - títulos y descripciones
       "SprintFlow": "SprintFlow",
@@ -357,8 +368,8 @@ const resources = {
       "Comenzar": "Comenzar",
 
       "Portada del portfolio": "Portada del portfolio",
-"¡Bienvenid@!": "¡Bienvenid@!",
-"Elige la versión del CV que deseas descargar": "Elige la versión del CV que deseas descargar",
+      "¡Bienvenid@!": "¡Bienvenid@!",
+      "Elige la versión del CV que deseas descargar": "Elige la versión del CV que deseas descargar",
 
       //Casa
       "¡Hola! Mi nombre es Aday": "¡Hola! Mi nombre es Aday",
@@ -469,6 +480,17 @@ const resources = {
       "Diseño responsivo": "Diseño responsivo",
       "Efectos 3D CSS": "Efectos 3D CSS",
       "Navegación semántica": "Navegación semántica",
+
+      //página no encontrada
+      "¡Ups! Página no encontrada": "¡Ups! Página no encontrada",
+    "Esta sección está en construcción. Disponible muy pronto 🤗": "Esta sección está en construcción. Disponible muy pronto 🤗",
+    "Volver al Inicio": "Volver al Inicio",
+    "Volver Atrás": "Volver Atrás",
+    "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?": "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?",
+    "Inicio": "Inicio",
+    "Atrás": "Atrás",
+    "Mientras tanto, explora el resto del portfolio": "Mientras tanto, explora el resto del portfolio",
+    "Demo del Proyecto": "Demo del Proyecto",
 
       // En la sección 'es' (español) - mantener igual:
       "Píldoras Formativas & Personales": "Píldoras Formativas & Personales",
