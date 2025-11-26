@@ -5,30 +5,33 @@ import { useTranslation } from 'react-i18next';
 
 import bootcampCover from '../assets/projects/bootcamp-cover.jpg';
 import personalesCover from '../assets/projects/personales-cover.jpg';
-import { t } from 'i18next';
+import bootcampGirl from '../assets/projects/bootcamp-girl.png';
+import personalGirl from '../assets/projects/personal-girl.png';
 import ActionButtons from '../components/ActionButtons';
 
 const categories = [
   {
     id: 'bootcamp',
-    title: t('👩🏼‍🎓 Bootcamp'),
+    title: 'Bootcamp',
     subtitle: 'Full Stack & DevOps',
-    description: t('Proyectos desarrollados durante el bootcamp de Factoria F5, tecnologías modernas y metodologías ágiles.'),
+    description: 'Proyectos desarrollados durante el bootcamp de Factoria F5, tecnologías modernas y metodologías ágiles.',
     image: bootcampCover,
+    emojiImage: bootcampGirl, // Tu imagen personalizada como "emoji"
     color: '#ed6c02',
     technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    count: t('11 Proyectos'),
+    count: '11 Proyectos',
     route: '/bootcamp'
   },
   {
     id: 'personales',
-    title: t('👾 Personales'),
-    subtitle: t('Iniciativas propias'),
-    description: t('Proyectos independientes donde exploro nuevas tecnologías y desarrollo mis propias ideas.'),
+    title: 'Personales',
+    subtitle: 'Iniciativas propias',
+    description: 'Proyectos independientes donde exploro nuevas tecnologías y desarrollo mis propias ideas.',
     image: personalesCover,
+    emojiImage: personalGirl, // Tu imagen personalizada como "emoji"
     color: '#1976d2',
     technologies: ['React', 'JavaScript', 'MUI', 'TypeScript'],
-    count: t('6 Proyectos'),
+    count: '6 Proyectos',
     route: '/personal'
   }
 ];
@@ -148,9 +151,31 @@ export default function ProjectsMain() {
                 <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                   {/* Header y descripción */}
                   <Box>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: category.color, mb: 2, fontSize: '1.7rem', textShadow: '1px 1px 2px rgba(0,0,0,0.7)', }}>
-                      {category.title}
-                    </Typography>
+                    {/* Título con tu imagen personalizada como "emoji" */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                      <Box
+                        component="img"
+                        src={category.emojiImage}
+                        sx={{
+                          width: 42,
+                          height: 50,
+                          borderRadius: '10%',
+                          border: `2px solid ${category.color}${isDarkMode ? '40' : '30'}`,
+                        }}
+                      />
+                      <Typography 
+                        variant="h5" 
+                        sx={{ 
+                          fontWeight: 'bold', 
+                          color: category.color, 
+                          fontSize: '1.7rem', 
+                          textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
+                        }}
+                      >
+                        {t(category.title)}
+                      </Typography>
+                    </Box>
+                    
                     <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: '600', mb: 1.5, fontSize: '1rem' }}>
                       {category.subtitle}
                     </Typography>
