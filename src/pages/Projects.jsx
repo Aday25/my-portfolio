@@ -1,44 +1,46 @@
-import { Box, Typography, Grid, Card, CardContent, Button, Avatar, Container, Chip } from '@mui/material';
+import { Box, Typography, Grid, Card, Avatar, Container, Chip, useTheme, alpha } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import CodeIcon from '@mui/icons-material/Code';
-import PersonIcon from '@mui/icons-material/Person';
+import { useTranslation } from 'react-i18next';
 
-// Importa las imágenes correctamente
 import bootcampCover from '../assets/projects/bootcamp-cover.jpg';
 import personalesCover from '../assets/projects/personales-cover.jpg';
+import { t } from 'i18next';
 
 const categories = [
   {
     id: 'bootcamp',
-    title: '👩🏼‍🎓 Bootcamp',
+    title: t('👩🏼‍🎓 Bootcamp'),
     subtitle: 'Full Stack & DevOps',
-    description: 'Proyectos del bootcamp Factoria F5',
+    description: t('Proyectos desarrollados durante el bootcamp de Factoria F5, tecnologías modernas y metodologías ágiles.'),
     image: bootcampCover,
     color: '#ed6c02',
-    technologies: ['React', 'Node.js', 'MongoDB'],
-    count: '11 proyectos',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
+    count: t('11 Proyectos'),
     route: '/projects/bootcamp'
   },
   {
     id: 'personales',
-    title: '👾 Personales',
-    subtitle: 'Iniciativas propias',
-    description: 'Proyectos independientes',
+    title: t('👾 Personales'),
+    subtitle: t('Iniciativas propias'),
+    description: t('Proyectos independientes donde exploro nuevas tecnologías y desarrollo mis propias ideas.'),
     image: personalesCover,
     color: '#1976d2',
-    technologies: ['React', 'JavaScript', 'MUI'],
-    count: '6 proyectos',
+    technologies: ['React', 'JavaScript', 'MUI', 'TypeScript'],
+    count: t('6 Proyectos'),
     route: '/projects/personales'
   }
 ];
 
 export default function ProjectsMain() {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+  const { t } = useTranslation();
 
   return (
-    <Container maxWidth="lg" sx={{ 
-      py: 1, 
+    <Container maxWidth="xl" sx={{ 
+      py: 6, 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
@@ -46,32 +48,46 @@ export default function ProjectsMain() {
       justifyContent: 'center'
     }}>
       {/* Header */}
-      <Box sx={{ textAlign: 'center', mb: 2 }}>
+      <Box sx={{ textAlign: 'center', mb: 6 }}>
         <Typography 
-          variant="h3" 
+          variant="h2" 
           gutterBottom 
           sx={{ 
-            fontWeight: 'bold',
+            fontWeight: 800,
+            fontSize: { xs: '2.5rem', md: '3rem' },
             background: 'linear-gradient(45deg, #ed7302ff 40%, #1976d2 60%)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             color: 'transparent',
+            mb: 2,
           }}
         >
-          Mis Proyectos
+          {t('Mis Proyectos')}
+        </Typography>
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            color: 'text.secondary',
+            fontWeight: 400,
+            fontSize: { xs: '1rem', md: '1.3rem' },
+            maxWidth: '600px',
+            mx: 'auto',
+          }}
+        >
+          {t('Explora mi trabajo organizado por categorías')}
         </Typography>
       </Box>
 
-      {/* Grid con diseño horizontal */}
-      <Grid container spacing={3} justifyContent="center" alignItems="stretch">
+      {/* Grid con diseño horizontal - UNA AL LADO DE LA OTRA */}
+      <Grid container spacing={4} justifyContent="center" alignItems="stretch">
         {categories.map((category, index) => (
-          <Grid item xs={12} sm={10} md={5} lg={5} key={category.id}>
+          <Grid item xs={12} sm={10} md={5} lg={5} xl={4} key={category.id}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ 
-                scale: 1.03,
+                y: -6,
                 transition: { duration: 0.2 }
               }}
               style={{ height: '100%' }}
@@ -81,20 +97,35 @@ export default function ProjectsMain() {
                   cursor: 'pointer',
                   position: 'relative',
                   overflow: 'hidden',
-                  border: `2px solid ${category.color}20`,
+                  border: `2px solid ${category.color}${isDarkMode ? '30' : '20'}`,
                   borderRadius: 3,
-                  p: 2,
-                  background: `linear-gradient(135deg, ${category.color}08, ${category.color}15)`,
-                  height: 210, // ALTURA MÁS COMPACTA PARA HORIZONTAL
-                  width: '400px',
+                  p: 3,
+                  background: isDarkMode 
+                    ? `linear-gradient(135deg, ${category.color}15, ${category.color}10)` 
+                    : `linear-gradient(135deg, ${category.color}08, ${category.color}05)`,
+                  backdropFilter: 'blur(10px)',
+                  height: 320,
+                  width: '100%',
+                  maxWidth: '480px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 2,
+                  gap: 3,
                   mx: 'auto',
                   '&:hover': {
-                    border: `2px solid ${category.color}40`,
-                    boxShadow: `0 8px 32px ${category.color}20`,
-                    background: `linear-gradient(135deg, ${category.color}12, ${category.color}20)`
+                    border: `2px solid ${category.color}${isDarkMode ? '50' : '40'}`,
+                    boxShadow: `0 12px 40px ${category.color}${isDarkMode ? '30' : '20'}`,
+                    background: isDarkMode 
+                      ? `linear-gradient(135deg, ${category.color}20, ${category.color}15)` 
+                      : `linear-gradient(135deg, ${category.color}12, ${category.color}08)`
+                  },
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '4px',
+                    background: category.color,
                   }
                 }}
                 onClick={() => navigate(category.route)}
@@ -104,10 +135,10 @@ export default function ProjectsMain() {
                   <Avatar
                     src={category.image}
                     sx={{
-                      width: 160,
-                      height: 160,
-                      border: `4px solid ${category.color}30`,
-                      boxShadow: `0 4px 20px ${category.color}30`,
+                      width: 140,
+                      height: 140,
+                      border: `4px solid ${category.color}${isDarkMode ? '40' : '30'}`,
+                      boxShadow: `0 6px 24px ${category.color}${isDarkMode ? '40' : '30'}`,
                     }}
                   />
                 </Box>
@@ -116,33 +147,43 @@ export default function ProjectsMain() {
                 <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                   {/* Header y descripción */}
                   <Box>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: category.color, mb: 0.5 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: category.color, mb: 2, fontSize: '1.7rem',textShadow: '1px 1px 2px rgba(0,0,0,0.7)', }}>
                       {category.title}
                     </Typography>
-                    <Typography variant="subtitle2" sx={{ color: 'text.secondary', fontWeight: '600', mb: 0.5 }}>
+                    <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: '600', mb: 1.5, fontSize: '1rem' }}>
                       {category.subtitle}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.3, fontSize: '0.8rem' }}>
+                    <Typography variant="body1" color="text.secondary" sx={{ 
+                      lineHeight: 1.4, 
+                      fontWeight: 'bold',
+                      fontSize: '0.9rem',
+                      mb: 2 
+                    }}>
                       {category.description}
                     </Typography>
                   </Box>
 
-                   {/* Tecnologías destacadas */}
+                  {/* Tecnologías destacadas */}
                   <Box sx={{ mb: 2 }}>
-                    <Typography variant="caption" color="text.secondary" display="block" gutterBottom sx={{ fontWeight: 'bold' }}>
-                      TECNOLOGÍAS:
+                    <Typography variant="subtitle2" color="text.secondary" display="block" gutterBottom sx={{ fontWeight: 'bold', fontSize: '0.85rem' }}>
+                      {t('TECNOLOGÍAS DESTACADAS:')}
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                    <Box sx={{ display: 'flex', gap: 0.6, flexWrap: 'wrap' }}>
                       {category.technologies.map((tech) => (
                         <Chip
                           key={tech}
                           label={tech}
                           size="small"
-                          variant="outlined"
+                          variant="filled"
                           sx={{ 
-                            borderColor: category.color,
-                            color: category.color,
-                            fontSize: '0.7rem'
+                            fontSize: '0.75rem',
+                            height: '24px',
+                            backgroundColor: category.color,
+                            color: '#ffffff',
+                            fontWeight: 600,
+                            '&:hover': {
+                              backgroundColor: alpha(category.color, 0.8),
+                            },
                           }}
                         />
                       ))}
@@ -154,11 +195,12 @@ export default function ProjectsMain() {
                     {/* Contador de proyectos */}
                     <Box>
                       <Typography 
-                        variant="subtitle1" 
+                        variant="h6" 
                         sx={{ 
                           color: category.color,
                           fontWeight: 'bold',
-                          fontSize: '0.9rem'
+                          fontSize: '1.2rem',
+                          textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
                         }}
                       >
                         {category.count}
@@ -179,12 +221,16 @@ export default function ProjectsMain() {
         transition={{ delay: 0.8 }}
       >
         <Typography 
-          variant="body2" 
+          variant="body1" 
           color="text.secondary" 
           align="center" 
-          sx={{ mt: 4, fontStyle: 'italic' }}
+          sx={{ 
+            mt: 4, 
+            fontStyle: 'italic',
+            fontSize: '1rem'
+          }}
         >
-          👉 Selecciona una categoría para explorar los proyectos
+          {t('👉 Selecciona una categoría para explorar los proyectos')}
         </Typography>
       </motion.div>
     </Container>

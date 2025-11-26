@@ -21,6 +21,7 @@ import fish9 from '../assets/aquarium/fish9.png';
 import fish10 from '../assets/aquarium/fish10.png';
 import fish11 from '../assets/aquarium/fish11.png';
 import fish12 from '../assets/aquarium/fish12.png';
+import fish00 from '../assets/aquarium/fish00.gif';
 import rocksMobile from '../assets/aquarium/rocks-mobile.png';
 import rocksDesktop from '../assets/aquarium/rocks-desktop.png';
 
@@ -183,7 +184,7 @@ export default function RealisticAquarium({ children, isDarkMode }) {
     { image: fish1, size: 80, initialY: '15%', duration: 35, delay: 0, startFromLeft: true },
     { image: fish2, size: 70, initialY: '25%', duration: 40, delay: 3, startFromLeft: false },
     { image: fish3, size: 90, initialY: '40%', duration: 32, delay: 6, startFromLeft: true },
-    { image: fish4, size: 65, initialY: '55%', duration: 38, delay: 9, startFromLeft: false },
+    { image: fish4, size: 85, initialY: '55%', duration: 38, delay: 9, startFromLeft: false },
     { image: fish5, size: 75, initialY: '20%', duration: 36, delay: 12, startFromLeft: true },
     { image: fish6, size: 85, initialY: '35%', duration: 42, delay: 15, startFromLeft: false },
     { image: fish7, size: 60, initialY: '50%', duration: 34, delay: 18, startFromLeft: true },
@@ -266,7 +267,7 @@ export default function RealisticAquarium({ children, isDarkMode }) {
         ))}
 
         {/* PEZ QUE SIGUE AL CURSOR */}
-        <FollowerFish image={fish8} size={90} />
+        <FollowerFish image={fish00} size={90} />
 
         {/* BURBUJAS */}
         {bubbleConfigRef.current.map((bubble, i) => (

@@ -1,98 +1,217 @@
-import { Box, Typography, Paper, Divider, Chip, Stack } from '@mui/material';
-import CodeIcon from '@mui/icons-material/Code';
+import { Box, Typography, Paper, Chip, Stack, Container, useTheme, alpha } from '@mui/material';
+import { motion } from 'framer-motion';
 import GroupIcon from '@mui/icons-material/Group';
 import TargetIcon from '@mui/icons-material/Flag';
 import WorkIcon from '@mui/icons-material/WorkHistory';
 import PersonIcon from '@mui/icons-material/Person';
+import { useTranslation } from 'react-i18next';
+import { AnimatedTitle } from '../components/AnimatedTitle';
+
+const MotionPaper = motion(Paper);
 
 export default function About() {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+  const { t } = useTranslation();
+
   const sections = [
     {
-      icon: <PersonIcon color="primary" sx={{ fontSize: 30 }} />,
-      title: '💻 PERFIL PROFESIONAL',
-      content: 'Desarrolladora Web Full Stack y DevOps, finalizando el Módulo de Grado Superior de Desarrollo de Aplicaciones Web (DAW). Actualmente centrada en el aprendizaje práctico de tecnologías como JavaScript, React y Node.js, con una orientación clara hacia el desarrollo de soluciones reales y eficientes.',
-      chips: ['Full Stack', 'DevOps', 'JavaScript', 'React', 'Node.js']
+      icon: <PersonIcon sx={{ fontSize: 24 }} />,
+      title: t('PERFIL PROFESIONAL'),
+      content: t('Desarrolladora Web Full Stack y DevOps, finalizando el Módulo de Grado Superior de Desarrollo de Aplicaciones Web (DAW). Siempre centrada en el aprendizaje continuo.'),
+      chips: ['Full Stack', 'DevOps', 'JavaScript', 'React', 'Node.js'],
+      color: '#1976d2'
     },
     {
-      icon: <GroupIcon color="secondary" sx={{ fontSize: 30 }} />,
-      title: '✅ COMPETENCIAS PERSONALES',
-      content: 'Soy una persona resolutiva, constante y comprometida. Tengo facilidad para organizarme, trabajar de forma autónoma y tomar decisiones con criterio cuando la situación lo requiere. Aporto paciencia, empatía, implicación personal y la capacidad de mantener la calma y la eficiencia incluso bajo presión. Me implico mucho con mis compañeros, aporto al equipo y me esfuerzo en generar un entorno colaborativo, positivo y confiable.',
-      chips: ['Resolutiva', 'Constante', 'Organizada', 'Empática', 'Trabajo en equipo']
+      icon: <GroupIcon sx={{ fontSize: 24 }} />,
+      title: t('APTITUDES'),
+      content: t('Soy una persona resolutiva, constante y comprometida. Tengo facilidad para organizarme, trabajar de forma autónoma y tomar decisiones con criterio cuando la situación lo requiere.'),
+      chips: [t('Resolutiva'), t('Constante'), t('Organizada'), t('Empática'), t('Trabajo en equipo')],
+      color: '#9c27b0'
     },
     {
-      icon: <TargetIcon color="success" sx={{ fontSize: 30 }} />,
-      title: '👩🏻‍💻 OBJETIVO PROFESIONAL',
-      content: 'Incorporarme a un entorno de desarrollo donde pueda seguir creciendo, aportar valor desde el inicio y enfrentar retos reales. Busco una oportunidad que me permita aplicar lo aprendido y continuar mi evolución como desarrolladora, en un equipo dinámico y con visión de futuro.',
-      chips: ['Crecimiento', 'Aportar valor', 'Retos reales', 'Evolución profesional']
+      icon: <TargetIcon sx={{ fontSize: 24 }} />,
+      title: t('OBJETIVO PROFESIONAL'),
+      content: t('Incorporarme a un entorno de desarrollo donde pueda seguir creciendo, aportar valor desde el inicio y enfrentar, y afrontar superando, retos reales.'),
+      chips: [t('Crecimiento'), t('Aportar valor'), t('Retos reales'), t('Evolución profesional')],
+      color: '#2e7d32'
     },
     {
-      icon: <WorkIcon color="warning" sx={{ fontSize: 30 }} />,
-      title: '📆 EXPERIENCIA LABORAL - Técnico Superior en Administración y Finanzas',
-      content: 'Trayectoria previa en los sectores de hostelería, sanidad y comercio, desempeñando funciones administrativas y de atención al cliente. Estas experiencias me permitieron desarrollar competencias clave como la organización, la responsabilidad, la comunicación efectiva y la adaptabilidad en entornos exigentes. En ciertos contextos asumí la responsabilidad total de la operativa, lo que fortaleció mi capacidad de autogestión, priorización de tareas, resolución ágil de incidencias y toma de decisiones sin supervisión directa, manteniendo siempre un trato cercano, profesional y eficiente con los usuarios.',
-      chips: ['Administración', 'Atención al cliente', 'Autogestión', 'Resolución de incidencias']
+      icon: <WorkIcon sx={{ fontSize: 24 }} />,
+      title: t('EXPERIENCIA LABORAL'),
+      content: t('Trayectoria previa en los sectores de hostelería, sanidad y comercio, desempeñando funciones administrativas y de atención al cliente.'),
+      chips: [t('Administración'), t('Atención al cliente'), t('Autogestión'), t('Resolución de incidencias')],
+      color: '#ed6c02'
     }
   ];
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
-        Sobre Mí
-      </Typography>
+    <Box sx={{
+      py: 4,
+      px: { xs: 2, sm: 3 },
+    }}>
+      <Container maxWidth="xl">
+        {/* Header simple */}
+        <Box sx={{ mb: 6 }}>
+          <AnimatedTitle>
+            {t('Sobre Mí')}
+          </AnimatedTitle>
+        </Box>
 
-      <Stack spacing={4}>
-        {sections.map((section, index) => (
-          <Paper 
-            key={index}
-            elevation={2} 
-            sx={{ 
-              p: 3,
-              borderLeft: `4px solid`,
-              borderLeftColor: 'primary.main',
-              '&:hover': {
-                boxShadow: 4,
-                transition: 'all 0.3s ease'
-              }
-            }}
-          >
-            {/* Header de la sección */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              {section.icon}
-              <Typography 
-                variant="h6" 
-                sx={{ 
-                  ml: 2, 
-                  fontWeight: 'bold',
-                  fontSize: '1.1rem'
+        {/* 4 Cards en la MISMA LÍNEA - Usando flexbox */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: 3,
+            justifyContent: 'center',
+            alignItems: 'stretch',
+            flexWrap: { xs: 'nowrap', md: 'nowrap' },
+          }}
+        >
+          {sections.map((section, index) => (
+            <Box
+              key={index}
+              sx={{
+                flex: { xs: '0 1 auto', md: '1 1 0px' },
+                minWidth: { xs: '100%', md: '270px' },
+                maxWidth: { xs: '100%', md: '300px' },
+              }}
+            >
+              <MotionPaper
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{
+                  y: -4,
+                  transition: { duration: 0.2 }
+                }}
+                sx={{
+                  height: '100%',
+                  cursor: 'pointer',
+                  border: `2px solid ${section.color}${isDarkMode ? '30' : '20'}`,
+                  borderRadius: 3,
+                  p: 3,
+                  background: isDarkMode
+                    ? `linear-gradient(135deg, ${section.color}15, ${section.color}10)`
+                    : `linear-gradient(135deg, ${section.color}08, ${section.color}05)`,
+                  backdropFilter: 'blur(10px)',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  '&:hover': {
+                    border: `2px solid ${section.color}${isDarkMode ? '50' : '40'}`,
+                    boxShadow: `0 8px 32px ${section.color}${isDarkMode ? '25' : '20'}`,
+                    background: isDarkMode
+                      ? `linear-gradient(135deg, ${section.color}20, ${section.color}15)`
+                      : `linear-gradient(135deg, ${section.color}12, ${section.color}08)`
+                  },
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '3px',
+                    background: section.color,
+                  }
                 }}
               >
-                {section.title}
-              </Typography>
+                <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  {/* Header de la sección */}
+                  <Box sx={{ textAlign: 'center', mb: 2 }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: 48,
+                        height: 48,
+                        borderRadius: '50%',
+                        background: `linear-gradient(135deg, ${section.color}20, ${section.color}40)`,
+                        border: `2px solid ${section.color}${isDarkMode ? '40' : '30'}`,
+                        mx: 'auto',
+                        mb: 1,
+                      }}
+                    >
+                      {section.icon}
+                    </Box>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 600,
+                        color: 'text.primary',
+                        fontSize: '1rem',
+                        lineHeight: 1.4,
+                        minHeight: '1.4rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {section.title}
+                    </Typography>
+                  </Box>
+
+                  {/* Contenido */}
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      lineHeight: 1.6,
+                      color: 'text.primary',
+                      mb: 2,
+                      fontSize: '1rem',
+                      textAlign: 'center',
+                      flex: 1,
+                    }}
+                  >
+                    {section.content}
+                  </Typography>
+
+                  {/* Chips */}
+                  <Box sx={{ mt: 'auto' }}>
+                    <Stack direction="row" spacing={0.5} flexWrap="wrap" useFlexGap justifyContent="center">
+                      {section.chips.map((chip, chipIndex) => (
+                        <Chip
+                          key={chipIndex}
+                          label={chip}
+                          size="small"
+                          variant="filled"
+                          sx={{
+                            mb: 0.5,
+                            fontSize: '0.7rem',
+                            height: '24px',
+                            backgroundColor: section.color,
+                            color: isDarkMode ? '#fff' : '#fff',
+                            '&:hover': {
+                              backgroundColor: alpha(section.color, 0.8),
+                            },
+                          }}
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+                </Box>
+              </MotionPaper>
             </Box>
+          ))}
+        </Box>
 
-            <Divider sx={{ mb: 2 }} />
-
-            {/* Contenido */}
-            <Typography variant="body1" paragraph sx={{ lineHeight: 1.6 }}>
-              {section.content}
-            </Typography>
-
-            {/* Chips de habilidades/competencias */}
-            <Box sx={{ mt: 2 }}>
-              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                {section.chips.map((chip, chipIndex) => (
-                  <Chip
-                    key={chipIndex}
-                    label={chip}
-                    size="small"
-                    variant="outlined"
-                    sx={{ mb: 1 }}
-                  />
-                ))}
-              </Stack>
-            </Box>
-          </Paper>
-        ))}
-      </Stack>
-    </Box>
+        {/* Cita al final */}
+        <Box sx={{ textAlign: 'center', mt: 2, pt: 4, borderTop: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}` }}>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+              fontStyle: 'italic',
+              fontWeight: 700,
+              maxWidth: '500px',
+              mx: 'auto',
+            }}
+          >
+            {t('Comprometida con el aprendizaje continuo y la excelencia en el desarrollo de software')}
+          </Typography>
+        </Box>
+      </Container >
+    </Box >
   );
 }

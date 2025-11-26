@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Card, CardContent, Grid, Modal, IconButton, Chip, Button, Avatar, Container } from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, Modal, IconButton, Chip, Button, Avatar, Container, useTheme, alpha } from '@mui/material';
 import { motion } from 'framer-motion';
 import CloseIcon from '@mui/icons-material/Close';
 import LaunchIcon from '@mui/icons-material/Launch';
@@ -7,6 +7,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useTranslation } from 'react-i18next';
+import { AnimatedTitle } from '../components/AnimatedTitle';
 
 // Importar imágenes de las píldoras
 import arquitecturasImg from '../assets/projects/arquitecturas.jpg';
@@ -17,22 +19,22 @@ import yukiImg from '../assets/projects/yuki.jpg';
 import ibaiImg from '../assets/projects/ibai.jpg';
 
 // Array con píldoras formativas ordenadas por fecha (más reciente primero)
-const pildorasFormativas = [
+// NOTA: NO usar t() aquí fuera del componente
+const pildorasFormativasData = [
   {
     id: 'yuki',
-    title: 'Yuki',
+    title: 'Seal-Game',
     description: 'Aplicación web desarrollada como proyecto personal para gestión de tareas y organización.',
     image: yukiImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT'],
-    webUrl: 'https://yuki-app-demo.vercel.app/',
-    demoUrl: '',
-    githubUrl: 'https://github.com/Aday25/yuki',
+    webUrl: 'https://seal-game-two.vercel.app/',
+    demoUrl: 'https://yuki-app-demo.vercel.app/demo',
+    githubUrl: 'https://github.com/Aday25/seal-game',
     category: 'personal',
     date: 'Oct 2025',
     features: ['Autenticación JWT', 'CRUD completo', 'Interfaz intuitiva', 'Base de datos NoSQL'],
-    level: 'avanzado',
     personal: true,
-    color: '#3e27b0ff'
+    color: '#a0bae6ff'
   },
   {
     id: 'ibai',
@@ -41,14 +43,13 @@ const pildorasFormativas = [
     image: ibaiImg,
     technologies: ['JavaScript', 'CSS3', 'Animaciones', 'HTML5', 'Web Audio API'],
     webUrl: 'https://aday25.github.io/demo-ibai/',
-    demoUrl: '',
+    demoUrl: '/my-portfolio/src/assets/demos/demo-ibai.mp4',
     githubUrl: 'https://github.com/Aday25/demo-ibai',
     category: 'demostracion',
     date: 'Sep 2025',
     features: ['Efectos visuales', 'Animaciones CSS', 'Interacción musical', 'Diseño creativo'],
-    level: 'intermedio',
     personal: true,
-    color: '#9500ffff'
+    color: '#6d3157ff'
   },
   {
     id: 'pasteleria-polimorfica',
@@ -56,14 +57,13 @@ const pildorasFormativas = [
     description: 'Píldora formativa de Polimorfismo en TypeScript aplicado a una pastelería.',
     image: pasteleriaImg,
     technologies: ['TypeScript', 'OOP', 'Polimorfismo', 'Interfaces', 'Genéricos'],
-    webUrl: 'https://aday25.github.io/pasteleria-polimorfica/',
-    demoUrl: '',
+    webUrl: 'https://pasteleria-polimorfica.vercel.app/',
+    demoUrl: 'https://aday25.github.io/pasteleria-polimorfica/demo',
     githubUrl: 'https://github.com/Aday25/pasteleria-polimorfica',
     category: 'typescript',
     date: 'Sep 2025',
     features: ['Polimorfismo', 'Interfaces TypeScript', 'Patrones OOP', 'Código tipado'],
-    level: 'avanzado',
-    color: '#65b440ff'
+    color: '#71a11fff'
   },
   {
     id: 'interactive-cv-mui',
@@ -72,12 +72,11 @@ const pildorasFormativas = [
     image: materialImg,
     technologies: ['React', 'Material UI', 'JavaScript', 'CSS3', 'Animaciones'],
     webUrl: 'https://aday25.github.io/interactive-cv-mui/',
-    demoUrl: '',
+    demoUrl: 'https://aday25.github.io/interactive-cv-mui/demo',
     githubUrl: 'https://github.com/Aday25/interactive-cv-mui',
     category: 'frontend',
     date: 'Sep 2025',
     features: ['Design System', 'Componentes reutilizables', 'Animaciones CSS', 'Responsive Design'],
-    level: 'avanzado',
     color: '#2196f3'
   },
   {
@@ -87,13 +86,12 @@ const pildorasFormativas = [
     image: httpImg,
     technologies: ['HTTP', 'APIs', 'JavaScript', 'HTML5', 'CSS3'],
     webUrl: 'https://aday25.github.io/PildoraMetodosHTTP/',
-    demoUrl: '',
+    demoUrl: 'https://aday25.github.io/PildoraMetodosHTTP/demo',
     githubUrl: 'https://github.com/Aday25/PildoraMetodosHTTP',
     category: 'fundamentos',
     date: 'Ago 2025',
     features: ['Guía interactiva', 'Test de conocimientos', 'Ejemplos prácticos', 'Fundamentos web'],
-    level: 'intermedio',
-    color: '#655cecff'
+    color: '#655cec'
   },
   {
     id: 'arquitecturas-css',
@@ -102,13 +100,12 @@ const pildorasFormativas = [
     image: arquitecturasImg,
     technologies: ['CSS3', 'BEM', 'Suit CSS', 'Atomic Design', 'Metodologías'],
     webUrl: 'https://aday25.github.io/Arquitecturas-CSS/',
-    demoUrl: '',
+    demoUrl: 'https://aday25.github.io/Arquitecturas-CSS/demo',
     githubUrl: 'https://github.com/Aday25/Arquitecturas-CSS',
     category: 'css',
     date: 'Jun 2025',
     features: ['BEM Methodology', 'Suit CSS', 'Atomic Design', 'Código escalable'],
-    level: 'Básico',
-    color: '#d62a89ff'
+    color: '#d62a89'
   }
 ];
 
@@ -116,6 +113,18 @@ export default function PildorasFormativas() {
   const [openModal, setOpenModal] = useState(false);
   const [modalImg, setModalImg] = useState('');
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+  const { t } = useTranslation();
+
+  // AHORA SÍ puedes usar t() aquí dentro del componente
+  const pildorasFormativas = pildorasFormativasData.map(project => ({
+    ...project,
+    title: t(project.title),
+    description: t(project.description),
+    features: project.features.map(feature => t(feature)),
+    technologies: project.technologies.map(tech => t(tech)),
+  }));
 
   const handleOpenModal = (img) => {
     setModalImg(img);
@@ -127,330 +136,320 @@ export default function PildorasFormativas() {
     setModalImg('');
   };
 
-  // Función para determinar el color del nivel
-  const getLevelColor = (level) => {
-    switch(level) {
-      case 'Básico': return 'success';
-      case 'intermedio': return 'warning';
-      case 'avanzado': return 'error';
-      default: return 'primary';
+  // Estilo IDÉNTICO al de BootcampProjects
+  const cardStyle = {
+    width: 350,
+    height: 420,
+    display: 'flex',
+    flexDirection: 'column',
+    border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+    borderRadius: 3,
+    p: 3,
+    background: isDarkMode
+      ? `linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8))`
+      : `linear-gradient(135deg, ${alpha('#ed6c02', 0.08)}, ${alpha('#1976d2', 0.05)})`,
+    backdropFilter: 'blur(10px)',
+    position: 'relative',
+    overflow: 'visible',
+    '&:hover': {
+      border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'}`,
+      boxShadow: `0 8px 32px ${isDarkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
+      transform: 'translateY(-4px)',
+      transition: 'all 0.3s ease'
     }
   };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       {/* Header con botón volver */}
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 2 }}>
+      <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
         <Button
           startIcon={<ArrowBackIcon />}
           onClick={() => navigate('/projects')}
-          variant="outlined"
-          sx={{ mb: 2 }}
+          variant="contained"
+          sx={{
+            borderColor: isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
+            color: 'text.primary',
+            '&:hover': {
+              borderColor: isDarkMode ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)',
+              backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)'
+            }
+          }}
         >
-          Volver
+          {t('Volver')}
         </Button>
         <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
-            Píldoras Formativas & Personales
-          </Typography>
-          <Typography variant="h6" color="text.secondary">
-            Ejercicios de aprendizaje y proyectos personales
-          </Typography>
+          <AnimatedTitle>
+            {t('Píldoras formativas y más')}
+          </AnimatedTitle>
         </Box>
       </Box>
 
-      {/* Grid para proyectos - 3 POR FILA */}
-      <Grid container spacing={3}>
-        {pildorasFormativas.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} key={project.id}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card
-                sx={{
-                  width: 350,
-                  height: 320,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  border: `1px solid ${project.color}20`,
-                  borderRadius: 3,
-                  p: 3,
-                  background: `linear-gradient(135deg, ${project.color}08, ${project.color}15)`,
-                  position: 'relative',
-                  overflow: 'visible',
-                  '&:hover': {
-                    boxShadow: `0 8px 32px ${project.color}20`,
-                    transform: 'translateY(-2px)',
-                    transition: 'all 0.3s ease'
-                  }
-                }}
-              >
-                {/* Badges */}
-                <Box sx={{ position: 'absolute', top: 10, right: 10, zIndex: 2, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                  {/* Badge personal */}
-                  {project.personal && (
-                    <Chip
-                      label="Personal"
-                      size="small"
-                      sx={{
-                        bgcolor: '#9c27b0',
-                        color: 'white',
-                        fontWeight: 'bold',
-                        fontSize: '0.65rem',
-                        height: 20
-                      }}
-                    />
-                  )}
-                  {/* Badge nivel */}
-                  <Chip
-                    label={project.level}
-                    size="small"
-                    color={getLevelColor(project.level)}
+
+      {/* Grid para proyectos - 3 POR FILA */ }
+  <Grid container spacing={3} justifyContent="center">
+    {pildorasFormativas.map((project, index) => (
+      <Grid item xs={12} sm={6} md={4} key={project.id}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
+          <Card sx={cardStyle}>
+            {/* Línea superior decorativa - IGUAL que en BootcampProjects */}
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '3px',
+                background: project.color,
+                borderRadius: '3px 3px 0 0'
+              }}
+            />
+
+            {/* Contenido reorganizado */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
+              {/* Fila superior: Avatar + Título y fecha en línea */}
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                {/* Avatar circular */}
+                <Avatar
+                  src={project.image}
+                  onClick={() => handleOpenModal(project.image)}
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    border: `3px solid ${project.color}${isDarkMode ? '40' : '30'}`,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    '&:hover': {
+                      border: `3px solid ${project.color}`,
+                      transform: 'scale(1.05)',
+                      transition: 'all 0.3s ease'
+                    }
+                  }}
+                />
+
+                {/* Título y fecha al lado del avatar */}
+                <Box sx={{ flexGrow: 0.6, minWidth: 0, pt: 1.5 }}>
+                  <Typography
+                    variant="h5"
                     sx={{
                       fontWeight: 'bold',
-                      fontSize: '0.65rem',
-                      height: 20
+                      color: project.color,
+                      mb: 0.5,
+                      lineHeight: 1.4,
+                      fontSize: '1.4rem',
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
                     }}
-                  />
-                </Box>
-
-                {/* Contenido reorganizado */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 2 }}>
-                  {/* Fila superior: Avatar + Título y fecha en línea */}
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                    {/* Avatar circular */}
-                    <Avatar
-                      src={project.image}
-                      onClick={() => handleOpenModal(project.image)}
-                      sx={{
-                        width: 80,
-                        height: 80,
-                        border: `3px solid ${project.color}30`,
-                        cursor: 'pointer',
-                        flexShrink: 0,
-                        '&:hover': {
-                          border: `3px solid ${project.color}`,
-                          transform: 'scale(1.05)',
-                          transition: 'all 0.3s ease'
-                        }
-                      }}
-                    />
-
-                    {/* Título y fecha al lado del avatar */}
-                    <Box sx={{ flexGrow: 1, minWidth: 0, pt: 0.5 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 'bold',
-                          color: project.color,
-                          mb: 0.5,
-                          lineHeight: 1.2,
-                          fontSize: '1.1rem'
-                        }}
-                      >
-                        {project.title}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        color="text.secondary"
-                        sx={{
-                          fontStyle: 'italic',
-                          display: 'block'
-                        }}
-                      >
-                        {project.date} • {project.category}
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  {/* Descripción debajo de la fila avatar+título+fecha */}
+                  >
+                    {project.title}
+                  </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{
-                      lineHeight: 1.4,
-                      fontSize: '0.85rem',
-                      textAlign: 'left'
+                      fontStyle: 'italic',
+                      display: 'block',
+                      fontSize: '0.8rem'
                     }}
                   >
-                    {project.description}
+                    {project.date} • {t(project.category)}
                   </Typography>
                 </Box>
+              </Box>
 
-                {/* Tecnologías */}
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {project.technologies.slice(0, 4).map((tech, techIndex) => (
-                      <Chip
-                        key={techIndex}
-                        label={tech}
-                        size="small"
-                        sx={{
-                          fontSize: '0.65rem',
-                          height: 20,
-                          bgcolor: `${project.color}15`,
-                          color: project.color,
-                          border: `1px solid ${project.color}30`
-                        }}
-                        variant="outlined"
-                      />
-                    ))}
-                  </Box>
-                </Box>
+              {/* Descripción debajo de la fila avatar+título+fecha */}
+              <Typography
+                variant="body2"
+                color="text.primary"
+                sx={{
+                  lineHeight: 1.5,
+                  fontSize: '0.9rem',
+                  textAlign: 'left'
+                }}
+              >
+                {project.description}
+              </Typography>
+            </Box>
 
-                {/* Características */}
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {project.features.slice(0, 3).map((feature, i) => (
-                      <Box
-                        key={i}
-                        sx={{
-                          px: 1,
-                          py: 0.25,
-                          borderRadius: 1,
-                          bgcolor: `${project.color}10`,
-                          border: `1px solid ${project.color}20`,
-                          fontSize: '0.6rem',
-                          fontWeight: '500',
-                          color: project.color
-                        }}
-                      >
-                        {feature}
-                      </Box>
-                    ))}
-                  </Box>
-                </Box>
+            {/* Tecnologías - CHIPS CON FONDO SÓLIDO */}
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
+                {t('TECNOLOGÍAS:')}
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                  <Chip
+                    key={techIndex}
+                    label={tech}
+                    size="small"
+                    variant="filled"
+                    sx={{
+                      mb: 0.5,
+                      fontSize: '0.7rem',
+                      height: '24px',
+                      backgroundColor: project.color,
+                      color: '#fff',
+                      fontWeight: 500,
+                      '&:hover': {
+                        backgroundColor: alpha(project.color, 0.8),
+                      }
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
 
-                {/* Botones de acción - SIEMPRE 3 BOTONES */}
-                <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
-                  {/* Botón Web - SIEMPRE PRESENTE */}
-                  <Button
-                    variant={project.webUrl ? "contained" : "outlined"}
+            {/* Características - CHIPS CON FONDO SÓLIDO */}
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
+                {t('CARACTERÍSTICAS:')}
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {project.features.slice(0, 3).map((feature, i) => (
+                  <Chip
+                    key={i}
+                    label={feature}
                     size="small"
-                    href={project.webUrl || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    startIcon={<LaunchIcon sx={{ fontSize: 16 }} />}
-                    disabled={!project.webUrl}
+                    variant="filled"
                     sx={{
-                      flex: 1,
-                      bgcolor: project.webUrl ? project.color : 'transparent',
-                      borderColor: project.color,
-                      color: project.webUrl ? 'white' : project.color,
                       fontSize: '0.7rem',
-                      py: 0.5,
-                      '&:hover': project.webUrl ? {
-                        bgcolor: project.color,
-                        opacity: 0.9
-                      } : {}
+                      height: '24px',
+                      backgroundColor: project.color,
+                      color: '#fff',
+                      fontWeight: 500,
+                      '&:hover': {
+                        backgroundColor: alpha(project.color, 0.8),
+                      }
                     }}
-                  >
-                    Web
-                  </Button>
-                  
-                  {/* Botón Demo - SIEMPRE PRESENTE */}
-                  <Button
-                    variant={project.demoUrl ? "outlined" : "outlined"}
-                    size="small"
-                    href={project.demoUrl || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    startIcon={<PlayArrowIcon sx={{ fontSize: 16 }} />}
-                    disabled={!project.demoUrl}
-                    sx={{
-                      flex: 1,
-                      borderColor: project.demoUrl ? project.color : '#ccc',
-                      color: project.demoUrl ? project.color : '#ccc',
-                      fontSize: '0.7rem',
-                      py: 0.5
-                    }}
-                  >
-                    Demo
-                  </Button>
-                  
-                  {/* Botón Código - SIEMPRE PRESENTE */}
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    startIcon={<GitHubIcon sx={{ fontSize: 16 }} />}
-                    sx={{
-                      flex: 1,
-                      borderColor: '#333',
-                      color: '#333',
-                      fontSize: '0.7rem',
-                      py: 0.5
-                    }}
-                  >
-                    Código
-                  </Button>
-                </Box>
-              </Card>
-            </motion.div>
-          </Grid>
-        ))}
+                  />
+                ))}
+              </Box>
+            </Box>
+
+            {/* Botones de acción - TODOS CONTAINED CON COLOR DE FONDO */}
+            <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
+              <Button
+                variant="contained"
+                size="small"
+                href={project.webUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                startIcon={<LaunchIcon sx={{ fontSize: 16 }} />}
+                sx={{
+                  flex: 1,
+                  bgcolor: project.color,
+                  fontSize: '0.75rem',
+                  py: 0.75,
+                  fontWeight: '600',
+                  '&:hover': {
+                    bgcolor: alpha(project.color, 0.8),
+                  }
+                }}
+              >
+                {t('Web')}
+              </Button>
+
+              <Button
+                variant="contained"
+                size="small"
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                startIcon={<PlayArrowIcon sx={{ fontSize: 16 }} />}
+                sx={{
+                  flex: 1,
+                  bgcolor: project.color,
+                  fontSize: '0.75rem',
+                  py: 0.75,
+                  fontWeight: '600',
+                  '&:hover': {
+                    bgcolor: alpha(project.color, 0.8),
+                  }
+                }}
+              >
+                {t('Demo')}
+              </Button>
+
+              <Button
+                variant="contained"
+                size="small"
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                startIcon={<GitHubIcon sx={{ fontSize: 16 }} />}
+                sx={{
+                  flex: 1,
+                  bgcolor: isDarkMode ? '#333' : '#666',
+                  color: '#fff',
+                  fontSize: '0.75rem',
+                  py: 0.75,
+                  fontWeight: '600',
+                  '&:hover': {
+                    bgcolor: isDarkMode ? '#555' : '#888',
+                  }
+                }}
+              >
+                {t('Código')}
+              </Button>
+            </Box>
+          </Card>
+        </motion.div>
       </Grid>
+    ))}
+  </Grid>
 
-      {/* Sección informativa */}
-      <Container maxWidth="md" sx={{ mt: 6, textAlign: 'center' }}>
-        <Typography variant="h6" gutterBottom color="primary">
-          💡 Sobre las Píldoras Formativas
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Estas píldoras representan ejercicios prácticos de aprendizaje donde he profundizado en tecnologías específicas, 
-          desde fundamentos web hasta conceptos avanzados de desarrollo.
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap', mt: 3 }}>
-          <Chip label="🟢 Básico" variant="outlined" color="success" />
-          <Chip label="🟡 Intermedio" variant="outlined" color="warning" />
-          <Chip label="🔴 Avanzado" variant="outlined" color="error" />
-          <Chip label="🟣 Personal" variant="outlined" color="secondary" />
-        </Box>
-      </Container>
+  {/* Sección informativa */ }
+  <Container maxWidth="md" sx={{ mt: 6, textAlign: 'center' }}>
+    <Typography variant="h6" gutterBottom color="primary">
+      {t('💡 Sobre las Píldoras Formativas')}
+    </Typography>
+    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+      {t('Estas píldoras representan ejercicios prácticos de aprendizaje donde he profundizado en tecnologías específicas, desde fundamentos web hasta conceptos avanzados de desarrollo.')}
+    </Typography>
+  </Container>
 
-      {/* Modal para imagen ampliada */}
-      <Modal open={openModal} onClose={handleCloseModal} closeAfterTransition>
-        <Box
-          sx={{
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            maxWidth: '90vw',
-            maxHeight: '90vh',
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 1,
-            borderRadius: 2,
-            outline: 'none',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <IconButton
-            onClick={handleCloseModal}
-            sx={{ position: 'absolute', top: 8, right: 8, color: 'black', zIndex: 10 }}
-          >
-            <CloseIcon />
-          </IconButton>
+  {/* Modal para imagen ampliada */ }
+  <Modal open={openModal} onClose={handleCloseModal} closeAfterTransition>
+    <Box
+      sx={{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        maxWidth: '90vw',
+        maxHeight: '90vh',
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 1,
+        borderRadius: 2,
+        outline: 'none',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <IconButton
+        onClick={handleCloseModal}
+        sx={{ position: 'absolute', top: 8, right: 8, color: 'black', zIndex: 10 }}
+      >
+        <CloseIcon />
+      </IconButton>
 
-          <img
-            src={modalImg}
-            alt="Vista previa del proyecto"
-            style={{
-              maxWidth: '100%',
-              maxHeight: '85vh',
-              borderRadius: 8,
-              display: 'block',
-            }}
-          />
-        </Box>
-      </Modal>
-    </Container>
+      <img
+        src={modalImg}
+        alt={t('Vista previa del proyecto')}
+        style={{
+          maxWidth: '100%',
+          maxHeight: '85vh',
+          borderRadius: 8,
+          display: 'block',
+        }}
+      />
+    </Box>
+  </Modal>
+    </Container >
   );
 }

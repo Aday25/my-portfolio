@@ -2,17 +2,49 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon-miss.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CV Interactivo - React + MUI</title>
+    <title>Aday Álvarez - Full Stack Developer & DevOps</title>
 
-    <!-- Meta tags para previsualización (WhatsApp, Twitter, etc.) -->
-    <meta property="og:title" content="CV Interactivo con React y Material UI" />
-    <meta property="og:description" content="Explora este CV interactivo hecho con React, Material UI y animaciones con Framer Motion." />
-    <meta property="og:image" content="https://aday25.github.io/interactive-cv-mui/cover-index.png" />
+    <!-- Meta tags para SEO -->
+    <meta name="description" content="Portfolio de Aday Álvarez - Desarrolladora Full Stack & DevOps especializada en React, Node.js, TypeScript y tecnologías modernas" />
+    <meta name="keywords" content="desarrolladora full stack, devops, react, node.js, typescript, portfolio, programadora" />
+    <meta name="author" content="Aday Álvarez" />
+
+    <!-- Meta tags para previsualización (WhatsApp, Twitter, LinkedIn) -->
+    <meta property="og:title" content="Aday Álvarez - Full Stack Developer & DevOps" />
+    <meta property="og:description" content="Portfolio interactivo con proyectos Full Stack, habilidades técnicas y certificaciones en desarrollo web moderno" />
+    <meta property="og:image" content="https://[tu-usuario].github.io/[tu-repo]/cover-portfolio.png" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://aday25.github.io/interactive-cv-mui" />
+    <meta property="og:url" content="https://[tu-usuario].github.io/[tu-repo]" />
+    
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aday Álvarez - Full Stack Developer" />
+    <meta name="twitter:description" content="Explora mi portfolio con proyectos Full Stack, DevOps y tecnologías modernas" />
+    <meta name="twitter:image" content="https://[tu-usuario].github.io/[tu-repo]/cover-twitter.png" />
+    
+    <!-- Favicon y theme color -->
+    <meta name="theme-color" content="#1976d2" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    
+    <!-- Detección de idioma -->
+    <script>
+      // Detectar y guardar preferencia de idioma
+      (function() {
+        const savedLang = localStorage.getItem('preferred-language');
+        const browserLang = navigator.language || navigator.userLanguage;
+        const defaultLang = 'es';
+        
+        if (!savedLang) {
+          const supportedLangs = ['es', 'en'];
+          const detectedLang = supportedLangs.includes(browserLang.split('-')[0]) 
+            ? browserLang.split('-')[0] 
+            : defaultLang;
+          localStorage.setItem('preferred-language', detectedLang);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

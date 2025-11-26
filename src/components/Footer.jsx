@@ -1,3 +1,4 @@
+// Footer.jsx - Versión mejorada que siempre queda abajo
 import { Box, Typography, Link, IconButton, Stack, useTheme } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -14,16 +15,17 @@ export default function Footer() {
       sx={{
         position: 'relative',
         zIndex: 20,
-        mt: 'auto', // Esto empuja el footer hacia abajo
-        py: 2, // Padding vertical reducido
+        width: '100%',
+        // NO usar mt: 'auto' aquí - se gestiona en App.jsx
+        py: 2.5,
         px: 2,
         textAlign: 'center',
         // Efecto acuático degradado profesional
-        background: isDarkMode 
+        background: isDarkMode
           ? 'linear-gradient(135deg, rgba(10, 35, 66, 0.95) 0%, rgba(26, 58, 95, 0.9) 50%, rgba(5, 26, 56, 0.95) 100%)'
           : 'linear-gradient(135deg, rgba(79, 163, 240, 0.95) 0%, rgba(135, 206, 235, 0.9) 50%, rgba(30, 144, 255, 0.95) 100%)',
         backdropFilter: 'blur(12px)',
-        borderTop: isDarkMode 
+        borderTop: isDarkMode
           ? '1px solid rgba(0, 180, 216, 0.3)'
           : '1px solid rgba(255, 255, 255, 0.4)',
         boxShadow: isDarkMode
@@ -65,11 +67,11 @@ export default function Footer() {
           component="img"
           src={logo}
           alt="Logo personal"
-          sx={{ 
-            height: 35, 
-            mb: 1,
-            filter: isDarkMode 
-              ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' 
+          sx={{
+            height: 50,
+            mb: 1.5,
+            filter: isDarkMode
+              ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))'
               : 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             transition: 'all 0.3s ease',
             opacity: 0.9,
@@ -83,17 +85,17 @@ export default function Footer() {
         {/* Título principal */}
         <Typography
           variant="body2"
-          sx={{ 
+          sx={{
             fontWeight: 600,
             mb: 1.5,
-            fontSize: '0.9rem',
-            textShadow: isDarkMode 
+            fontSize: '0.95rem',
+            textShadow: isDarkMode
               ? '0 1px 2px rgba(0,0,0,0.5)'
               : '0 1px 2px rgba(255,255,255,0.8)',
             letterSpacing: '0.5px',
           }}
         >
-          © {new Date().getFullYear()} Aday - Portfolio
+          © {new Date().getFullYear()} Aday Álvarez - Full Stack Developer
         </Typography>
 
         {/* Iconos y contacto */}
@@ -102,9 +104,9 @@ export default function Footer() {
           justifyContent="center"
           alignItems="center"
           spacing={2}
-          sx={{ 
+          sx={{
             flexWrap: 'wrap',
-            gap: 1,
+            gap: 1.5,
           }}
         >
           {/* Email */}
@@ -119,7 +121,7 @@ export default function Footer() {
             <Link
               href="mailto:aday.it25@gmail.com"
               underline="hover"
-              sx={{ 
+              sx={{
                 color: isDarkMode ? '#e0f7ff' : '#003366',
                 fontWeight: 500,
                 fontSize: '0.85rem',
@@ -140,8 +142,8 @@ export default function Footer() {
             sx={{
               width: '1px',
               height: 16,
-              backgroundColor: isDarkMode 
-                ? 'rgba(224, 247, 255, 0.3)' 
+              backgroundColor: isDarkMode
+                ? 'rgba(224, 247, 255, 0.3)'
                 : 'rgba(0, 51, 102, 0.3)',
             }}
           />
@@ -153,17 +155,17 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             size="small"
-            sx={{ 
+            sx={{
               color: isDarkMode ? '#e0f7ff' : '#003366',
               transition: 'all 0.3s ease',
               opacity: 0.8,
               '&:hover': {
                 opacity: 1,
                 color: isDarkMode ? '#4fd1ff' : '#0066cc',
-                backgroundColor: isDarkMode 
-                  ? 'rgba(79, 209, 255, 0.1)' 
+                backgroundColor: isDarkMode
+                  ? 'rgba(79, 209, 255, 0.1)'
                   : 'rgba(0, 102, 204, 0.1)',
-                transform: 'translateY(-1px)',
+                transform: 'translateY(-2px)',
               }
             }}
           >
@@ -177,17 +179,17 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             size="small"
-            sx={{ 
+            sx={{
               color: isDarkMode ? '#e0f7ff' : '#003366',
               transition: 'all 0.3s ease',
               opacity: 0.8,
               '&:hover': {
                 opacity: 1,
                 color: isDarkMode ? '#4fd1ff' : '#0077b5',
-                backgroundColor: isDarkMode 
-                  ? 'rgba(79, 209, 255, 0.1)' 
+                backgroundColor: isDarkMode
+                  ? 'rgba(79, 209, 255, 0.1)'
                   : 'rgba(0, 119, 181, 0.1)',
-                transform: 'translateY(-1px)',
+                transform: 'translateY(-2px)',
               }
             }}
           >

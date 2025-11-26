@@ -1,0 +1,66 @@
+/* 
+  #root ahora usa flex para que el contenido crezca y el footer
+  se quede abajo si hay poco contenido. 
+*/
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* 
+  Clase para logos (como el de React o el tuyo), con animación sutil al hacer hover 
+*/
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* 
+  Animación de giro para el logo de React (puedes quitarla si no la usas)
+*/
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* 
+  Estilo de las tarjetas o contenedores con contenido.
+  Mejorado para centrarse y tener máximo ancho legible.
+*/
+.card {
+  padding: 2em;
+  margin: 1em auto;
+  max-width: 600px;
+}
+
+/* 
+  Estilo para un texto aclaratorio o "leer más".
+*/
+.read-the-docs {
+  color: #888;
+}
