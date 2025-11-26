@@ -25,7 +25,12 @@ import elGranAzulImg from '../assets/projects/el-gran-azul.jpg';
 import sprintflowImg from '../assets/projects/sprintflow.jpg';
 import noctilucaImg from '../assets/projects/noctiluca.jpg';
 
-// Array con proyectos del bootcamp - SIN usar t() aquí fuera del componente
+// Importar videos demo directamente
+import demoChompy from '../assets/demos/demo-chompy.mp4';
+import demoTarot from '../assets/demos/demo-tarot.mp4';
+import demoPiedras from '../assets/demos/demo-piedras.mp4';
+
+// Array con proyectos del bootcamp
 const bootcampProjectsData = [
   {
     id: 'sprintflow',
@@ -33,7 +38,7 @@ const bootcampProjectsData = [
     description: 'Sistema de gestión ágil para equipos de desarrollo con métricas en tiempo real.',
     image: sprintflowImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Material UI', 'JWT'],
-    demoUrl: 'https://my-portfolio-8dum.vercel.app/#/not-found',
+    demoUrl: '/not-found',
     webUrl: 'https://sprint-flow-client-kqk8.vercel.app/',
     githubUrl: 'https://github.com/SprintFlow',
     category: 'fullstack',
@@ -49,7 +54,7 @@ const bootcampProjectsData = [
     description: 'Aplicación web sobre la biología marina desarrollada con TypeScript y Material UI.',
     image: elGranAzulImg,
     technologies: ['TypeScript', 'React', 'Material UI', 'APIs'],
-    demoUrl: 'https://el-gran-azul.vercel.app/demo',
+    demoUrl: '/not-found',
     webUrl: 'https://el-gran-azul.vercel.app/',
     githubUrl: 'https://github.com/Grupo5-Biologia-Marina',
     category: 'fullstack',
@@ -65,8 +70,8 @@ const bootcampProjectsData = [
     description: 'API RESTful para posts de mariposas con MySQL/MongoDB. Fui Scrum Master y Developer.',
     image: noctilucaImg,
     technologies: ['Node.js', 'Express', 'MySQL', 'MongoDB', 'Sequelize'],
-    demoUrl: 'https://api-noctiluca.vercel.app/demo',
-    webUrl: 'https://noctiluca-app.vercel.app/',
+    demoUrl: '/not-found',
+    webUrl: '/not-found',
     githubUrl: 'https://github.com/API-Noctiluca',
     category: 'backend',
     date: 'Sep 2025',
@@ -82,7 +87,7 @@ const bootcampProjectsData = [
     image: tarotImg,
     technologies: ['React', 'JavaScript', 'CSS3', 'Hooks'],
     webUrl: 'https://tarot-react.vercel.app/',
-    demoUrl: '/src/assets/demos/demo-tarot.mp4',
+    demoVideo: demoTarot,
     githubUrl: 'https://github.com/Aday25/tarot-react',
     category: 'react',
     date: 'Ago 2025',
@@ -97,8 +102,8 @@ const bootcampProjectsData = [
     description: 'Solución digital para gestión médica desarrollada durante hackathon. **Proyecto finalista**.',
     image: sanimedImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Team Work'],
-    demoUrl: '/NotFound',
-    webUrl: 'https://sanimed-app.vercel.app/',
+    demoUrl: '/not-found',
+    webUrl: '/not-found',
     githubUrl: 'https://github.com/Aday25/sanimed',
     category: 'hackathon',
     date: 'Jul 2025',
@@ -113,7 +118,7 @@ const bootcampProjectsData = [
     description: 'Juego educativo para aprender programación orientada a objetos con Canvas.',
     image: chompyImg,
     technologies: ['JavaScript', 'OOP', 'Canvas', 'Game Development'],
-    demoUrl: '/src/assets/demos/demo-chompy.mp4',
+    demoVideo: demoChompy,
     webUrl: 'https://aday25.github.io/chompy-the-game/',
     githubUrl: 'https://github.com/Aday25/chompy-the-game',
     category: 'javascript',
@@ -129,7 +134,7 @@ const bootcampProjectsData = [
     description: 'Proyecto full-stack para gestión de contenidos y recursos digitales.',
     image: nectaraImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    demoUrl: 'https://nectara-demo.vercel.app/',
+    demoUrl: '/not-found',
     webUrl: 'https://front-nectara-t9br.vercel.app/',
     githubUrl: 'https://github.com/Aday25/nectara',
     category: 'fullstack',
@@ -190,7 +195,7 @@ const bootcampProjectsData = [
     description: 'Web homenaje a mujeres pioneras en la ciencia oceánica.',
     image: piedrasAngularesImg,
     technologies: ['HTML5', 'CSS3', 'Grid', 'Flexbox', 'Responsive Design'],
-    demoUrl: '/my-portfolio/src/assets/demos/demo-piedras.mp4',
+    demoVideo: demoPiedras, // Video importado directamente
     webUrl: 'https://aday25.github.io/Piedras-angulares/',
     githubUrl: 'https://github.com/Aday25/Piedras-angulares',
     category: 'fundamentos',
@@ -204,12 +209,13 @@ const bootcampProjectsData = [
 export default function BootcampProjects() {
   const [openModal, setOpenModal] = useState(false);
   const [modalImg, setModalImg] = useState('');
+  const [openVideoModal, setOpenVideoModal] = useState(false);
+  const [currentVideo, setCurrentVideo] = useState('');
   const navigate = useNavigate();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const { t } = useTranslation();
 
-  // AHORA SÍ puedes usar t() aquí dentro del componente
   const bootcampProjects = bootcampProjectsData.map(project => ({
     ...project,
     title: t(project.title),
@@ -227,6 +233,44 @@ export default function BootcampProjects() {
   const handleCloseModal = () => {
     setOpenModal(false);
     setModalImg('');
+  };
+
+  const handleOpenVideoModal = (video) => {
+    setCurrentVideo(video);
+    setOpenVideoModal(true);
+  };
+
+  const handleCloseVideoModal = () => {
+    setOpenVideoModal(false);
+    setCurrentVideo('');
+  };
+
+  // Funciones para manejar los clics en los botones
+  const handleDemoClick = (project) => {
+    if (project.demoVideo) {
+      // Abrir modal de video
+      handleOpenVideoModal(project.demoVideo);
+    } else if (project.demoUrl.startsWith('/')) {
+      // Navegación interna
+      navigate(project.demoUrl);
+    } else if (project.demoUrl.startsWith('http')) {
+      // Enlace externo - abre en nueva pestaña
+      window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const handleWebClick = (webUrl) => {
+    if (webUrl.startsWith('http')) {
+      window.open(webUrl, '_blank', 'noopener,noreferrer');
+    } else if (webUrl.startsWith('/')) {
+      navigate(webUrl);
+    }
+  };
+
+  const handleGithubClick = (githubUrl) => {
+    if (githubUrl.startsWith('http')) {
+      window.open(githubUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   // Estilo con el fondo EXACTO de la otra página
@@ -302,7 +346,7 @@ export default function BootcampProjects() {
                 />
 
                 {/* Badges */}
-                <Box sx={{ position: 'absolute', top: 12, right: 10, zIndex: 2, display: 'flex', flexDirection: 'arrow', gap: 0.5 }}>
+                <Box sx={{ position: 'absolute', top: 12, right: 10, zIndex: 2, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                   {project.featured && (
                     <Chip
                       label={t('⭐ Destacado')}
@@ -357,7 +401,7 @@ export default function BootcampProjects() {
                     />
 
                     {/* Título y fecha al lado del avatar */}
-                    <Box sx={{ flexGrow: 0.6, minWidth: 0, pt: 1.5 }}>
+                    <Box sx={{ flexGrow: 1, minWidth: 0, pt: 1.5 }}>
                       <Typography
                         variant="h5"
                         sx={{
@@ -464,15 +508,13 @@ export default function BootcampProjects() {
                   </Box>
                 </Box>
 
-                {/* Botones de acción - TODOS CONTAINED CON COLOR DE FONDO */}
+                {/* Botones de acción - CON FUNCIONES DE CLICK */}
                 <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
                   {/* Web URL - SIEMPRE PRESENTE */}
                   <Button
                     variant="contained"
                     size="small"
-                    href={project.webUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => handleWebClick(project.webUrl)}
                     startIcon={<LaunchIcon sx={{ fontSize: 16 }} />}
                     sx={{
                       flex: 1,
@@ -492,9 +534,7 @@ export default function BootcampProjects() {
                   <Button
                     variant="contained"
                     size="small"
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => handleDemoClick(project)}
                     startIcon={<PlayArrowIcon sx={{ fontSize: 16 }} />}
                     sx={{
                       flex: 1,
@@ -514,9 +554,7 @@ export default function BootcampProjects() {
                   <Button
                     variant="contained"
                     size="small"
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => handleGithubClick(project.githubUrl)}
                     startIcon={<GitHubIcon sx={{ fontSize: 16 }} />}
                     sx={{
                       flex: 1,
@@ -578,6 +616,65 @@ export default function BootcampProjects() {
           />
         </Box>
       </Modal>
+
+      {/* Modal para videos demo */}
+      <Modal open={openVideoModal} onClose={handleCloseVideoModal} closeAfterTransition>
+        <Box
+          sx={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: { xs: '90vw', sm: '80vw', md: '70vw' },
+            maxWidth: '900px',
+            maxHeight: '90vh',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 2,
+            borderRadius: 2,
+            outline: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <IconButton
+            onClick={handleCloseVideoModal}
+            sx={{ 
+              position: 'absolute', 
+              top: 8, 
+              right: 8, 
+              color: 'white', 
+              zIndex: 10,
+              bgcolor: 'rgba(0,0,0,0.5)',
+              '&:hover': {
+                bgcolor: 'rgba(0,0,0,0.7)',
+              }
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          
+          <Typography variant="h6" sx={{ mb: 2, color: 'text.primary' }}>
+            {t('Demo del Proyecto')}
+          </Typography>
+          
+          <Box
+            component="video"
+            src={currentVideo}
+            controls
+            autoPlay
+            muted
+            sx={{
+              width: '100%',
+              maxHeight: '70vh',
+              borderRadius: 1,
+              outline: 'none',
+            }}
+          />
+        </Box>
+      </Modal>
+
       <ActionButtons
         prevPage="/projects"
         prevLabel="Mis Proyectos"
