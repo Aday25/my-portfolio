@@ -1,4 +1,3 @@
-// Skills.jsx - Versión moderna y responsive
 import { Box, Grid, Card, CardContent, Typography, Chip, Container, useTheme, alpha } from '@mui/material';
 import { motion } from 'framer-motion';
 import {
@@ -34,7 +33,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { AnimatedTitle } from '../components/AnimatedTitle';
 
-// Array de datos SIN t() - fuera del componente
+// Array de datos COMPLETO - fuera del componente
 const skillCategoriesData = [
   {
     category: 'Frontend',
@@ -139,7 +138,6 @@ const skillCategoriesData = [
 ];
 
 const MotionCard = motion(Card);
-const MotionBox = motion(Box);
 
 export default function Skills() {
   const theme = useTheme();
@@ -156,25 +154,55 @@ export default function Skills() {
     }))
   }));
 
+  // Variantes OPTIMIZADAS para mejor rendimiento
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08
+        staggerChildren: 0.1, // Aumentado para menos carga
+        when: "beforeChildren"
       }
     }
   };
 
   const cardVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { 
+      y: 20, 
+      opacity: 0,
+      scale: 0.95
+    },
     visible: {
       y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
         type: 'spring',
-        stiffness: 100,
-        damping: 12
+        stiffness: 80, // Reducido para más suavidad
+        damping: 15,   // Aumentado para menos rebote
+        mass: 0.8      // Añadido para más fluidez
+      }
+    }
+  };
+
+  const skillItemVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 20
+      }
+    },
+    hover: {
+      scale: 1.05,
+      y: -2,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10
       }
     }
   };
@@ -195,8 +223,8 @@ export default function Skills() {
           </AnimatedTitle>
         </Box>
 
-        {/* Grid de categorías con animación */}
-        <MotionBox
+        {/* Grid de categorías con animación OPTIMIZADA */}
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -207,9 +235,12 @@ export default function Skills() {
                 <MotionCard
                   variants={cardVariants}
                   whileHover={{
-                    scale: 1.02,
-                    y: -5,
-                    transition: { duration: 0.2 }
+                    y: -3,
+                    transition: { 
+                      type: 'spring', 
+                      stiffness: 200,
+                      damping: 15 
+                    }
                   }}
                   elevation={0}
                   sx={{
@@ -222,13 +253,10 @@ export default function Skills() {
                     borderRadius: 3,
                     overflow: 'hidden',
                     position: 'relative',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                     '&:hover': {
-                      border: `1px solid ${isDarkMode ? alpha('#fff', 0.3) : alpha('#667eea', 0.4)}`,
-                      boxShadow: `0 12px 40px ${isDarkMode ? alpha('#000', 0.5) : alpha('#667eea', 0.2)}`,
-                      background: isDarkMode
-                        ? `linear-gradient(135deg, ${alpha('#667eea', 0.2)}, ${alpha('#764ba2', 0.15)})`
-                        : `linear-gradient(135deg, ${alpha('#667eea', 0.12)}, ${alpha('#764ba2', 0.08)})`
+                      border: `1px solid ${isDarkMode ? alpha('#fff', 0.2) : alpha('#667eea', 0.3)}`,
+                      boxShadow: `0 8px 32px ${isDarkMode ? alpha('#000', 0.4) : alpha('#667eea', 0.15)}`,
                     },
                     '&::before': {
                       content: '""',
@@ -258,16 +286,13 @@ export default function Skills() {
                       />
                     </Box>
 
-                    {/* Grid de habilidades */}
+                    {/* Grid de habilidades OPTIMIZADO */}
                     <Grid container spacing={{ xs: 1.5, md: 2 }}>
                       {category.skills.map((skill, skillIndex) => (
                         <Grid item xs={6} key={skillIndex}>
-                          <MotionBox
-                            whileHover={{
-                              scale: 1.08,
-                              transition: { type: 'spring', stiffness: 400, damping: 10 }
-                            }}
-                            whileTap={{ scale: 0.95 }}
+                          <motion.div
+                            variants={skillItemVariants}
+                            whileHover="hover"
                           >
                             <Box
                               sx={{
@@ -288,15 +313,14 @@ export default function Skills() {
                                 cursor: 'pointer',
                                 '&:hover': {
                                   background: isDarkMode
-                                    ? 'rgba(255, 255, 255, 0.1)'
-                                    : 'rgba(255, 255, 255, 0.9)',
+                                    ? 'rgba(255, 255, 255, 0.08)'
+                                    : 'rgba(255, 255, 255, 0.8)',
                                   borderColor: isDarkMode
-                                    ? 'rgba(255, 255, 255, 0.2)'
-                                    : 'rgba(33, 150, 243, 0.3)',
-                                  transform: 'translateY(-3px)',
+                                    ? 'rgba(255, 255, 255, 0.15)'
+                                    : 'rgba(33, 150, 243, 0.2)',
                                   boxShadow: isDarkMode
-                                    ? '0 4px 12px rgba(0, 0, 0, 0.3)'
-                                    : '0 4px 12px rgba(33, 150, 243, 0.15)',
+                                    ? '0 4px 12px rgba(0, 0, 0, 0.2)'
+                                    : '0 4px 12px rgba(33, 150, 243, 0.1)',
                                 }
                               }}
                             >
@@ -307,6 +331,8 @@ export default function Skills() {
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
+                                  width: 28,
+                                  height: 28
                                 }}
                               >
                                 {skill.icon}
@@ -322,12 +348,16 @@ export default function Skills() {
                                   color: 'text.primary',
                                   lineHeight: 1.3,
                                   wordBreak: 'break-word',
+                                  minHeight: '2.5em',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
                                 }}
                               >
                                 {skill.name}
                               </Typography>
                             </Box>
-                          </MotionBox>
+                          </motion.div>
                         </Grid>
                       ))}
                     </Grid>
@@ -336,7 +366,7 @@ export default function Skills() {
               </Grid>
             ))}
           </Grid>
-        </MotionBox>
+        </motion.div>
       </Container>
     </Box>
   );
