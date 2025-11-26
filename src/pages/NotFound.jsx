@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import HomeIcon from '@mui/icons-material/Home';
 import ConstructionIcon from '@mui/icons-material/Construction';
 
-// Importa tu imagen - asegúrate de que ops.png esté en la carpeta correcta
 import opsImage from '../assets/ops.png';
 
 export default function NotFound() {
@@ -27,26 +26,40 @@ export default function NotFound() {
       : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8))',
     backdropFilter: 'blur(12px)',
     border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-    boxShadow: `0 8px 32px ${isDarkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`
+    boxShadow: `0 8px 32px ${isDarkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
+    borderRadius: 4
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 8, mt: 8, minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ textAlign: 'center', width: '100%' }}>
+    <Container maxWidth="lg" sx={{ 
+      py: 2, 
+      mt: 4, 
+      minHeight: '70vh', 
+      display: 'flex', 
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 4,
+        width: '100%',
+        flexDirection: { xs: 'column', md: 'row' } // Columna en móvil, fila en desktop
+      }}>
         
-        {/* Imagen animada */}
+        {/* Imagen - Izquierda */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5, y: 50 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-          style={{ marginBottom: '2rem' }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{ flexShrink: 0 }}
         >
           <Box
             component="img"
             src={opsImage}
-            alt="Página en construcción"
+            alt="Página no encontrada"
             sx={{
-              width: { xs: 200, sm: 280, md: 320 },
+              width: { xs: 200, sm: 250, md: 300 },
               height: 'auto',
               filter: isDarkMode 
                 ? 'drop-shadow(0 0 20px rgba(34, 211, 238, 0.3))'
@@ -55,64 +68,60 @@ export default function NotFound() {
           />
         </motion.div>
 
-        {/* Contenido principal */}
+        {/* Contenido - Derecha */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          style={{ flexGrow: 1 }}
         >
-          <Box sx={{ ...glassStyle, p: 4, borderRadius: 4, mb: 4 }}>
+          <Box sx={{ ...glassStyle, p: 3 }}>
             
-            {/* Icono de construcción */}
-            <motion.div
-              animate={{ 
-                rotate: [0, -10, 10, -5, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity,
-                repeatDelay: 3
-              }}
-            >
-              <ConstructionIcon 
-                sx={{ 
-                  fontSize: 60, 
-                  color: isDarkMode ? '#22d3ee' : '#3b82f6',
-                  mb: 2 
-                }} 
-              />
-            </motion.div>
-
-            {/* Título */}
-            <Typography 
-              variant="h1" 
-              sx={{
-                fontWeight: 800,
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
-                background: isDarkMode
-                  ? '#22d3ee'
-                  : 'linear-gradient(45deg, #1e40af 20%, #3b82f6 40%, #2563eb 60%, #1d4ed8 80%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                textShadow: isDarkMode
-                  ? '0 0 30px rgba(34, 211, 238, 0.6), 0 0 60px rgba(34, 211, 238, 0.3)'
-                  : '2px 2px 4px rgba(0, 0, 0, 0.1), 0 0 20px rgba(59, 130, 246, 0.1)',
-                mb: 2,
-              }}
-            >
-              404
-            </Typography>
+            {/* Icono y título en línea */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+              <motion.div
+                animate={{ 
+                  rotate: [0, -10, 10, 0],
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity,
+                }}
+              >
+                <ConstructionIcon 
+                  sx={{ 
+                    fontSize: 32, 
+                    color: isDarkMode ? '#22d3ee' : '#3b82f6',
+                  }} 
+                />
+              </motion.div>
+              
+              <Typography 
+                variant="h1" 
+                sx={{
+                  fontWeight: 800,
+                  fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
+                  background: isDarkMode
+                    ? 'linear-gradient(45deg, #22d3ee, #06b6d4)'
+                    : 'linear-gradient(45deg, #1e40af, #3b82f6)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  lineHeight: 1
+                }}
+              >
+                404
+              </Typography>
+            </Box>
 
             {/* Subtítulo */}
             <Typography 
-              variant="h4" 
+              variant="h5" 
               color="text.primary"
               sx={{ 
                 fontWeight: 600,
-                mb: 2,
-                fontSize: { xs: '1.5rem', md: '2rem' }
+                mb: 1,
+                fontSize: { xs: '1.3rem', sm: '1.5rem' }
               }}
             >
               {t('¡Ups! Página no encontrada')}
@@ -120,109 +129,74 @@ export default function NotFound() {
 
             {/* Mensaje */}
             <Typography 
-              variant="h6" 
+              variant="body1" 
               color="text.secondary"
               sx={{ 
-                mb: 4,
-                fontSize: { xs: '1rem', md: '1.25rem' },
-                lineHeight: 1.6
+                mb: 3,
+                lineHeight: 1.5,
+                fontSize: { xs: '0.9rem', sm: '1rem' }
               }}
             >
               {t('Esta sección está en construcción. Estamos trabajando duro para traerte algo increíble muy pronto.')}
             </Typography>
 
-            {/* Botones de acción */}
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+            {/* Botones compactos */}
+            <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
               <Button
                 variant="contained"
-                size="large"
+                size="medium"
                 startIcon={<HomeIcon />}
                 onClick={() => navigate('/home')}
                 sx={{
-                  background: 'linear-gradient(45deg, #22d3ee 30%, #06b6d4 90%)',
-                  px: 4,
-                  py: 1.5,
+                  background: 'linear-gradient(45deg, #22d3ee, #06b6d4)',
+                  px: 3,
+                  py: 1,
                   fontWeight: 600,
+                  fontSize: '0.9rem',
                   '&:hover': {
-                    background: 'linear-gradient(45deg, #06b6d4 30%, #0891b2 90%)',
+                    background: 'linear-gradient(45deg, #06b6d4, #0891b2)',
                   }
                 }}
               >
-                {t('Volver al Inicio')}
+                {t('Inicio')}
               </Button>
               
               <Button
                 variant="outlined"
-                size="large"
+                size="medium"
                 onClick={() => navigate(-1)}
                 sx={{
                   borderColor: isDarkMode ? '#22d3ee' : '#3b82f6',
                   color: isDarkMode ? '#22d3ee' : '#3b82f6',
-                  px: 4,
-                  py: 1.5,
+                  px: 3,
+                  py: 1,
                   fontWeight: 600,
+                  fontSize: '0.9rem',
                   '&:hover': {
                     borderColor: isDarkMode ? '#06b6d4' : '#2563eb',
                     backgroundColor: isDarkMode ? 'rgba(34, 211, 238, 0.1)' : 'rgba(59, 130, 246, 0.1)',
                   }
                 }}
               >
-                {t('Volver Atrás')}
+                {t('Atrás')}
               </Button>
             </Box>
-          </Box>
 
-          {/* Mensaje adicional animado */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
+            {/* Mensaje pequeño */}
             <Typography 
-              variant="body2" 
+              variant="caption" 
               color="text.secondary"
               sx={{ 
-                fontStyle: 'italic',
-                mt: 2,
-                opacity: 0.8
+                display: 'block',
+                mt: 1,
+                opacity: 0.7,
+                fontSize: '0.8rem'
               }}
             >
-              {t('Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?')}
+              {t('Mientras tanto, explora el resto del portfolio')}
             </Typography>
-          </motion.div>
+          </Box>
         </motion.div>
-
-        {/* Elementos decorativos flotantes */}
-        <Box sx={{ position: 'relative', mt: 6 }}>
-          {[1, 2, 3].map((item) => (
-            <motion.div
-              key={item}
-              style={{
-                position: 'absolute',
-                left: `${item * 25}%`,
-                top: 0,
-              }}
-              animate={{
-                y: [0, -20, 0],
-                opacity: [0.3, 0.7, 0.3],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: item * 0.5,
-                ease: "easeInOut"
-              }}
-            >
-              <ConstructionIcon 
-                sx={{ 
-                  fontSize: 24, 
-                  color: isDarkMode ? '#22d3ee' : '#3b82f6',
-                  opacity: 0.5
-                }} 
-              />
-            </motion.div>
-          ))}
-        </Box>
       </Box>
     </Container>
   );

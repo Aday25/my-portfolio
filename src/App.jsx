@@ -18,6 +18,7 @@ import Certificates from './pages/Certificates';
 import Bootcamp from './pages/Bootcamp';
 import Personal from './pages/Personal';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound'
 
 // Componente de portada minimalista
 const CoverPage = () => {
@@ -140,6 +141,7 @@ function App() {
               <Route path="/bootcamp" element={<Bootcamp />} />
               <Route path="/personal" element={<Personal />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/not-found" element={<NotFound />} />
 
               {/* Portada minimalista */}
               <Route path="/" element={<CoverPage />} />
