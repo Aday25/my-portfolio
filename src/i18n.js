@@ -15,6 +15,7 @@ const resources = {
       "Contacto": "Contact",
       "Idioma": "Language",
       "Descargar CV": "Download CV",
+      "Comenzar": "Start",
 
       // Modal CV
       "Selecciona el CV": "Select the CV",
@@ -75,6 +76,7 @@ const resources = {
       "Comprometida con el aprendizaje continuo y la excelencia en el desarrollo de software": "Committed to continuous learning and excellence in software development",
 
       //projects
+      "Personales": "Personals",
       "Mis Proyectos": "My Projects",
       "Explora mi trabajo organizado por categorías": "Explore my work organized by categories",
       "👩🏼‍🎓 Bootcamp": "👩🏼‍🎓 Bootcamp",
@@ -104,7 +106,7 @@ const resources = {
       "SprintFlow": "SprintFlow",
       "Sistema de gestión ágil para equipos de desarrollo con métricas en tiempo real.": "Agile management system for development teams with real-time metrics.",
       "El Gran Azul": "The Great Blue",
-      "Aplicación web sobre conservación marina desarrollada con TypeScript y Material UI.": "Web application about marine conservation developed with TypeScript and Material UI.",
+      "Aplicación web sobre la biología marina desarrollada con TypeScript y Material UI.": "Web application about marine conservation developed with TypeScript and Material UI.",
       "Noctiluca Backend": "Noctiluca Backend",
       "API RESTful para posts de mariposas con MySQL/MongoDB. Fui Scrum Master y Developer.": "RESTful API for butterfly posts with MySQL/MongoDB. I was Scrum Master and Developer.",
       "Tarot Científico": "Scientific Tarot",
@@ -352,6 +354,7 @@ const resources = {
       "Cancelar": "Cancelar",
 
       //Bienvenida
+      "Comenzar": "Comenzar",
 
       "Portada del portfolio": "Portada del portfolio",
 "¡Bienvenid@!": "¡Bienvenid@!",
@@ -390,6 +393,7 @@ const resources = {
       "Comprometida con el aprendizaje continuo y la excelencia en el desarrollo de software": "Comprometida con el aprendizaje continuo y la excelencia en el desarrollo de software",
 
       //proyectos
+      "Personales": "Personales",
       "Mis Proyectos": "Mis Proyectos",
       "Explora mi trabajo organizado por categorías": "Explora mi trabajo organizado por categorías",
       "👩🏼‍🎓 Bootcamp": "👩🏼‍🎓 Bootcamp",
@@ -417,7 +421,7 @@ const resources = {
       "SprintFlow": "SprintFlow",
       "Sistema de gestión ágil para equipos de desarrollo con métricas en tiempo real.": "Sistema de gestión ágil para equipos de desarrollo con métricas en tiempo real.",
       "El Gran Azul": "El Gran Azul",
-      "Aplicación web sobre conservación marina desarrollada con TypeScript y Material UI.": "Aplicación web sobre conservación marina desarrollada con TypeScript y Material UI.",
+      "Aplicación web sobre la biología marina desarrollada con TypeScript y Material UI.": "Aplicación web sobre la biología marina desarrollada con TypeScript y Material UI.",
       "Noctiluca Backend": "Noctiluca Backend",
       "API RESTful para posts de mariposas con MySQL/MongoDB. Fui Scrum Master y Developer.": "API RESTful para posts de mariposas con MySQL/MongoDB. Fui Scrum Master y Developer.",
       "Tarot Científico": "Tarot Científico",
