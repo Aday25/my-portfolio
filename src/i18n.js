@@ -17,7 +17,7 @@ const resources = {
       "Descargar CV": "Download CV",
 
       // Modal CV
-      "Selecciona tu CV": "Select your CV",
+      "Selecciona el CV": "Select the CV",
       "CV en Español": "CV in Spanish",
       "CV en Inglés": "CV in English",
       "Descargar": "Download",
@@ -345,7 +345,7 @@ const resources = {
       "Descargar CV": "Descargar CV",
 
       // Modal CV
-      "Selecciona tu CV": "Selecciona tu CV",
+      "Selecciona el CV": "Selecciona el CV",
       "CV en Español": "CV en Español",
       "CV en Inglés": "CV en Inglés",
       "Descargar": "Descargar",

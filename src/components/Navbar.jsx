@@ -98,7 +98,7 @@ export default function Navbar() {
       }}>
         <CardContent sx={{ textAlign: 'center', py: 3 }}>
           <Typography variant="h5" gutterBottom>
-            {t('Selecciona tu CV')}
+            {t('Selecciona el CV')}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {t('Elige la versión del CV que deseas descargar')}
