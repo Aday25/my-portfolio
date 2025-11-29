@@ -51,8 +51,11 @@ export default function About() {
       <Box sx={{
         py: 4,
         px: { xs: 2, sm: 3 },
+        minHeight: 'calc(100vh - 140px)', // Asegura que ocupe el espacio mínimo
+        display: 'flex',
+        flexDirection: 'column',
       }}>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
           {/* Header simple */}
           <Box sx={{ mb: 6 }}>
             <AnimatedTitle>
@@ -69,6 +72,7 @@ export default function About() {
               justifyContent: 'center',
               alignItems: 'stretch',
               flexWrap: { xs: 'nowrap', md: 'nowrap' },
+              flex: 1,
             }}
           >
             {sections.map((section, index) => (
@@ -90,7 +94,7 @@ export default function About() {
                   }}
                   sx={{
                     height: '100%',
-                    cursor: 'pointer',
+                    cursor: 'default',
                     border: `2px solid ${section.color}${isDarkMode ? '30' : '20'}`,
                     borderRadius: 3,
                     p: 3,
@@ -213,7 +217,8 @@ export default function About() {
               {t('Comprometida con el aprendizaje continuo y la excelencia en el desarrollo de software')}
             </Typography>
           </Box>
-         <ActionButtons
+          
+          <ActionButtons
             prevPage="/home"
             prevLabel="Inicio"
             nextPage="/projects"
