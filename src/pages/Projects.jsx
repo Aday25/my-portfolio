@@ -82,10 +82,10 @@ export default function ProjectsMain() {
         </Typography>
       </Box>
 
-      {/* Grid con diseño horizontal - UNA AL LADO DE LA OTRA */}
-      <Grid container spacing={4} justifyContent="center" alignItems="stretch">
+      {/* Grid con diseño responsive */}
+      <Grid container spacing={4} justifyContent="center" alignItems="stretch" sx={{ width: '100%' }}>
         {categories.map((category, index) => (
-          <Grid item xs={12} sm={10} md={5} lg={5} xl={4} key={category.id}>
+          <Grid item xs={12} md={6} lg={5} xl={4} key={category.id}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ export default function ProjectsMain() {
                 y: -6,
                 transition: { duration: 0.2 }
               }}
-              style={{ height: '100%' }}
+              style={{ height: '100%', display: 'flex', justifyContent: 'center' }}
             >
               <Card
                 sx={{
@@ -103,17 +103,18 @@ export default function ProjectsMain() {
                   overflow: 'hidden',
                   border: `2px solid ${category.color}${isDarkMode ? '30' : '20'}`,
                   borderRadius: 3,
-                  p: 3,
+                  p: { xs: 2, md: 3 },
                   background: isDarkMode
                     ? `linear-gradient(135deg, ${category.color}15, ${category.color}10)`
                     : `linear-gradient(135deg, ${category.color}08, ${category.color}05)`,
                   backdropFilter: 'blur(10px)',
-                  height: 320,
+                  height: { xs: 'auto', md: 320 },
                   width: '100%',
-                  maxWidth: '480px',
+                  maxWidth: { xs: '100%', md: '480px' },
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: 3,
+                  flexDirection: { xs: 'column', md: 'row' },
+                  alignItems: { xs: 'center', md: 'center' },
+                  gap: { xs: 2, md: 3 },
                   mx: 'auto',
                   '&:hover': {
                     border: `2px solid ${category.color}${isDarkMode ? '50' : '40'}`,
@@ -134,31 +135,50 @@ export default function ProjectsMain() {
                 }}
                 onClick={() => navigate(category.route)}
               >
-                {/* Avatar circular a la izquierda */}
-                <Box sx={{ flexShrink: 0 }}>
+                {/* Avatar - Responsive */}
+                <Box sx={{ 
+                  flexShrink: 0,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: { xs: '100%', md: 'auto' }
+                }}>
                   <Avatar
                     src={category.image}
                     sx={{
-                      width: 130,
-                      height: 130,
+                      width: { xs: 120, md: 130 },
+                      height: { xs: 120, md: 130 },
                       border: `4px solid ${category.color}${isDarkMode ? '40' : '30'}`,
                       boxShadow: `0 6px 24px ${category.color}${isDarkMode ? '40' : '30'}`,
                     }}
                   />
                 </Box>
 
-                {/* Contenido a la derecha */}
-                <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+                {/* Contenido */}
+                <Box sx={{ 
+                  flexGrow: 1, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between', 
+                  height: { xs: 'auto', md: '100%' },
+                  width: { xs: '100%', md: 'auto' },
+                  textAlign: { xs: 'center', md: 'left' }
+                }}>
                   {/* Header y descripción */}
                   <Box>
-                    {/* Título con tu imagen personalizada como "emoji" */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                    {/* Título con imagen personalizada */}
+                    <Box sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: 1, 
+                      mb: 2,
+                      justifyContent: { xs: 'center', md: 'flex-start' }
+                    }}>
                       <Box
                         component="img"
                         src={category.emojiImage}
                         sx={{
-                          width: 42,
-                          height: 50,
+                          width: { xs: 48, md: 42 },
+                          height: { xs: 56, md: 50 },
                           borderRadius: '10%',
                           border: `2px solid ${category.color}${isDarkMode ? '40' : '30'}`,
                         }}
@@ -168,7 +188,7 @@ export default function ProjectsMain() {
                         sx={{ 
                           fontWeight: 'bold', 
                           color: category.color, 
-                          fontSize: '1.7rem', 
+                          fontSize: { xs: '1.8rem', md: '1.7rem' }, 
                           textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
                         }}
                       >
@@ -176,13 +196,18 @@ export default function ProjectsMain() {
                       </Typography>
                     </Box>
                     
-                    <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: '600', mb: 1.5, fontSize: '1rem' }}>
+                    <Typography variant="h6" sx={{ 
+                      color: 'text.secondary', 
+                      fontWeight: '600', 
+                      mb: 1.5, 
+                      fontSize: { xs: '1.1rem', md: '1rem' } 
+                    }}>
                       {t(category.subtitle)}
                     </Typography>
                     <Typography variant="body1" color="text.secondary" sx={{
                       lineHeight: 1.4,
                       fontWeight: 'bold',
-                      fontSize: '0.9rem',
+                      fontSize: { xs: '0.95rem', md: '0.9rem' },
                       mb: 2
                     }}>
                       {t(category.description)}
@@ -191,10 +216,18 @@ export default function ProjectsMain() {
 
                   {/* Tecnologías destacadas */}
                   <Box sx={{ mb: 2 }}>
-                    <Typography variant="subtitle2" color="text.secondary" display="block" gutterBottom sx={{ fontWeight: 'bold', fontSize: '0.85rem' }}>
+                    <Typography variant="subtitle2" color="text.secondary" display="block" gutterBottom sx={{ 
+                      fontWeight: 'bold', 
+                      fontSize: { xs: '0.9rem', md: '0.85rem' } 
+                    }}>
                       {t('TECNOLOGÍAS DESTACADAS:')}
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 0.6, flexWrap: 'wrap' }}>
+                    <Box sx={{ 
+                      display: 'flex', 
+                      gap: 0.6, 
+                      flexWrap: 'wrap',
+                      justifyContent: { xs: 'center', md: 'flex-start' }
+                    }}>
                       {category.technologies.map((tech) => (
                         <Chip
                           key={tech}
@@ -202,8 +235,8 @@ export default function ProjectsMain() {
                           size="small"
                           variant="filled"
                           sx={{
-                            fontSize: '0.75rem',
-                            height: '24px',
+                            fontSize: { xs: '0.8rem', md: '0.75rem' },
+                            height: { xs: '26px', md: '24px' },
                             backgroundColor: category.color,
                             color: '#ffffff',
                             fontWeight: 600,
@@ -217,7 +250,12 @@ export default function ProjectsMain() {
                   </Box>
 
                   {/* Información inferior */}
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    justifyContent: { xs: 'center', md: 'space-between' }, 
+                    alignItems: 'flex-end',
+                    mt: { xs: 1, md: 0 }
+                  }}>
                     {/* Contador de proyectos */}
                     <Box>
                       <Typography
@@ -225,7 +263,7 @@ export default function ProjectsMain() {
                         sx={{
                           color: category.color,
                           fontWeight: 'bold',
-                          fontSize: '1.2rem',
+                          fontSize: { xs: '1.3rem', md: '1.2rem' },
                           textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
                         }}
                       >
@@ -245,6 +283,7 @@ export default function ProjectsMain() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
+        style={{ width: '100%' }}
       >
         <Typography
           variant="body1"
@@ -253,7 +292,7 @@ export default function ProjectsMain() {
           sx={{
             mt: 4,
             fontStyle: 'italic',
-            fontSize: '1rem'
+            fontSize: { xs: '1.1rem', md: '1rem' }
           }}
         >
           {t('👉 Selecciona una categoría para explorar los proyectos')}
