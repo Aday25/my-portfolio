@@ -16,16 +16,27 @@ export default function Home() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       textAlign="center"
-      sx={{ mt: 5, px: 2 }}
+      sx={{
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '60vh',
+        px: 2,
+        // Fondo transparente - el acuario se verá detrás
+        backgroundColor: 'transparent',
+      }}
     >
       <Avatar
         src={avatarImg}
         alt="Aday Álvarez"
         sx={{
-          width: 180,
-          height: 180,
+          width: { xs: 120, md: 180 },
+          height: { xs: 120, md: 180 },
           mx: 'auto',
           mb: 2,
+          mt: 4,
           border: '4px solid',
           borderColor: 'primary.main',
           boxShadow: '0 0 10px rgba(25, 118, 210, 0.6)',
@@ -37,7 +48,17 @@ export default function Home() {
         }}
       />
 
-      <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold', letterSpacing: 1 }}>
+      <Typography
+        variant="h3"
+        gutterBottom
+        sx={{
+          fontWeight: 'bold',
+          letterSpacing: 1,
+          fontSize: { xs: '2rem', md: '3rem' },
+          // Usa los colores del tema, no fijos
+          color: 'text.primary',
+        }}
+      >
         {t('¡Hola! Mi nombre es Aday')}
       </Typography>
 
@@ -50,6 +71,7 @@ export default function Home() {
           maxWidth: 600,
           mx: 'auto',
           lineHeight: 1.6,
+          fontSize: { xs: '1rem', md: '1.25rem' }
         }}
       >
         {t('Programar y diseñar experiencias web me motiva muchísimo. Es un entorno tan creativo que siempre estoy construyendo algo nuevo. Aquí encontrarás la recopilación de todos mis proyectos.')}
@@ -59,7 +81,7 @@ export default function Home() {
         variant="contained"
         size="large"
         onClick={() => navigate('/about')}
-        sx={{ 
+        sx={{
           mb: 3,
           px: 4,
           py: 1.5,

@@ -27,24 +27,13 @@ const CoverPage = () => {
   const handleStart = () => {
     console.log('🚀 Botón Comenzar presionado');
     
-    // Verificar que audioPlayer esté disponible
     if (window.audioPlayer) {
       console.log('🎵 window.audioPlayer encontrado');
-      console.log('📊 Estado actual:', window.audioPlayer.getState());
-      
-      // Inicializar y reproducir
       window.audioPlayer.play();
-      
-      // Verificar estado después de reproducir
-      setTimeout(() => {
-        console.log('📊 Estado después de play():', window.audioPlayer.getState());
-      }, 500);
     } else {
       console.error('❌ window.audioPlayer NO está disponible');
-      console.log('🔍 Objetos disponibles en window:', Object.keys(window).filter(k => k.includes('audio')));
     }
     
-    // Navegar a home
     window.location.href = '/#/home';
   };
 
@@ -66,7 +55,6 @@ const CoverPage = () => {
           transition={{ duration: 0.8 }}
           style={{ textAlign: 'center' }}
         >
-          {/* Avatar circular con imagen */}
           <motion.div
             whileHover={{ scale: 1.02 }}
           >
@@ -84,7 +72,6 @@ const CoverPage = () => {
             />
           </motion.div>
 
-          {/* Título de bienvenida */}
           <Typography
             variant="h3"
             sx={{
@@ -96,7 +83,6 @@ const CoverPage = () => {
             {t('¡Bienvenid@!')}
           </Typography>
 
-          {/* Botón comenzar pequeño */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -127,11 +113,37 @@ function App() {
     <Router>
       <ScrollToTop />
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        minHeight: '100vh',
+        // Fondo que se aplicará detrás del acuario
+        background: 'transparent',
+      }}>
         <Navbar />
 
-        <Box component="main" sx={{ flexGrow: 1, mt: 8, mb: 2 }}>
-          <Container maxWidth="xl" sx={{ flexGrow: 1, py: 3, pb: { xs: 2, md: 1 } }}>
+        {/* Contenido principal con altura flexible */}
+        <Box 
+          component="main" 
+          sx={{ 
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            mt: 8, // Para el navbar fijo
+            minHeight: 'calc(100vh - 140px)', // Altura mínima menos navbar y footer
+          }}
+        >
+          <Container 
+            maxWidth="xl" 
+            sx={{ 
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              py: 3,
+              px: { xs: 2, sm: 3, md: 4 },
+              pb: { xs: 2, md: 1 }
+            }}
+          >
             <Routes>
               <Route path="/home" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -142,10 +154,7 @@ function App() {
               <Route path="/personal" element={<Personal />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/not-found" element={<NotFound />} />
-
-              {/* Portada minimalista */}
               <Route path="/" element={<CoverPage />} />
-
               <Route path="*" element={<Navigate to="/home" replace />} />
             </Routes>
           </Container>

@@ -227,6 +227,7 @@ export default function RealisticAquarium({ children, isDarkMode }) {
             ? 'linear-gradient(180deg, #071a2e 0%, #0a2c4e 40%, #02101f 100%)'
             : 'linear-gradient(180deg, #58b2ff 0%, #7ecbff 40%, #1e90ff 100%)',
           transition: 'background 0.5s ease',
+          pointerEvents: 'none', // Añadido para no interferir con clicks
         }}
       >
         {/* Fondo rocoso */}
@@ -276,7 +277,13 @@ export default function RealisticAquarium({ children, isDarkMode }) {
       </div>
 
       {/* ===== CONTENIDO PRINCIPAL ===== */}
-      <div style={{ position: 'relative', zIndex: 10, minHeight: '100vh' }}>
+      <div style={{ 
+        position: 'relative', 
+        zIndex: 10, 
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
         {children}
       </div>
     </>

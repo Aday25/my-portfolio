@@ -333,7 +333,7 @@ const resources = {
     translation: {
       // (Todo el contenido en español se mantiene igual que en tu código original)
       // Solo incluyo algunas secciones clave para mostrar la estructura
-      
+
       // Navbar
       "Inicio": "Inicio",
       "Sobre mí": "Sobre mí",
