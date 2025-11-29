@@ -1,9 +1,10 @@
-// ACUARIO REALISTA - VERSIÓN FINAL
+// ACUARIO REALISTA - VERSIÓN FINAL OPTIMIZADA PARA MÓVIL
 // Inspirado en animaciones submarinas profesionales
 // - Cada pez aparece UNA SOLA VEZ (no duplicados)
 // - Los peces se voltean al cambiar dirección
 // - Movimiento continuo, sin parones
 // - No se reinician al cambiar tema dark/light
+// - Scroll perfecto en móvil sin fondos blancos
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
@@ -208,8 +209,28 @@ export default function RealisticAquarium({ children, isDarkMode }) {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
+
+    // SOLUCIÓN DEFINITIVA PARA MÓVIL: Fondo fijo que cubre todo
+    const setBodyBackground = () => {
+      document.body.style.background = isDarkMode
+        ? 'linear-gradient(180deg, #071a2e 0%, #0a2c4e 40%, #02101f 100%)'
+        : 'linear-gradient(180deg, #58b2ff 0%, #7ecbff 40%, #1e90ff 100%)';
+      document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.minHeight = '100vh';
+    };
+
+    setBodyBackground();
+
+    return () => {
+      window.removeEventListener('resize', check);
+      // Limpiar estilos al desmontar
+      document.body.style.background = '';
+      document.body.style.backgroundAttachment = '';
+      document.body.style.backgroundSize = '';
+      document.body.style.minHeight = '';
+    };
+  }, [isDarkMode]);
 
   return (
     <>
@@ -227,7 +248,10 @@ export default function RealisticAquarium({ children, isDarkMode }) {
             ? 'linear-gradient(180deg, #071a2e 0%, #0a2c4e 40%, #02101f 100%)'
             : 'linear-gradient(180deg, #58b2ff 0%, #7ecbff 40%, #1e90ff 100%)',
           transition: 'background 0.5s ease',
-          pointerEvents: 'none', // Añadido para no interferir con clicks
+          pointerEvents: 'none',
+          // Asegura que cubre toda el área de scroll
+          minHeight: '100vh',
+          height: '100%',
         }}
       >
         {/* Fondo rocoso */}
@@ -283,6 +307,8 @@ export default function RealisticAquarium({ children, isDarkMode }) {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        // Fondo completamente transparente
+        background: 'transparent',
       }}>
         {children}
       </div>
