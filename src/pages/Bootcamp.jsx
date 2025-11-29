@@ -26,8 +26,13 @@ import sprintflowImg from '../assets/projects/sprintflow.jpg';
 import noctilucaImg from '../assets/projects/noctiluca.jpg';
 
 // Importar videos demo directamente
+import demoSprintflow from '../assets/demos/demo-sprintflow.mp4';
 import demoChompy from '../assets/demos/demo-chompy.mp4';
+import demoNectara from '../assets/demos/demo-nectara.mp4';
+import demoCinema from '../assets/demos/demo-cinema.mp4';
 import demoTarot from '../assets/demos/demo-tarot.mp4';
+import demoBooks from '../assets/demos/demo-books.mp4';
+import demoNitrogeno from '../assets/demos/demo-nitrogeno.mp4';
 import demoPiedras from '../assets/demos/demo-piedras.mp4';
 
 // Array con proyectos del bootcamp
@@ -38,7 +43,7 @@ const bootcampProjectsData = [
     description: 'Sistema de gestión ágil para equipos de desarrollo con métricas en tiempo real.',
     image: sprintflowImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Material UI', 'JWT'],
-    demoUrl: '/not-found',
+    demoVideo: demoSprintflow,
     webUrl: 'https://sprint-flow-client-kqk8.vercel.app/',
     githubUrl: 'https://github.com/SprintFlow',
     category: 'fullstack',
@@ -134,7 +139,7 @@ const bootcampProjectsData = [
     description: 'Proyecto full-stack para gestión de contenidos y recursos digitales.',
     image: nectaraImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    demoUrl: '/not-found',
+    demoVideo: demoNectara,
     webUrl: 'https://front-nectara-t9br.vercel.app/',
     githubUrl: 'https://github.com/Aday25/nectara',
     category: 'fullstack',
@@ -149,7 +154,7 @@ const bootcampProjectsData = [
     description: 'Sistema de gestión para cine al aire libre con operaciones CRUD completas.',
     image: outdoorCinemaImg,
     technologies: ['JavaScript', 'CRUD', 'Bootstrap', 'API Fetch'],
-    demoUrl: 'https://aday25.github.io/outdoor-cinema-crud/',
+    demoVideo: demoCinema,
     webUrl: 'https://aday25.github.io/outdoor-cinema-crud/',
     githubUrl: 'https://github.com/Aday25/outdoor-cinema-crud',
     category: 'javascript',
@@ -164,7 +169,7 @@ const bootcampProjectsData = [
     description: 'Aplicación de gestión de libros desarrollada con JavaScript vanilla.',
     image: bookAppImg,
     technologies: ['JavaScript', 'HTML5', 'CSS3', 'Local Storage'],
-    demoUrl: 'https://aday25.github.io/book-app-vanilla/',
+    demoVideo: demoBooks,
     webUrl: 'https://aday25.github.io/book-app-vanilla/',
     githubUrl: 'https://github.com/Aday25/book-app-vanilla',
     category: 'javascript',
@@ -179,8 +184,8 @@ const bootcampProjectsData = [
     description: 'Web educativa sobre las propiedades del nitrógeno. Desarrollé la sección Historia.',
     image: nitrogenoImg,
     technologies: ['HTML5', 'CSS3', 'JavaScript', 'Team Work'],
-    demoUrl: 'https://aday25.github.io/nitrogeno/',
-    webUrl: 'https://aday25.github.io/nitrogeno/',
+    demoVideo: 'https://aday25.github.io/nitrogeno/',
+    webUrl: demoNitrogeno,
     githubUrl: 'https://github.com/Aday25/nitrogeno',
     category: 'fundamentos',
     date: 'Jun 2025',
@@ -195,7 +200,7 @@ const bootcampProjectsData = [
     description: 'Web homenaje a mujeres pioneras en la ciencia oceánica.',
     image: piedrasAngularesImg,
     technologies: ['HTML5', 'CSS3', 'Grid', 'Flexbox', 'Responsive Design'],
-    demoVideo: demoPiedras, // Video importado directamente
+    demoVideo: demoPiedras,
     webUrl: 'https://aday25.github.io/Piedras-angulares/',
     githubUrl: 'https://github.com/Aday25/Piedras-angulares',
     category: 'fundamentos',
@@ -346,7 +351,7 @@ export default function BootcampProjects() {
                 />
 
                 {/* Badges */}
-                <Box sx={{ position: 'absolute', top: 12, right: 10, zIndex: 2, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                <Box sx={{ position: 'absolute', top: 12, right: 10, zIndex: 2, display: 'flex', flexDirection: 'arrow', gap: 0.5 }}>
                   {project.featured && (
                     <Chip
                       label={t('⭐ Destacado')}
