@@ -16,7 +16,7 @@ const categories = [
     subtitle: 'Full Stack & DevOps',
     description: 'Proyectos desarrollados durante el bootcamp de Factoria F5, tecnologías modernas y metodologías ágiles.',
     image: bootcampCover,
-    emojiImage: bootcampGirl, // Tu imagen personalizada como "emoji"
+    emojiImage: bootcampGirl,
     color: '#ed6c02',
     technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
     count: '11 Proyectos',
@@ -28,7 +28,7 @@ const categories = [
     subtitle: 'Iniciativas propias',
     description: 'Proyectos independientes donde exploro nuevas tecnologías y desarrollo mis propias ideas.',
     image: personalesCover,
-    emojiImage: personalGirl, // Tu imagen personalizada como "emoji"
+    emojiImage: personalGirl,
     color: '#1976d2',
     technologies: ['React', 'JavaScript', 'MUI', 'TypeScript'],
     count: '6 Proyectos',
@@ -139,8 +139,8 @@ export default function ProjectsMain() {
                   <Avatar
                     src={category.image}
                     sx={{
-                      width: 140,
-                      height: 140,
+                      width: 130,
+                      height: 130,
                       border: `4px solid ${category.color}${isDarkMode ? '40' : '30'}`,
                       boxShadow: `0 6px 24px ${category.color}${isDarkMode ? '40' : '30'}`,
                     }}
@@ -177,7 +177,7 @@ export default function ProjectsMain() {
                     </Box>
                     
                     <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: '600', mb: 1.5, fontSize: '1rem' }}>
-                      {category.subtitle}
+                      {t(category.subtitle)}
                     </Typography>
                     <Typography variant="body1" color="text.secondary" sx={{
                       lineHeight: 1.4,
@@ -185,7 +185,7 @@ export default function ProjectsMain() {
                       fontSize: '0.9rem',
                       mb: 2
                     }}>
-                      {category.description}
+                      {t(category.description)}
                     </Typography>
                   </Box>
 
@@ -229,7 +229,7 @@ export default function ProjectsMain() {
                           textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
                         }}
                       >
-                        {category.count}
+                        {t(category.count)}
                       </Typography>
                     </Box>
                   </Box>
