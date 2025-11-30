@@ -6,7 +6,6 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useNavigate } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useTranslation } from 'react-i18next';
 import { AnimatedTitle } from '../components/AnimatedTitle';
 import ActionButtons from '../components/ActionButtons';
@@ -17,8 +16,6 @@ import materialImg from '../assets/projects/material.jpg';
 import pasteleriaImg from '../assets/projects/pasteleria.jpg';
 import yukiImg from '../assets/projects/yuki.jpg';
 import ibaiImg from '../assets/projects/ibai.jpg';
-
-import demoIbai from '../assets/demos/demo-ibai.mp4';
 
 const pildorasFormativasData = [
   {
@@ -43,7 +40,7 @@ const pildorasFormativasData = [
     image: ibaiImg,
     technologies: ['JavaScript', 'CSS3', 'Animaciones', 'HTML5', 'Web Audio API'],
     webUrl: 'https://aday25.github.io/demo-ibai/',
-    demoVideo: demoIbai,
+    demoUrl: 'https://www.canva.com/design/DAG6LBeDOxI/uoqZ2og81bUs-SmxxChiAQ/view?utm_content=DAG6LBeDOxI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd62b13c003',
     githubUrl: 'https://github.com/Aday25/demo-ibai',
     category: 'demostracion',
     date: 'Sep 2025',
@@ -112,8 +109,6 @@ const pildorasFormativasData = [
 export default function PildorasFormativas() {
   const [openModal, setOpenModal] = useState(false);
   const [modalImg, setModalImg] = useState('');
-  const [openVideoModal, setOpenVideoModal] = useState(false);
-  const [currentVideo, setCurrentVideo] = useState('');
   const navigate = useNavigate();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -137,45 +132,23 @@ export default function PildorasFormativas() {
     setModalImg('');
   };
 
-  const handleOpenVideoModal = (video) => {
-    console.log('🎵 Estado actual del audio:', window.audioPlayer?.getState?.());
-
-    // Pausar la música si está reproduciéndose
+  // Función para pausar la música
+  const pauseMusic = () => {
     if (window.audioPlayer && window.audioPlayer.getState) {
       const audioState = window.audioPlayer.getState();
-      console.log('🎵 Estado del audio:', audioState);
-
       if (audioState.playing) {
-        console.log('🎵 Pausando música para reproducir demo');
+        console.log('🎵 Pausando música para abrir demo externo');
         window.audioPlayer.pause();
-      }
-    }
-
-    setCurrentVideo(video);
-    setOpenVideoModal(true);
-  };
-
-  const handleCloseVideoModal = () => {
-    setOpenVideoModal(false);
-    setCurrentVideo('');
-
-    // Reanudar la música si estaba reproduciéndose antes
-    if (window.audioPlayer && window.audioPlayer.getState) {
-      const audioState = window.audioPlayer.getState();
-      if (!audioState.playing) {
-        console.log('🎵 Reanudando música después del demo');
-        setTimeout(() => {
-          window.audioPlayer.play();
-        }, 300);
       }
     }
   };
 
   // Funciones para manejar los clics en los botones
   const handleDemoClick = (project) => {
-    if (project.demoVideo) {
-      handleOpenVideoModal(project.demoVideo);
-    } else if (project.demoUrl.startsWith('/')) {
+    // Pausar música antes de abrir el enlace
+    pauseMusic();
+    
+    if (project.demoUrl.startsWith('/')) {
       navigate(project.demoUrl);
     } else if (project.demoUrl.startsWith('http')) {
       window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
@@ -218,416 +191,359 @@ export default function PildorasFormativas() {
         </Typography>
       </Box>
 
-      {/* Grid para proyectos - RESPONSIVE */ }
-  <Grid container spacing={3} justifyContent="center">
-    {pildorasFormativas.map((project, index) => (
-      <Grid item xs={12} sm={6} lg={4} xl={3} key={project.id}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          style={{ display: 'flex', justifyContent: 'center' }}
-        >
-          <Card sx={{
-            width: '100%',
-            maxWidth: { xs: '100%', sm: 350 },
-            height: { xs: 'auto', sm: 420 },
-            minHeight: { xs: 500, sm: 420 },
-            display: 'flex',
-            flexDirection: 'column',
-            border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-            borderRadius: 3,
-            p: { xs: 2, sm: 3 },
-            background: isDarkMode
-              ? `linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8))`
-              : `linear-gradient(135deg, ${alpha('#ed6c02', 0.08)}, ${alpha('#1976d2', 0.05)})`,
-            backdropFilter: 'blur(10px)',
-            position: 'relative',
-            overflow: 'visible',
-            '&:hover': {
-              border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'}`,
-              boxShadow: `0 8px 32px ${isDarkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
-              transform: 'translateY(-4px)',
-              transition: 'all 0.3s ease'
-            }
-          }}>
-            {/* Línea superior decorativa */}
-            <Box
-              sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '3px',
-                background: project.color,
-                borderRadius: '3px 3px 0 0'
-              }}
-            />
-
-            {/* Badges - RESPONSIVE */}
-            <Box sx={{
-              position: 'absolute',
-              top: 12,
-              right: 10,
-              zIndex: 2,
-              display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              gap: 0.5
-            }}>
-              {project.personal && (
-                <Chip
-                  label={t('⭐ Personal')}
-                  size="small"
-                  sx={{
-                    bgcolor: project.color,
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    fontSize: { xs: '0.65rem', sm: '0.7rem' },
-                    height: 22,
-                    '&:hover': {
-                      backgroundColor: alpha(project.color, 0.8),
-                    }
-                  }}
-                />
-              )}
-            </Box>
-
-            {/* Contenido reorganizado - RESPONSIVE */}
-            <Box sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              mb: 2,
-              flex: 1
-            }}>
-              {/* Fila superior: Avatar + Título y fecha */}
-              <Box sx={{
+      {/* Grid para proyectos - RESPONSIVE */}
+      <Grid container spacing={3} justifyContent="center">
+        {pildorasFormativas.map((project, index) => (
+          <Grid item xs={12} sm={6} lg={4} xl={3} key={project.id}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <Card sx={{
+                width: '100%',
+                maxWidth: { xs: '100%', sm: 350 },
+                height: { xs: 'auto', sm: 420 },
+                minHeight: { xs: 500, sm: 420 },
                 display: 'flex',
-                gap: 2,
-                alignItems: 'flex-start',
-                flexDirection: { xs: 'column', sm: 'row' }
+                flexDirection: 'column',
+                border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+                borderRadius: 3,
+                p: { xs: 2, sm: 3 },
+                background: isDarkMode
+                  ? `linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8))`
+                  : `linear-gradient(135deg, ${alpha('#ed6c02', 0.08)}, ${alpha('#1976d2', 0.05)})`,
+                backdropFilter: 'blur(10px)',
+                position: 'relative',
+                overflow: 'visible',
+                '&:hover': {
+                  border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'}`,
+                  boxShadow: `0 8px 32px ${isDarkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
+                  transform: 'translateY(-4px)',
+                  transition: 'all 0.3s ease'
+                }
               }}>
-                {/* Avatar circular */}
-                <Avatar
-                  src={project.image}
-                  onClick={() => handleOpenModal(project.image)}
+                {/* Línea superior decorativa */}
+                <Box
                   sx={{
-                    width: { xs: 70, sm: 80 },
-                    height: { xs: 70, sm: 80 },
-                    border: `3px solid ${project.color}${isDarkMode ? '40' : '30'}`,
-                    cursor: 'pointer',
-                    flexShrink: 0,
-                    alignSelf: { xs: 'center', sm: 'flex-start' },
-                    '&:hover': {
-                      border: `3px solid ${project.color}`,
-                      transform: 'scale(1.05)',
-                      transition: 'all 0.3s ease'
-                    }
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '3px',
+                    background: project.color,
+                    borderRadius: '3px 3px 0 0'
                   }}
                 />
 
-                {/* Título y fecha */}
+                {/* Badges - RESPONSIVE */}
                 <Box sx={{
-                  flexGrow: 1,
-                  minWidth: 0,
-                  pt: { xs: 0, sm: 1.5 },
-                  textAlign: { xs: 'center', sm: 'left' }
+                  position: 'absolute',
+                  top: 12,
+                  right: 10,
+                  zIndex: 2,
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  gap: 0.5
                 }}>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 'bold',
-                      color: project.color,
-                      mb: 0.5,
-                      lineHeight: 1.4,
-                      fontSize: { xs: '1.3rem', sm: '1.4rem' },
-                      textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
-                    }}
-                  >
-                    {project.title}
-                  </Typography>
+                  {project.personal && (
+                    <Chip
+                      label={t('⭐ Personal')}
+                      size="small"
+                      sx={{
+                        bgcolor: project.color,
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        fontSize: { xs: '0.65rem', sm: '0.7rem' },
+                        height: 22,
+                        '&:hover': {
+                          backgroundColor: alpha(project.color, 0.8),
+                        }
+                      }}
+                    />
+                  )}
+                </Box>
+
+                {/* Contenido reorganizado - RESPONSIVE */}
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                  mb: 2,
+                  flex: 1
+                }}>
+                  {/* Fila superior: Avatar + Título y fecha */}
+                  <Box sx={{
+                    display: 'flex',
+                    gap: 2,
+                    alignItems: 'flex-start',
+                    flexDirection: { xs: 'column', sm: 'row' }
+                  }}>
+                    {/* Avatar circular */}
+                    <Avatar
+                      src={project.image}
+                      onClick={() => handleOpenModal(project.image)}
+                      sx={{
+                        width: { xs: 70, sm: 80 },
+                        height: { xs: 70, sm: 80 },
+                        border: `3px solid ${project.color}${isDarkMode ? '40' : '30'}`,
+                        cursor: 'pointer',
+                        flexShrink: 0,
+                        alignSelf: { xs: 'center', sm: 'flex-start' },
+                        '&:hover': {
+                          border: `3px solid ${project.color}`,
+                          transform: 'scale(1.05)',
+                          transition: 'all 0.3s ease'
+                        }
+                      }}
+                    />
+
+                    {/* Título y fecha */}
+                    <Box sx={{
+                      flexGrow: 1,
+                      minWidth: 0,
+                      pt: { xs: 0, sm: 1.5 },
+                      textAlign: { xs: 'center', sm: 'left' }
+                    }}>
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          fontWeight: 'bold',
+                          color: project.color,
+                          mb: 0.5,
+                          lineHeight: 1.4,
+                          fontSize: { xs: '1.3rem', sm: '1.4rem' },
+                          textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
+                        }}
+                      >
+                        {project.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          fontStyle: 'italic',
+                          display: 'block',
+                          fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                        }}
+                      >
+                        {project.date} • {t(project.category)}
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  {/* Descripción */}
                   <Typography
                     variant="body2"
-                    color="text.secondary"
+                    color="text.primary"
                     sx={{
-                      fontStyle: 'italic',
-                      display: 'block',
-                      fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                      lineHeight: 1.5,
+                      fontSize: { xs: '0.85rem', sm: '1rem' },
+                      textAlign: { xs: 'center', sm: 'left' },
+                      flex: 1,
+                      mb: 1,
                     }}
                   >
-                    {project.date} • {t(project.category)}
+                    {project.description}
                   </Typography>
                 </Box>
-              </Box>
 
-              {/* Descripción */}
-              <Typography
-                variant="body2"
-                color="text.primary"
-                sx={{
-                  lineHeight: 1.5,
-                  fontSize: { xs: '0.85rem', sm: '1rem' },
-                  textAlign: { xs: 'center', sm: 'left' },
-                  flex: 1,
-                  mb: 1,
-                }}
-              >
-                {project.description}
-              </Typography>
-            </Box>
+                {/* Tecnologías - RESPONSIVE */}
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{
+                    fontWeight: 'bold',
+                    display: 'block',
+                    mb: 1,
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                  }}>
+                    {t('TECNOLOGÍAS:')}
+                  </Typography>
+                  <Box sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 0.5,
+                    justifyContent: { xs: 'center', sm: 'flex-start' }
+                  }}>
+                    {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                      <Chip
+                        key={techIndex}
+                        label={tech}
+                        size="small"
+                        variant="filled"
+                        sx={{
+                          mb: 0.5,
+                          fontSize: { xs: '0.65rem', sm: '0.7rem' },
+                          height: { xs: '22px', sm: '24px' },
+                          backgroundColor: project.color,
+                          color: '#fff',
+                          fontWeight: 500,
+                          '&:hover': {
+                            backgroundColor: alpha(project.color, 0.8),
+                          }
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Box>
 
-            {/* Tecnologías - RESPONSIVE */}
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="caption" color="text.secondary" sx={{
-                fontWeight: 'bold',
-                display: 'block',
-                mb: 1,
-                fontSize: { xs: '0.75rem', sm: '0.8rem' }
-              }}>
-                {t('TECNOLOGÍAS:')}
-              </Typography>
-              <Box sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 0.5,
-                justifyContent: { xs: 'center', sm: 'flex-start' }
-              }}>
-                {project.technologies.slice(0, 4).map((tech, techIndex) => (
-                  <Chip
-                    key={techIndex}
-                    label={tech}
+                {/* Características - RESPONSIVE */}
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{
+                    fontWeight: 'bold',
+                    display: 'block',
+                    mb: 1,
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                  }}>
+                    {t('CARACTERÍSTICAS:')}
+                  </Typography>
+                  <Box sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 0.5,
+                    justifyContent: { xs: 'center', sm: 'flex-start' }
+                  }}>
+                    {project.features.slice(0, 3).map((feature, i) => (
+                      <Chip
+                        key={i}
+                        label={feature}
+                        size="small"
+                        variant="filled"
+                        sx={{
+                          fontSize: { xs: '0.65rem', sm: '0.7rem' },
+                          height: { xs: '22px', sm: '24px' },
+                          backgroundColor: project.color,
+                          color: '#fff',
+                          fontWeight: 500,
+                          '&:hover': {
+                            backgroundColor: alpha(project.color, 0.8),
+                          }
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+
+                {/* Botones de acción - RESPONSIVE */}
+                <Box sx={{
+                  display: 'flex',
+                  gap: 1,
+                  mt: 'auto',
+                  flexDirection: { xs: 'column', sm: 'row' }
+                }}>
+                  <Button
+                    variant="contained"
                     size="small"
-                    variant="filled"
+                    onClick={() => handleWebClick(project.webUrl)}
+                    startIcon={<LaunchIcon sx={{ fontSize: 16 }} />}
                     sx={{
-                      mb: 0.5,
-                      fontSize: { xs: '0.65rem', sm: '0.7rem' },
-                      height: { xs: '22px', sm: '24px' },
-                      backgroundColor: project.color,
-                      color: '#fff',
-                      fontWeight: 500,
+                      flex: 1,
+                      bgcolor: project.color,
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                      py: { xs: 1, sm: 0.75 },
+                      fontWeight: '600',
                       '&:hover': {
-                        backgroundColor: alpha(project.color, 0.8),
+                        bgcolor: alpha(project.color, 0.8),
                       }
                     }}
-                  />
-                ))}
-              </Box>
-            </Box>
+                  >
+                    {t('Web')}
+                  </Button>
 
-            {/* Características - RESPONSIVE */}
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="caption" color="text.secondary" sx={{
-                fontWeight: 'bold',
-                display: 'block',
-                mb: 1,
-                fontSize: { xs: '0.75rem', sm: '0.8rem' }
-              }}>
-                {t('CARACTERÍSTICAS:')}
-              </Typography>
-              <Box sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 0.5,
-                justifyContent: { xs: 'center', sm: 'flex-start' }
-              }}>
-                {project.features.slice(0, 3).map((feature, i) => (
-                  <Chip
-                    key={i}
-                    label={feature}
+                  <Button
+                    variant="contained"
                     size="small"
-                    variant="filled"
+                    onClick={() => handleDemoClick(project)}
+                    startIcon={<PlayArrowIcon sx={{ fontSize: 16 }} />}
                     sx={{
-                      fontSize: { xs: '0.65rem', sm: '0.7rem' },
-                      height: { xs: '22px', sm: '24px' },
-                      backgroundColor: project.color,
-                      color: '#fff',
-                      fontWeight: 500,
+                      flex: 1,
+                      bgcolor: project.color,
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                      py: { xs: 1, sm: 0.75 },
+                      fontWeight: '600',
                       '&:hover': {
-                        backgroundColor: alpha(project.color, 0.8),
+                        bgcolor: alpha(project.color, 0.8),
                       }
                     }}
-                  />
-                ))}
-              </Box>
-            </Box>
+                  >
+                    {t('Demo')}
+                  </Button>
 
-            {/* Botones de acción - RESPONSIVE */}
-            <Box sx={{
-              display: 'flex',
-              gap: 1,
-              mt: 'auto',
-              flexDirection: { xs: 'column', sm: 'row' }
-            }}>
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => handleWebClick(project.webUrl)}
-                startIcon={<LaunchIcon sx={{ fontSize: 16 }} />}
-                sx={{
-                  flex: 1,
-                  bgcolor: project.color,
-                  fontSize: { xs: '0.7rem', sm: '0.75rem' },
-                  py: { xs: 1, sm: 0.75 },
-                  fontWeight: '600',
-                  '&:hover': {
-                    bgcolor: alpha(project.color, 0.8),
-                  }
-                }}
-              >
-                {t('Web')}
-              </Button>
-
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => handleDemoClick(project)}
-                startIcon={<PlayArrowIcon sx={{ fontSize: 16 }} />}
-                sx={{
-                  flex: 1,
-                  bgcolor: project.color,
-                  fontSize: { xs: '0.7rem', sm: '0.75rem' },
-                  py: { xs: 1, sm: 0.75 },
-                  fontWeight: '600',
-                  '&:hover': {
-                    bgcolor: alpha(project.color, 0.8),
-                  }
-                }}
-              >
-                {t('Demo')}
-              </Button>
-
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => handleGithubClick(project.githubUrl)}
-                startIcon={<GitHubIcon sx={{ fontSize: 16 }} />}
-                sx={{
-                  flex: 1,
-                  bgcolor: isDarkMode ? '#333' : '#666',
-                  color: '#fff',
-                  fontSize: { xs: '0.7rem', sm: '0.75rem' },
-                  py: { xs: 1, sm: 0.75 },
-                  fontWeight: '600',
-                  '&:hover': {
-                    bgcolor: isDarkMode ? '#555' : '#888',
-                  }
-                }}
-              >
-                {t('Código')}
-              </Button>
-            </Box>
-          </Card>
-        </motion.div>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => handleGithubClick(project.githubUrl)}
+                    startIcon={<GitHubIcon sx={{ fontSize: 16 }} />}
+                    sx={{
+                      flex: 1,
+                      bgcolor: isDarkMode ? '#333' : '#666',
+                      color: '#fff',
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                      py: { xs: 1, sm: 0.75 },
+                      fontWeight: '600',
+                      '&:hover': {
+                        bgcolor: isDarkMode ? '#555' : '#888',
+                      }
+                    }}
+                  >
+                    {t('Código')}
+                  </Button>
+                </Box>
+              </Card>
+            </motion.div>
+          </Grid>
+        ))}
       </Grid>
-    ))}
-  </Grid>
 
-  {/* Sección informativa */ }
-  <Container maxWidth="md" sx={{ mt: 6, textAlign: 'center', px: { xs: 2, sm: 3 } }}>
-    <Typography variant="h6" gutterBottom color="primary" sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
-      {t('💡 Sobre las Píldoras Formativas')}
-    </Typography>
-    <Typography variant="body2" color="text.secondary" sx={{
-      mb: 2,
-      fontSize: { xs: '0.85rem', sm: '1rem' },
-      lineHeight: 1.6
-    }}>
-      {t('Estas píldoras representan ejercicios prácticos de aprendizaje donde he profundizado en tecnologías específicas, desde fundamentos web hasta conceptos avanzados de desarrollo.')}
-    </Typography>
-  </Container>
+      {/* Sección informativa */}
+      <Container maxWidth="md" sx={{ mt: 6, textAlign: 'center', px: { xs: 2, sm: 3 } }}>
+        <Typography variant="h6" gutterBottom color="primary" sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
+          {t('💡 Sobre las Píldoras Formativas')}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{
+          mb: 2,
+          fontSize: { xs: '0.85rem', sm: '1rem' },
+          lineHeight: 1.6
+        }}>
+          {t('Estas píldoras representan ejercicios prácticos de aprendizaje donde he profundizado en tecnologías específicas, desde fundamentos web hasta conceptos avanzados de desarrollo.')}
+        </Typography>
+      </Container>
 
-  {/* Modal para imagen ampliada */ }
-  <Modal open={openModal} onClose={handleCloseModal} closeAfterTransition>
-    <Box
-      sx={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        maxWidth: '90vw',
-        maxHeight: '90vh',
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 1,
-        borderRadius: 2,
-        outline: 'none',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <IconButton
-        onClick={handleCloseModal}
-        sx={{ position: 'absolute', top: 8, right: 8, color: 'black', zIndex: 10 }}
-      >
-        <CloseIcon />
-      </IconButton>
-
-      <img
-        src={modalImg}
-        alt={t('Vista previa del proyecto')}
-        style={{
-          maxWidth: '100%',
-          maxHeight: '85vh',
-          borderRadius: 8,
-          display: 'block',
-        }}
-      />
-    </Box>
-  </Modal>
-
-  {/* Modal para videos demo */ }
-      <Modal open={openVideoModal} onClose={handleCloseVideoModal} closeAfterTransition>
+      {/* Modal para imagen ampliada */}
+      <Modal open={openModal} onClose={handleCloseModal} closeAfterTransition>
         <Box
           sx={{
             position: 'fixed',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: { xs: '95vw', sm: '80vw', md: '70vw' },
-            maxWidth: '900px',
+            maxWidth: '90vw',
             maxHeight: '90vh',
             bgcolor: 'background.paper',
             boxShadow: 24,
-            p: 2,
+            p: 1,
             borderRadius: 2,
             outline: 'none',
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
           }}
         >
           <IconButton
-            onClick={handleCloseVideoModal}
-            sx={{
-              position: 'absolute',
-              top: 8,
-              right: 8,
-              color: 'white',
-              zIndex: 10,
-              bgcolor: 'rgba(0,0,0,0.5)',
-              '&:hover': {
-                bgcolor: 'rgba(0,0,0,0.7)',
-              }
-            }}
+            onClick={handleCloseModal}
+            sx={{ position: 'absolute', top: 8, right: 8, color: 'black', zIndex: 10 }}
           >
             <CloseIcon />
           </IconButton>
 
-          <Typography variant="h6" sx={{ mb: 2, color: 'text.primary' }}>
-            {t('Demo del Proyecto')}
-          </Typography>
-
-          <Box
-            component="video"
-            src={currentVideo}
-            controls
-            autoPlay
-            sx={{
-              width: '100%',
-              maxHeight: '70vh',
-              borderRadius: 1,
-              outline: 'none',
+          <img
+            src={modalImg}
+            alt={t('Vista previa del proyecto')}
+            style={{
+              maxWidth: '100%',
+              maxHeight: '85vh',
+              borderRadius: 8,
+              display: 'block',
             }}
           />
         </Box>
@@ -639,6 +555,6 @@ export default function PildorasFormativas() {
         nextPage="/skills"
         nextLabel="Habilidades"
       />
-    </Container >
+    </Container>
   );
 }

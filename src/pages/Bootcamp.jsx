@@ -24,16 +24,6 @@ import elGranAzulImg from '../assets/projects/el-gran-azul.jpg';
 import sprintflowImg from '../assets/projects/sprintflow.jpg';
 import noctilucaImg from '../assets/projects/noctiluca.jpg';
 
-// Importar videos demo directamente
-import demoSprintflow from '../assets/demos/demo-sprintflow.mp4';
-import demoChompy from '../assets/demos/demo-chompy.mp4';
-import demoNectara from '../assets/demos/demo-nectara.mp4';
-import demoCinema from '../assets/demos/demo-cinema.mp4';
-import demoTarot from '../assets/demos/demo-tarot.mp4';
-import demoBooks from '../assets/demos/demo-books.mp4';
-import demoNitrogeno from '../assets/demos/demo-nitrogeno.mp4';
-import demoPiedras from '../assets/demos/demo-piedras.mp4';
-
 // Array con proyectos del bootcamp
 const bootcampProjectsData = [
   {
@@ -42,7 +32,7 @@ const bootcampProjectsData = [
     description: 'Sistema de gestión ágil para equipos de desarrollo con métricas en tiempo real.',
     image: sprintflowImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Material UI', 'JWT'],
-    demoVideo: demoSprintflow,
+    demoUrl: 'https://www.canva.com/design/DAG6LJkqlEI/X51MWPwkrwkgczthk37kgQ/view?utm_content=DAG6LJkqlEI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h5d8a3dde69',
     webUrl: 'https://sprint-flow-client-kqk8.vercel.app/',
     githubUrl: 'https://github.com/SprintFlow',
     category: 'fullstack',
@@ -91,7 +81,7 @@ const bootcampProjectsData = [
     image: tarotImg,
     technologies: ['React', 'JavaScript', 'CSS3', 'Hooks'],
     webUrl: 'https://tarot-react.vercel.app/',
-    demoVideo: demoTarot,
+    demoUrl: 'https://www.canva.com/design/DAG6LHitJyo/YsafbUzb9KhPq-jEttJp0g/view?utm_content=DAG6LHitJyo&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2f6c3b4b6b',
     githubUrl: 'https://github.com/Aday25/tarot-react',
     category: 'react',
     date: 'Ago 2025',
@@ -122,7 +112,7 @@ const bootcampProjectsData = [
     description: 'Juego educativo para aprender programación orientada a objetos con Canvas.',
     image: chompyImg,
     technologies: ['JavaScript', 'OOP', 'Canvas', 'Game Development'],
-    demoVideo: demoChompy,
+    demoUrl: 'https://www.canva.com/design/DAG6LDR-4ls/iGJ8ft1wyyObl821OPYghw/view?utm_content=DAG6LDR-4ls&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h6932a83458',
     webUrl: 'https://aday25.github.io/chompy-the-game/',
     githubUrl: 'https://github.com/Aday25/chompy-the-game',
     category: 'javascript',
@@ -138,7 +128,7 @@ const bootcampProjectsData = [
     description: 'Proyecto full-stack para gestión de contenidos y recursos digitales.',
     image: nectaraImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    demoVideo: demoNectara,
+    demoUrl: 'https://www.canva.com/design/DAG6LFfgwPo/iA20BSWLGUu2wFSaWkQLnA/view?utm_content=DAG6LFfgwPo&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h5b0e0a80c6',
     webUrl: 'https://front-nectara-t9br.vercel.app/',
     githubUrl: 'https://github.com/Aday25/nectara',
     category: 'fullstack',
@@ -153,7 +143,7 @@ const bootcampProjectsData = [
     description: 'Sistema de gestión para cine al aire libre con operaciones CRUD completas.',
     image: outdoorCinemaImg,
     technologies: ['JavaScript', 'CRUD', 'Bootstrap', 'API Fetch'],
-    demoVideo: demoCinema,
+    demoUrl: 'https://www.canva.com/design/DAG6LO9rwEc/nIa75jk4GRQ_h7zfVmaSCw/view?utm_content=DAG6LO9rwEc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4f05b96c6f',
     webUrl: 'https://aday25.github.io/outdoor-cinema-crud/',
     githubUrl: 'https://github.com/Aday25/outdoor-cinema-crud',
     category: 'javascript',
@@ -183,8 +173,8 @@ const bootcampProjectsData = [
     description: 'Web educativa sobre las propiedades del nitrógeno. Desarrollé la sección Historia.',
     image: nitrogenoImg,
     technologies: ['HTML5', 'CSS3', 'JavaScript', 'Team Work'],
-    demoVideo: 'https://aday25.github.io/nitrogeno/',
-    webUrl: demoNitrogeno,
+    demoUrl: 'https://www.canva.com/design/DAG6LLAPENY/EnFLpuVbmQSExDbNdLAAzA/view?utm_content=DAG6LLAPENY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8bace7e234',
+    webUrl: 'https://aday25.github.io/nitrogeno/',
     githubUrl: 'https://github.com/Aday25/nitrogeno',
     category: 'fundamentos',
     date: 'Jun 2025',
@@ -199,7 +189,7 @@ const bootcampProjectsData = [
     description: 'Web homenaje a mujeres pioneras en la ciencia oceánica.',
     image: piedrasAngularesImg,
     technologies: ['HTML5', 'CSS3', 'Grid', 'Flexbox', 'Responsive Design'],
-    demoVideo: demoPiedras,
+    demoUrl: 'https://www.canva.com/design/DAG6LKlraCs/HIValRH4FRlwKMWHbgFyCg/view?utm_content=DAG6LKlraCs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfeb30a86ae',
     webUrl: 'https://aday25.github.io/Piedras-angulares/',
     githubUrl: 'https://github.com/Aday25/Piedras-angulares',
     category: 'fundamentos',
@@ -213,8 +203,6 @@ const bootcampProjectsData = [
 export default function BootcampProjects() {
   const [openModal, setOpenModal] = useState(false);
   const [modalImg, setModalImg] = useState('');
-  const [openVideoModal, setOpenVideoModal] = useState(false);
-  const [currentVideo, setCurrentVideo] = useState('');
   const navigate = useNavigate();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -239,45 +227,23 @@ export default function BootcampProjects() {
     setModalImg('');
   };
 
-  const handleOpenVideoModal = (video) => {
-    console.log('🎵 Estado actual del audio:', window.audioPlayer?.getState?.());
-
-    // Pausar la música si está reproduciéndose
+  // Función para pausar la música
+  const pauseMusic = () => {
     if (window.audioPlayer && window.audioPlayer.getState) {
       const audioState = window.audioPlayer.getState();
-      console.log('🎵 Estado del audio:', audioState);
-
-      if (audioState.playing) { // ← Ahora usa 'playing' en lugar de 'isPlaying'
-        console.log('🎵 Pausando música para reproducir demo');
+      if (audioState.playing) {
+        console.log('🎵 Pausando música para abrir demo externo');
         window.audioPlayer.pause();
-      }
-    }
-
-    setCurrentVideo(video);
-    setOpenVideoModal(true);
-  };
-
-  const handleCloseVideoModal = () => {
-    setOpenVideoModal(false);
-    setCurrentVideo('');
-
-    // Reanudar la música si estaba reproduciéndose antes
-    if (window.audioPlayer && window.audioPlayer.getState) {
-      const audioState = window.audioPlayer.getState();
-      if (!audioState.playing) { // ← Ahora usa 'playing'
-        console.log('🎵 Reanudando música después del demo');
-        setTimeout(() => {
-          window.audioPlayer.play();
-        }, 300);
       }
     }
   };
 
   // Funciones para manejar los clics en los botones
   const handleDemoClick = (project) => {
-    if (project.demoVideo) {
-      handleOpenVideoModal(project.demoVideo);
-    } else if (project.demoUrl.startsWith('/')) {
+    // Pausar música antes de abrir el enlace
+    pauseMusic();
+    
+    if (project.demoUrl.startsWith('/')) {
       navigate(project.demoUrl);
     } else if (project.demoUrl.startsWith('http')) {
       window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
@@ -682,63 +648,6 @@ export default function BootcampProjects() {
               maxHeight: '85vh',
               borderRadius: 8,
               display: 'block',
-            }}
-          />
-        </Box>
-      </Modal>
-
-      {/* Modal para videos demo */}
-      <Modal open={openVideoModal} onClose={handleCloseVideoModal} closeAfterTransition>
-        <Box
-          sx={{
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: { xs: '95vw', sm: '80vw', md: '70vw' },
-            maxWidth: '900px',
-            maxHeight: '90vh',
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 2,
-            borderRadius: 2,
-            outline: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <IconButton
-            onClick={handleCloseVideoModal}
-            sx={{
-              position: 'absolute',
-              top: 8,
-              right: 8,
-              color: 'white',
-              zIndex: 10,
-              bgcolor: 'rgba(0,0,0,0.5)',
-              '&:hover': {
-                bgcolor: 'rgba(0,0,0,0.7)',
-              }
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-
-          <Typography variant="h6" sx={{ mb: 2, color: 'text.primary' }}>
-            {t('Demo del Proyecto')}
-          </Typography>
-
-          <Box
-            component="video"
-            src={currentVideo}
-            controls
-            autoPlay
-            sx={{
-              width: '100%',
-              maxHeight: '70vh',
-              borderRadius: 1,
-              outline: 'none',
             }}
           />
         </Box>
