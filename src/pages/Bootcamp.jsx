@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Card, CardContent, Grid, Modal, IconButton, Chip, Button, Avatar, Container, useTheme, alpha } from '@mui/material';
+import { Box, Typography, Card, Grid, Modal, IconButton, Chip, Button, Avatar, Container, useTheme, alpha } from '@mui/material';
 import { motion } from 'framer-motion';
 import CloseIcon from '@mui/icons-material/Close';
 import LaunchIcon from '@mui/icons-material/Launch';
@@ -7,7 +7,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import GroupIcon from '@mui/icons-material/Group';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useNavigate } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useTranslation } from 'react-i18next';
 import { AnimatedTitle } from '../components/AnimatedTitle';
 import ActionButtons from '../components/ActionButtons';
@@ -104,7 +103,7 @@ const bootcampProjectsData = [
   {
     id: 'sanimed',
     title: 'Sanimed Hackathon',
-    description: 'Solución digital para gestión médica desarrollada durante hackathon. **Proyecto finalista**.',
+    description: 'Solución digital para gestión médica desarrollada durante hackathon. Proyecto finalista.',
     image: sanimedImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Team Work'],
     demoUrl: '/not-found',
@@ -241,6 +240,19 @@ export default function BootcampProjects() {
   };
 
   const handleOpenVideoModal = (video) => {
+    console.log('🎵 Estado actual del audio:', window.audioPlayer?.getState?.());
+
+    // Pausar la música si está reproduciéndose
+    if (window.audioPlayer && window.audioPlayer.getState) {
+      const audioState = window.audioPlayer.getState();
+      console.log('🎵 Estado del audio:', audioState);
+
+      if (audioState.playing) { // ← Ahora usa 'playing' en lugar de 'isPlaying'
+        console.log('🎵 Pausando música para reproducir demo');
+        window.audioPlayer.pause();
+      }
+    }
+
     setCurrentVideo(video);
     setOpenVideoModal(true);
   };
@@ -248,18 +260,26 @@ export default function BootcampProjects() {
   const handleCloseVideoModal = () => {
     setOpenVideoModal(false);
     setCurrentVideo('');
+
+    // Reanudar la música si estaba reproduciéndose antes
+    if (window.audioPlayer && window.audioPlayer.getState) {
+      const audioState = window.audioPlayer.getState();
+      if (!audioState.playing) { // ← Ahora usa 'playing'
+        console.log('🎵 Reanudando música después del demo');
+        setTimeout(() => {
+          window.audioPlayer.play();
+        }, 300);
+      }
+    }
   };
 
   // Funciones para manejar los clics en los botones
   const handleDemoClick = (project) => {
     if (project.demoVideo) {
-      // Abrir modal de video
       handleOpenVideoModal(project.demoVideo);
     } else if (project.demoUrl.startsWith('/')) {
-      // Navegación interna
       navigate(project.demoUrl);
     } else if (project.demoUrl.startsWith('http')) {
-      // Enlace externo - abre en nueva pestaña
       window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
     }
   };
@@ -278,66 +298,62 @@ export default function BootcampProjects() {
     }
   };
 
-  // Estilo con el fondo EXACTO de la otra página
-  const cardStyle = {
-    width: 350,
-    height: 420,
-    display: 'flex',
-    flexDirection: 'column',
-    border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-    borderRadius: 3,
-    p: 3,
-    background: isDarkMode
-      ? `linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8))`
-      : `linear-gradient(135deg, ${alpha('#ed6c02', 0.08)}, ${alpha('#1976d2', 0.05)})`,
-    backdropFilter: 'blur(10px)',
-    position: 'relative',
-    overflow: 'visible',
-    '&:hover': {
-      border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'}`,
-      boxShadow: `0 8px 32px ${isDarkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
-      transform: 'translateY(-4px)',
-      transition: 'all 0.3s ease'
-    }
-  };
-
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
-      {/* Header con botón volver */}
-      <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/projects')}
-          variant="contained"
+    <Container maxWidth="xl" sx={{ py: 4, px: { xs: 2, sm: 3, md: 4 } }}>
+      {/* Header SIN botón volver */}
+      <Box sx={{
+        mb: 4,
+        textAlign: 'center'
+      }}>
+        <AnimatedTitle>
+          {t('Proyectos Bootcamp')}
+        </AnimatedTitle>
+        <Typography
+          variant="h6"
+          color="text.secondary"
           sx={{
-            borderColor: isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
-            color: 'text.primary',
-            '&:hover': {
-              borderColor: isDarkMode ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)',
-              backgroundColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)'
-            }
+            mt: 2,
+            fontSize: { xs: '1rem', sm: '1.1rem' }
           }}
         >
-          {t('Volver')}
-        </Button>
-        <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
-          <AnimatedTitle>
-            {t('Proyectos Bootcamp')}
-          </AnimatedTitle>
-        </Box>
+          {t('Del código básico a aplicaciones full-stack')}
+        </Typography>
       </Box>
 
-      {/* Grid para proyectos - 3 POR FILA */}
+      {/* Grid para proyectos - RESPONSIVE */}
       <Grid container spacing={3} justifyContent="center">
         {bootcampProjects.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} key={project.id}>
+          <Grid item xs={12} sm={6} lg={4} xl={3} key={project.id}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              style={{ display: 'flex', justifyContent: 'center' }}
             >
-              <Card sx={cardStyle}>
-                {/* Línea superior decorativa - IGUAL que en "Sobre Mí" */}
+              <Card sx={{
+                width: '100%',
+                maxWidth: { xs: '100%', sm: 350 },
+                height: { xs: 'auto', sm: 420 },
+                minHeight: { xs: 500, sm: 420 },
+                display: 'flex',
+                flexDirection: 'column',
+                border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+                borderRadius: 3,
+                p: { xs: 2, sm: 3 },
+                background: isDarkMode
+                  ? `linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8))`
+                  : `linear-gradient(135deg, ${alpha('#ed6c02', 0.08)}, ${alpha('#1976d2', 0.05)})`,
+                backdropFilter: 'blur(10px)',
+                position: 'relative',
+                overflow: 'visible',
+                '&:hover': {
+                  border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)'}`,
+                  boxShadow: `0 8px 32px ${isDarkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
+                  transform: 'translateY(-4px)',
+                  transition: 'all 0.3s ease'
+                }
+              }}>
+                {/* Línea superior decorativa */}
                 <Box
                   sx={{
                     position: 'absolute',
@@ -350,8 +366,16 @@ export default function BootcampProjects() {
                   }}
                 />
 
-                {/* Badges */}
-                <Box sx={{ position: 'absolute', top: 12, right: 10, zIndex: 2, display: 'flex', flexDirection: 'arrow', gap: 0.5 }}>
+                {/* Badges - EN LÍNEA HORIZONTAL EN DESKTOP */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: 12,
+                  right: 10,
+                  zIndex: 2,
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  gap: 0.5
+                }}>
                   {project.featured && (
                     <Chip
                       label={t('⭐ Destacado')}
@@ -360,7 +384,7 @@ export default function BootcampProjects() {
                         bgcolor: project.color,
                         color: '#fff',
                         fontWeight: 'bold',
-                        fontSize: '0.7rem',
+                        fontSize: { xs: '0.65rem', sm: '0.7rem' },
                         height: 22,
                         '&:hover': {
                           backgroundColor: alpha(project.color, 0.8),
@@ -376,27 +400,39 @@ export default function BootcampProjects() {
                       sx={{
                         bgcolor: isDarkMode ? 'primary.dark' : 'primary.main',
                         color: 'white',
-                        fontSize: '0.7rem',
+                        fontSize: { xs: '0.65rem', sm: '0.7rem' },
                         height: 22
                       }}
                     />
                   )}
                 </Box>
 
-                {/* Contenido reorganizado */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
-                  {/* Fila superior: Avatar + Título y fecha en línea */}
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                {/* Contenido reorganizado - RESPONSIVE */}
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                  mb: 2,
+                  flex: 1
+                }}>
+                  {/* Fila superior: Avatar + Título y fecha */}
+                  <Box sx={{
+                    display: 'flex',
+                    gap: 2,
+                    alignItems: 'flex-start',
+                    flexDirection: { xs: 'column', sm: 'row' }
+                  }}>
                     {/* Avatar circular */}
                     <Avatar
                       src={project.image}
                       onClick={() => handleOpenModal(project.image)}
                       sx={{
-                        width: 80,
-                        height: 80,
+                        width: { xs: 70, sm: 80 },
+                        height: { xs: 70, sm: 80 },
                         border: `3px solid ${project.color}${isDarkMode ? '40' : '30'}`,
                         cursor: 'pointer',
                         flexShrink: 0,
+                        alignSelf: { xs: 'center', sm: 'flex-start' },
                         '&:hover': {
                           border: `3px solid ${project.color}`,
                           transform: 'scale(1.05)',
@@ -405,8 +441,13 @@ export default function BootcampProjects() {
                       }}
                     />
 
-                    {/* Título y fecha al lado del avatar */}
-                    <Box sx={{ flexGrow: 1, minWidth: 0, pt: 1.5 }}>
+                    {/* Título y fecha */}
+                    <Box sx={{
+                      flexGrow: 1,
+                      minWidth: 0,
+                      pt: { xs: 0, sm: 1.5 },
+                      textAlign: { xs: 'center', sm: 'left' }
+                    }}>
                       <Typography
                         variant="h5"
                         sx={{
@@ -414,7 +455,7 @@ export default function BootcampProjects() {
                           color: project.color,
                           mb: 0.5,
                           lineHeight: 1.4,
-                          fontSize: '1.4rem',
+                          fontSize: { xs: '1.3rem', sm: '1.4rem' },
                           textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
                         }}
                       >
@@ -426,7 +467,7 @@ export default function BootcampProjects() {
                         sx={{
                           fontStyle: 'italic',
                           display: 'block',
-                          fontSize: '0.8rem'
+                          fontSize: { xs: '0.75rem', sm: '0.8rem' }
                         }}
                       >
                         {project.date} • {project.category}
@@ -434,14 +475,16 @@ export default function BootcampProjects() {
                     </Box>
                   </Box>
 
-                  {/* Descripción debajo de la fila avatar+título+fecha */}
+                  {/* Descripción */}
                   <Typography
                     variant="body2"
                     color="text.primary"
                     sx={{
                       lineHeight: 1.5,
-                      fontSize: '0.9rem',
-                      textAlign: 'left'
+                      fontSize: { xs: '0.85rem', sm: '1rem' },
+                      textAlign: { xs: 'center', sm: 'left' },
+                      flex: 1,
+                      mb: 1,
                     }}
                   >
                     {project.description.includes('**') ? (
@@ -458,12 +501,22 @@ export default function BootcampProjects() {
                   </Typography>
                 </Box>
 
-                {/* Tecnologías - CHIPS IDÉNTICOS a "Sobre Mí" */}
+                {/* Tecnologías - RESPONSIVE */}
                 <Box sx={{ mb: 2 }}>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{
+                    fontWeight: 'bold',
+                    display: 'block',
+                    mb: 1,
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                  }}>
                     {t('TECNOLOGÍAS:')}
                   </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  <Box sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 0.5,
+                    justifyContent: { xs: 'center', sm: 'flex-start' }
+                  }}>
                     {project.technologies.slice(0, 4).map((tech, techIndex) => (
                       <Chip
                         key={techIndex}
@@ -472,8 +525,8 @@ export default function BootcampProjects() {
                         variant="filled"
                         sx={{
                           mb: 0.5,
-                          fontSize: '0.7rem',
-                          height: '24px',
+                          fontSize: { xs: '0.65rem', sm: '0.7rem' },
+                          height: { xs: '22px', sm: '24px' },
                           backgroundColor: project.color,
                           color: '#fff',
                           fontWeight: 500,
@@ -486,12 +539,22 @@ export default function BootcampProjects() {
                   </Box>
                 </Box>
 
-                {/* Características - TODAS CON FONDO COMO LOS CHIPS */}
+                {/* Características - RESPONSIVE */}
                 <Box sx={{ mb: 2 }}>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold', display: 'block', mb: 1 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{
+                    fontWeight: 'bold',
+                    display: 'block',
+                    mb: 1,
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                  }}>
                     {t('CARACTERÍSTICAS:')}
                   </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  <Box sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 0.5,
+                    justifyContent: { xs: 'center', sm: 'flex-start' }
+                  }}>
                     {project.features.slice(0, 3).map((feature, i) => (
                       <Chip
                         key={i}
@@ -499,8 +562,8 @@ export default function BootcampProjects() {
                         size="small"
                         variant="filled"
                         sx={{
-                          fontSize: '0.7rem',
-                          height: '24px',
+                          fontSize: { xs: '0.65rem', sm: '0.7rem' },
+                          height: { xs: '22px', sm: '24px' },
                           backgroundColor: project.color,
                           color: '#fff',
                           fontWeight: 500,
@@ -513,9 +576,13 @@ export default function BootcampProjects() {
                   </Box>
                 </Box>
 
-                {/* Botones de acción - CON FUNCIONES DE CLICK */}
-                <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
-                  {/* Web URL - SIEMPRE PRESENTE */}
+                {/* Botones de acción - RESPONSIVE */}
+                <Box sx={{
+                  display: 'flex',
+                  gap: 1,
+                  mt: 'auto',
+                  flexDirection: { xs: 'column', sm: 'row' }
+                }}>
                   <Button
                     variant="contained"
                     size="small"
@@ -524,8 +591,8 @@ export default function BootcampProjects() {
                     sx={{
                       flex: 1,
                       bgcolor: project.color,
-                      fontSize: '0.75rem',
-                      py: 0.75,
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                      py: { xs: 1, sm: 0.75 },
                       fontWeight: '600',
                       '&:hover': {
                         bgcolor: alpha(project.color, 0.8),
@@ -535,7 +602,6 @@ export default function BootcampProjects() {
                     {t('Web')}
                   </Button>
 
-                  {/* Demo URL - SIEMPRE PRESENTE */}
                   <Button
                     variant="contained"
                     size="small"
@@ -544,8 +610,8 @@ export default function BootcampProjects() {
                     sx={{
                       flex: 1,
                       bgcolor: project.color,
-                      fontSize: '0.75rem',
-                      py: 0.75,
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                      py: { xs: 1, sm: 0.75 },
                       fontWeight: '600',
                       '&:hover': {
                         bgcolor: alpha(project.color, 0.8),
@@ -555,7 +621,6 @@ export default function BootcampProjects() {
                     {t('Demo')}
                   </Button>
 
-                  {/* GitHub URL - SIEMPRE PRESENTE */}
                   <Button
                     variant="contained"
                     size="small"
@@ -565,8 +630,8 @@ export default function BootcampProjects() {
                       flex: 1,
                       bgcolor: isDarkMode ? '#333' : '#666',
                       color: '#fff',
-                      fontSize: '0.75rem',
-                      py: 0.75,
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                      py: { xs: 1, sm: 0.75 },
                       fontWeight: '600',
                       '&:hover': {
                         bgcolor: isDarkMode ? '#555' : '#888',
@@ -630,7 +695,7 @@ export default function BootcampProjects() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: { xs: '90vw', sm: '80vw', md: '70vw' },
+            width: { xs: '95vw', sm: '80vw', md: '70vw' },
             maxWidth: '900px',
             maxHeight: '90vh',
             bgcolor: 'background.paper',
@@ -645,11 +710,11 @@ export default function BootcampProjects() {
         >
           <IconButton
             onClick={handleCloseVideoModal}
-            sx={{ 
-              position: 'absolute', 
-              top: 8, 
-              right: 8, 
-              color: 'white', 
+            sx={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              color: 'white',
               zIndex: 10,
               bgcolor: 'rgba(0,0,0,0.5)',
               '&:hover': {
@@ -659,17 +724,16 @@ export default function BootcampProjects() {
           >
             <CloseIcon />
           </IconButton>
-          
+
           <Typography variant="h6" sx={{ mb: 2, color: 'text.primary' }}>
             {t('Demo del Proyecto')}
           </Typography>
-          
+
           <Box
             component="video"
             src={currentVideo}
             controls
             autoPlay
-            muted
             sx={{
               width: '100%',
               maxHeight: '70vh',
