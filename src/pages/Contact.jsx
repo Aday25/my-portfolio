@@ -42,34 +42,46 @@ export default function Contact() {
   // Datos reales de contacto
   const contactInfo = [
     {
-      icon: <EmailIcon sx={{ fontSize: 32 }} />,
+      icon: <EmailIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
       title: t('Email'),
       value: 'aday.it25@gmail.com',
-      link: 'mailto:aday.it25@gmail.com',
+      link: 'mailto:aday.it25@gmail.com?subject=Contacto desde Portfolio&body=Hola Aday, me gustaría contactar contigo...',
       color: '#ea4335'
     },
     {
-      icon: <LinkedInIcon sx={{ fontSize: 32 }} />,
+      icon: <LinkedInIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
       title: 'LinkedIn',
       value: t('Conectemos en LinkedIn'),
       link: 'https://www.linkedin.com/in/adayasc/',
       color: '#0077b5'
     },
     {
-      icon: <GitHubIcon sx={{ fontSize: 32 }} />,
+      icon: <GitHubIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
       title: 'GitHub',
       value: t('Mira mis proyectos'),
       link: 'https://github.com/Aday25',
       color: isDarkMode ? '#ffffff' : '#333333'
     },
     {
-      icon: <LocationOnIcon sx={{ fontSize: 32 }} />,
+      icon: <LocationOnIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
       title: t('Ubicación'),
       value: 'Madrid, España',
       link: null,
       color: '#34a853'
     }
   ];
+
+  // Función para manejar el clic en email
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:aday.it25@gmail.com?subject=Contacto desde Portfolio&body=Hola Aday, me gustaría contactar contigo...';
+  };
+
+  // Función para manejar clics en otros enlaces
+  const handleLinkClick = (link) => {
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <Container maxWidth="lg" sx={{ py: 1, mt: 4 }}>
@@ -79,10 +91,10 @@ export default function Contact() {
         </AnimatedTitle>
       </Box>
 
-      {/* 4 Círculos en línea - Responsive */}
+      {/* 4 Círculos en línea - Responsive MEJORADO */}
       <Grid container spacing={3} justifyContent="center" sx={{ mb: 8 }}>
         {contactInfo.map((item, index) => (
-          <Grid item xs={6} sm={3} key={index}>
+          <Grid item xs={6} sm={3} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
             <MotionPaper
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -97,10 +109,10 @@ export default function Contact() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                p: 3,
+                p: { xs: 2, sm: 3 },
                 borderRadius: '50%',
-                width: { xs: 120, sm: 140, md: 160 },
-                height: { xs: 120, sm: 140, md: 160 },
+                width: { xs: 140, sm: 150, md: 170 }, // Aumentado en móvil
+                height: { xs: 140, sm: 150, md: 170 }, // Aumentado en móvil
                 border: `2px solid ${item.color}${isDarkMode ? '30' : '20'}`,
                 background: isDarkMode
                   ? `linear-gradient(135deg, ${item.color}15, ${item.color}10)`
@@ -126,16 +138,23 @@ export default function Contact() {
                   background: item.color,
                 }
               }}
-              onClick={() => item.link && window.open(item.link, '_blank')}
+              onClick={() => {
+                if (item.title === 'Email') {
+                  handleEmailClick();
+                } else {
+                  handleLinkClick(item.link);
+                }
+              }}
             >
               <Box
                 sx={{
                   color: item.color,
-                  mb: 1,
+                  mb: { xs: 0.5, sm: 1 },
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  zIndex: 2
+                  zIndex: 2,
+                  flexShrink: 0
                 }}
               >
                 {item.icon}
@@ -144,11 +163,12 @@ export default function Contact() {
                 variant="subtitle1"
                 sx={{
                   fontWeight: 'bold',
-                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1rem' }, // Texto más grande
                   mb: 0.5,
-                  color: isDarkMode ? '#ffffff' : '#000000', // Texto blanco en oscuro, negro en claro
+                  color: isDarkMode ? '#ffffff' : '#000000',
                   zIndex: 2,
-                  textShadow: isDarkMode ? '1px 1px 2px rgba(0,0,0,0.7)' : 'none'
+                  textShadow: isDarkMode ? '1px 1px 2px rgba(0,0,0,0.7)' : 'none',
+                  lineHeight: 1.2
                 }}
               >
                 {item.title}
@@ -156,11 +176,14 @@ export default function Contact() {
               <Typography
                 variant="caption"
                 sx={{
-                  fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                  fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.85rem' },
                   lineHeight: 1.2,
                   zIndex: 2,
-                  color: isDarkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)', // Texto legible en ambos modos
-                  fontWeight: isDarkMode ? 500 : 400
+                  color: isDarkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                  fontWeight: isDarkMode ? 500 : 400,
+                  maxWidth: '100%',
+                  wordBreak: 'break-word',
+                  px: 0.5
                 }}
               >
                 {item.value}
@@ -169,6 +192,20 @@ export default function Contact() {
           </Grid>
         ))}
       </Grid>
+
+      {/* Texto de invitación al contacto */}
+      <Box sx={{ textAlign: 'center', mb: 6, px: { xs: 2, sm: 0 } }}>
+        <Typography 
+          variant="h6" 
+          color="text.secondary" 
+          sx={{ 
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.6
+          }}
+        >
+          {t('¿Tienes un proyecto en mente? No dudes en contactarme.')}
+        </Typography>
+      </Box>
 
       <ActionButtons
         prevPage="/certificates"

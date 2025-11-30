@@ -25,7 +25,7 @@ const CoverPage = () => {
   const { t } = useTranslation();
 
   const handleStart = () => {
-    console.log('🚀 Botón Comenzar presionado');
+    console.log('👉 Botón Comenzar presionado');
     
     if (window.audioPlayer) {
       console.log('🎵 window.audioPlayer encontrado');

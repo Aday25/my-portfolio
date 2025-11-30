@@ -168,7 +168,7 @@ const bootcampProjectsData = [
     description: 'Aplicación de gestión de libros desarrollada con JavaScript vanilla.',
     image: bookAppImg,
     technologies: ['JavaScript', 'HTML5', 'CSS3', 'Local Storage'],
-    demoVideo: demoBooks,
+    demoUrl: 'https://www.canva.com/design/DAG6IaWNqi0/Mdx1mpelIN79vc6VprBuyg/view?utm_content=DAG6IaWNqi0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h66aeb5d8d5',
     webUrl: 'https://aday25.github.io/book-app-vanilla/',
     githubUrl: 'https://github.com/Aday25/book-app-vanilla',
     category: 'javascript',
