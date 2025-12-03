@@ -28,8 +28,8 @@ const resources = {
       // Contact
       "Email": "Email",
       "Ubicación": "Location",
-      "Conectemos en LinkedIn": "Let's connect on LinkedIn",
-      "Mira mis proyectos": "Check out my projects",
+      "Conectemos": "Let's connect",
+      "Ver proyectos": "Check out projects",
       "Tu ciudad, país": "Your city, country",
       "Visitar": "Visit",
       "Envíame un mensaje": "Send me a message",
@@ -331,9 +331,7 @@ const resources = {
   },
   es: {
     translation: {
-      // (Todo el contenido en español se mantiene igual que en tu código original)
-      // Solo incluyo algunas secciones clave para mostrar la estructura
-
+      
       // Navbar
       "Inicio": "Inicio",
       "Sobre mí": "Sobre mí",
@@ -352,7 +350,6 @@ const resources = {
       "Iniciativas propias": "Iniciativas propias",
       "Proyectos independientes donde exploro nuevas tecnologías y desarrollo mis propias ideas.": "Proyectos independientes donde exploro nuevas tecnologías y desarrollo mis propias ideas.",
 
-      // ... (el resto del contenido en español se mantiene igual)
     }
   }
 };

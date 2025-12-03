@@ -7,26 +7,42 @@
     <title>Aday Álvarez - Full Stack Developer & DevOps</title>
 
     <!-- Meta tags para SEO -->
-    <meta name="description" content="Portfolio de Aday Álvarez - Desarrolladora Full Stack & DevOps especializada en React, Node.js, TypeScript y tecnologías modernas" />
-    <meta name="keywords" content="desarrolladora full stack, devops, react, node.js, typescript, portfolio, programadora" />
+    <meta name="description" content="Portfolio interactivo de Aday Álvarez - Desarrolladora Full Stack & DevOps. Especialista en React, Node.js, TypeScript, Docker y metodologías ágiles. Explora mis proyectos y certificaciones." />
+    <meta name="keywords" content="desarrolladora full stack, devops, react, node.js, typescript, docker, portfolio, programadora, frontend, backend, web developer" />
     <meta name="author" content="Aday Álvarez" />
+    <meta name="robots" content="index, follow" />
 
-    <!-- Meta tags para previsualización (WhatsApp, Twitter, LinkedIn) -->
-    <meta property="og:title" content="Aday Álvarez - Full Stack Developer & DevOps" />
-    <meta property="og:description" content="Portfolio interactivo con proyectos Full Stack, habilidades técnicas y certificaciones en desarrollo web moderno" />
-    <meta property="og:image" content="https://[tu-usuario].github.io/[tu-repo]/cover-portfolio.png" />
+    <!-- Open Graph / Facebook (WhatsApp, LinkedIn) -->
+    <meta property="og:title" content="Aday Álvarez - Full Stack Developer & DevOps Portfolio" />
+    <meta property="og:description" content="✨ Portfolio interactivo con acuario animado | Full Stack & DevOps | React, Node.js, TypeScript | Proyectos reales y certificaciones" />
+    <meta property="og:image" content="https://aday25.github.io/my-portfolio/cover-social.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Vista previa del portfolio de Aday Álvarez" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://[tu-usuario].github.io/[tu-repo]" />
+    <meta property="og:url" content="https://aday25.github.io/my-portfolio/" />
+    <meta property="og:site_name" content="Portfolio de Aday Álvarez" />
+    <meta property="og:locale" content="es_ES" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aday Álvarez - Full Stack Developer" />
-    <meta name="twitter:description" content="Explora mi portfolio con proyectos Full Stack, DevOps y tecnologías modernas" />
-    <meta name="twitter:image" content="https://[tu-usuario].github.io/[tu-repo]/cover-twitter.png" />
+    <meta name="twitter:title" content="Aday Álvarez - Full Stack & DevOps Developer" />
+    <meta name="twitter:description" content="Portfolio interactivo con animaciones | Proyectos Full Stack, DevOps y tecnologías modernas" />
+    <meta name="twitter:image" content="https://aday25.github.io/my-portfolio/cover-twitter.png" />
+    <meta name="twitter:image:alt" content="Portfolio de Aday Álvarez - Desarrolladora Full Stack" />
+    <meta name="twitter:creator" content="@tu_usuario_twitter" />
+    
+    <!-- WhatsApp específico -->
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:secure_url" content="https://aday25.github.io/my-portfolio/cover-social.png" />
+    
+    <!-- LinkedIn específico -->
+    <meta property="og:image:type" content="image/png" />
     
     <!-- Favicon y theme color -->
     <meta name="theme-color" content="#1976d2" />
     <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- Script de Audio Player Global (ANTES de cargar React) -->
     <script>
@@ -48,12 +64,10 @@
           this.audio.volume = this.volume;
           this.audio.preload = 'auto';
           
-          // RUTA CORREGIDA - ajusta según tu estructura de carpetas
           this.audio.src = '/audio/background-music.mp3';
           
           document.body.appendChild(this.audio);
 
-          // Event Listeners CORREGIDOS
           this.audio.addEventListener('canplaythrough', () => {
             console.log('✅ Audio cargado y listo para reproducir');
           });
@@ -126,17 +140,15 @@
         }
 
         updateUI() {
-          // Disparar evento para actualizar componentes React
           const event = new CustomEvent('audioStateChange', {
             detail: { isPlaying: this.isPlaying }
           });
           window.dispatchEvent(event);
         }
 
-        // CORREGIDO: getState debe devolver 'playing' para consistencia
         getState() {
           return {
-            playing: this.isPlaying, // ← CLAVE: Cambiado a 'playing'
+            playing: this.isPlaying,
             volume: this.volume,
             initialized: this.initialized
           };

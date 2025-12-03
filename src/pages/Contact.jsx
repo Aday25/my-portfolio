@@ -51,14 +51,14 @@ export default function Contact() {
     {
       icon: <LinkedInIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
       title: 'LinkedIn',
-      value: t('Conectemos en LinkedIn'),
+      value: t('Conectemos'),
       link: 'https://www.linkedin.com/in/adayasc/',
       color: '#0077b5'
     },
     {
       icon: <GitHubIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
       title: 'GitHub',
-      value: t('Mira mis proyectos'),
+      value: t('Ver proyectos'),
       link: 'https://github.com/Aday25',
       color: isDarkMode ? '#ffffff' : '#333333'
     },
@@ -163,7 +163,7 @@ export default function Contact() {
                 variant="subtitle1"
                 sx={{
                   fontWeight: 'bold',
-                  fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1rem' }, // Texto más grande
+                  fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1rem' },
                   mb: 0.5,
                   color: isDarkMode ? '#ffffff' : '#000000',
                   zIndex: 2,
