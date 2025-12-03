@@ -3,12 +3,11 @@ import {
   Typography,
   Box,
   Grid,
-  Button,
-  TextField,
   useTheme,
-  alpha,
-  Card,
-  Paper
+  Paper,
+  Snackbar,
+  Alert,
+  Tooltip
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +16,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SendIcon from '@mui/icons-material/Send';
 import { AnimatedTitle } from '../components/AnimatedTitle';
 import ActionButtons from '../components/ActionButtons';
 
@@ -28,59 +26,66 @@ export default function Contact() {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
 
-  // Estado para el formulario
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Datos reales de contacto
   const contactInfo = [
     {
-      icon: <EmailIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
-      title: t('Email'),
+      icon: <EmailIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
+      title: 'Email',
       value: 'aday.it25@gmail.com',
-      link: 'mailto:aday.it25@gmail.com?subject=Contacto desde Portfolio&body=Hola Aday, me gustaría contactar contigo...',
-      color: '#ea4335'
+      displayValue: 'aday.it25', // Versión corta para móvil
+      action: 'copy',
+      color: '#ea4335',
+      tooltip: 'Click para copiar'
     },
     {
-      icon: <LinkedInIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
+      icon: <LinkedInIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
       title: 'LinkedIn',
       value: t('Conectemos'),
       link: 'https://www.linkedin.com/in/adayasc/',
-      color: '#0077b5'
+      color: '#0077b5',
+      tooltip: 'Visitar LinkedIn'
     },
     {
-      icon: <GitHubIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
+      icon: <GitHubIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
       title: 'GitHub',
       value: t('Ver proyectos'),
       link: 'https://github.com/Aday25',
-      color: isDarkMode ? '#ffffff' : '#333333'
+      color: '#24292e',
+      tooltip: 'Visitar GitHub'
     },
     {
-      icon: <LocationOnIcon sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }} />,
+      icon: <LocationOnIcon sx={{ fontSize: { xs: 32, sm: 36, md: 40 } }} />,
       title: t('Ubicación'),
       value: 'Madrid, España',
-      link: null,
-      color: '#34a853'
+      color: '#34a853',
+      tooltip: null
     }
   ];
 
-  // Función para manejar el clic en email
-  const handleEmailClick = () => {
-    window.location.href = 'mailto:aday.it25@gmail.com?subject=Contacto desde Portfolio&body=Hola Aday, me gustaría contactar contigo...';
+  // Función para copiar email
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('aday.it25@gmail.com')
+      .then(() => {
+        setSnackbarOpen(true);
+      })
+      .catch(err => {
+        console.error('Error al copiar:', err);
+      });
   };
 
-  // Función para manejar clics en otros enlaces
-  const handleLinkClick = (link) => {
-    if (link) {
-      window.open(link, '_blank', 'noopener,noreferrer');
+  // Función para manejar clics
+  const handleClick = (item) => {
+    if (item.action === 'copy') {
+      handleCopyEmail();
+    } else if (item.link) {
+      window.open(item.link, '_blank', 'noopener,noreferrer');
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -91,121 +96,184 @@ export default function Contact() {
         </AnimatedTitle>
       </Box>
 
-      {/* 4 Círculos en línea - Responsive MEJORADO */}
-      <Grid container spacing={3} justifyContent="center" sx={{ mb: 8 }}>
+      {/* Grid de círculos de contacto - OPTIMIZADO */}
+      <Grid container spacing={{ xs: 2, sm: 3 }} justifyContent="center" sx={{ mb: 8 }}>
         {contactInfo.map((item, index) => (
-          <Grid item xs={6} sm={3} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
-            <MotionPaper
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ 
-                scale: 1.05,
-                y: -4,
-                transition: { duration: 0.2 }
-              }}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-                p: { xs: 2, sm: 3 },
-                borderRadius: '50%',
-                width: { xs: 140, sm: 150, md: 170 }, // Aumentado en móvil
-                height: { xs: 140, sm: 150, md: 170 }, // Aumentado en móvil
-                border: `2px solid ${item.color}${isDarkMode ? '30' : '20'}`,
-                background: isDarkMode
-                  ? `linear-gradient(135deg, ${item.color}15, ${item.color}10)`
-                  : `linear-gradient(135deg, ${item.color}08, ${item.color}05)`,
-                backdropFilter: 'blur(10px)',
-                position: 'relative',
-                cursor: item.link ? 'pointer' : 'default',
-                overflow: 'hidden',
-                '&:hover': {
-                  border: `2px solid ${item.color}${isDarkMode ? '50' : '40'}`,
-                  boxShadow: `0 8px 32px ${item.color}${isDarkMode ? '25' : '20'}`,
-                  background: isDarkMode
-                    ? `linear-gradient(135deg, ${item.color}20, ${item.color}15)`
-                    : `linear-gradient(135deg, ${item.color}12, ${item.color}08)`
-                },
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '3px',
-                  background: item.color,
-                }
-              }}
-              onClick={() => {
-                if (item.title === 'Email') {
-                  handleEmailClick();
-                } else {
-                  handleLinkClick(item.link);
-                }
-              }}
+          <Grid 
+            item 
+            xs={6} 
+            sm={3} 
+            key={index} 
+            sx={{ 
+              display: 'flex', 
+              justifyContent: 'center',
+              minHeight: { xs: 180, sm: 190, md: 200 } // Asegura espacio uniforme
+            }}
+          >
+            <Tooltip 
+              title={item.tooltip ? t(item.tooltip) : ''} 
+              arrow 
+              placement="top"
+              disableHoverListener={!item.tooltip}
             >
-              <Box
+              <MotionPaper
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ 
+                  scale: item.action || item.link ? 1.08 : 1,
+                  y: item.action || item.link ? -6 : 0,
+                  transition: { duration: 0.2 }
+                }}
                 sx={{
-                  color: item.color,
-                  mb: { xs: 0.5, sm: 1 },
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  zIndex: 2,
-                  flexShrink: 0
+                  textAlign: 'center',
+                  p: { xs: 2, sm: 2.5, md: 3 },
+                  borderRadius: '50%',
+                  // Tamaños aumentados para mejor legibilidad
+                  width: { xs: 170, sm: 180, md: 190 },
+                  height: { xs: 170, sm: 180, md: 190 },
+                  border: `2px solid ${item.color}${isDarkMode ? '40' : '30'}`,
+                  background: isDarkMode
+                    ? `linear-gradient(135deg, ${item.color}18, ${item.color}12)`
+                    : `linear-gradient(135deg, ${item.color}10, ${item.color}06)`,
+                  backdropFilter: 'blur(10px)',
+                  position: 'relative',
+                  cursor: item.action || item.link ? 'pointer' : 'default',
+                  overflow: 'visible', // Cambiado para evitar cortes
+                  transition: 'all 0.3s ease',
+                  '&:hover': (item.action || item.link) && {
+                    border: `2px solid ${item.color}${isDarkMode ? '60' : '50'}`,
+                    boxShadow: `0 12px 40px ${item.color}${isDarkMode ? '30' : '25'}`,
+                    background: isDarkMode
+                      ? `linear-gradient(135deg, ${item.color}25, ${item.color}18)`
+                      : `linear-gradient(135deg, ${item.color}15, ${item.color}10)`,
+                  }
                 }}
+                onClick={() => handleClick(item)}
               >
-                {item.icon}
-              </Box>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  fontWeight: 'bold',
-                  fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1rem' },
-                  mb: 0.5,
-                  color: isDarkMode ? '#ffffff' : '#000000',
-                  zIndex: 2,
-                  textShadow: isDarkMode ? '1px 1px 2px rgba(0,0,0,0.7)' : 'none',
-                  lineHeight: 1.2
-                }}
-              >
-                {item.title}
-              </Typography>
-              <Typography
-                variant="caption"
-                sx={{
-                  fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.85rem' },
-                  lineHeight: 1.2,
-                  zIndex: 2,
-                  color: isDarkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
-                  fontWeight: isDarkMode ? 500 : 400,
-                  maxWidth: '100%',
-                  wordBreak: 'break-word',
-                  px: 0.5
-                }}
-              >
-                {item.value}
-              </Typography>
-            </MotionPaper>
+                {/* Icono */}
+                <Box
+                  sx={{
+                    color: item.color,
+                    mb: 1.5,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    filter: isDarkMode ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' : 'none'
+                  }}
+                >
+                  {item.icon}
+                </Box>
+                
+                {/* Título */}
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: { xs: '0.95rem', sm: '1rem', md: '1.1rem' },
+                    mb: 0.8,
+                    color: isDarkMode ? '#ffffff' : '#000000',
+                    letterSpacing: '0.5px',
+                    textShadow: isDarkMode ? '0 1px 2px rgba(0,0,0,0.5)' : 'none',
+                  }}
+                >
+                  {item.title}
+                </Typography>
+                
+                {/* Valor - Email con tratamiento especial */}
+                {item.action === 'copy' ? (
+                  <Box sx={{ width: '100%', px: 0.5 }}>
+                    {/* Versión móvil - Solo usuario */}
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        fontSize: '0.75rem',
+                        lineHeight: 1.3,
+                        color: isDarkMode ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.85)',
+                        fontWeight: 500,
+                        fontFamily: 'monospace',
+                      }}
+                    >
+                      {item.displayValue}
+                    </Typography>
+                    
+                    {/* Versión tablet/desktop - Email completo */}
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        display: { xs: 'none', sm: 'block' },
+                        fontSize: { sm: '0.78rem', md: '0.82rem' },
+                        lineHeight: 1.3,
+                        color: isDarkMode ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.85)',
+                        fontWeight: 500,
+                        fontFamily: 'monospace',
+                        whiteSpace: 'nowrap', // Evita saltos de línea
+                      }}
+                    >
+                      {item.value}
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' },
+                      lineHeight: 1.3,
+                      color: isDarkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
+                      fontWeight: 500,
+                      px: 1,
+                    }}
+                  >
+                    {item.value}
+                  </Typography>
+                )}
+              </MotionPaper>
+            </Tooltip>
           </Grid>
         ))}
       </Grid>
 
-      {/* Texto de invitación al contacto */}
+      {/* Texto de invitación */}
       <Box sx={{ textAlign: 'center', mb: 6, px: { xs: 2, sm: 0 } }}>
         <Typography 
           variant="h6" 
           color="text.secondary" 
           sx={{ 
-            fontSize: { xs: '1rem', sm: '1.1rem' },
-            lineHeight: 1.6
+            fontStyle: 'italic',
+            fontWeight: 700,
+            maxWidth: '500px',
+            mx: 'auto',
           }}
         >
-          {t('¿Tienes un proyecto en mente? No dudes en contactarme.')}
+          {t('¡Espero que hayas disfrutado de la visita! Estaré encantada de leerte 🤗')}
         </Typography>
       </Box>
+
+      {/* Snackbar mejorado */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity="success" 
+          variant="filled"
+          sx={{ 
+            width: '100%',
+            fontSize: '0.95rem',
+            fontWeight: 500
+          }}
+        >
+          ✓ {t('¡Email copiado al portapapeles!')}
+        </Alert>
+      </Snackbar>
 
       <ActionButtons
         prevPage="/certificates"

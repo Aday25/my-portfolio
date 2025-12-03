@@ -40,7 +40,7 @@ const pildorasFormativasData = [
     image: ibaiImg,
     technologies: ['JavaScript', 'CSS3', 'Animaciones', 'HTML5', 'Web Audio API'],
     webUrl: 'https://aday25.github.io/demo-ibai/',
-    demoUrl: 'https://www.canva.com/design/DAG6LBeDOxI/uoqZ2og81bUs-SmxxChiAQ/view?utm_content=DAG6LBeDOxI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd62b13c003',
+    demoUrl: 'https://www.canva.com/design/DAG6fHgiSLA/lnywJx1QG0xMBgG0REcSQQ/view?utm_content=DAG6fHgiSLA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7d7840cf39',
     githubUrl: 'https://github.com/Aday25/demo-ibai',
     category: 'demostracion',
     date: 'Sep 2025',
@@ -147,7 +147,7 @@ export default function PildorasFormativas() {
   const handleDemoClick = (project) => {
     // Pausar música antes de abrir el enlace
     pauseMusic();
-    
+
     if (project.demoUrl.startsWith('/')) {
       navigate(project.demoUrl);
     } else if (project.demoUrl.startsWith('http')) {
@@ -497,14 +497,19 @@ export default function PildorasFormativas() {
 
       {/* Sección informativa */}
       <Container maxWidth="md" sx={{ mt: 6, textAlign: 'center', px: { xs: 2, sm: 3 } }}>
-        <Typography variant="h6" gutterBottom color="primary" sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
+        <Typography variant="h6" gutterBottom color="primary" sx={{ fontSize: { xs: '1.1rem', sm: '1.37rem' } }}>
           {t('💡 Sobre las Píldoras Formativas')}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{
-          mb: 2,
-          fontSize: { xs: '0.85rem', sm: '1rem' },
-          lineHeight: 1.6
-        }}>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{
+            mb: 2,
+            fontStyle: 'italic',
+            fontWeight: 700,
+            maxWidth: '700px',
+            mx: 'auto',
+          }}>
           {t('Estas píldoras representan ejercicios prácticos de aprendizaje donde he profundizado en tecnologías específicas, desde fundamentos web hasta conceptos avanzados de desarrollo.')}
         </Typography>
       </Container>

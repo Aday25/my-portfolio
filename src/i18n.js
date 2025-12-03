@@ -32,11 +32,11 @@ const resources = {
       "Ver proyectos": "Check out projects",
       "Tu ciudad, país": "Your city, country",
       "Visitar": "Visit",
-      "Envíame un mensaje": "Send me a message",
+      "¡Espero que hayas disfrutado de la visita! Estaré encantada de leerte 🤗": "I hope you enjoyed taking a look! I’d be delighted to hear from you 🤗",
       "Nombre": "Name",
       "Asunto": "Subject",
       "Mensaje": "Message",
-      "Enviar Mensaje": "Send Message",
+      "Click para copiar": "Click to copy",
 
       // Welcome
       "Portada del portfolio": "Portfolio cover",
