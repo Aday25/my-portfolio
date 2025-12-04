@@ -1,13 +1,54 @@
-// Footer.jsx - Versión mejorada que siempre queda abajo
-import { Box, Typography, Link, IconButton, Stack, useTheme } from '@mui/material';
+import { 
+  Box, 
+  Typography, 
+  Link, 
+  IconButton, 
+  Stack, 
+  useTheme,
+  Tooltip,
+  Snackbar,
+  Alert 
+} from '@mui/material';
+import { useState } from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import logo from '../assets/logo.png';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const email = 'aday.it25@gmail.com';
+
+  const copyEmailToClipboard = () => {
+    navigator.clipboard.writeText(email)
+      .then(() => {
+        setOpenSnackbar(true);
+        console.log('Email copiado:', email);
+      })
+      .catch(err => {
+        console.error('Error al copiar:', err);
+        // Fallback para navegadores antiguos
+        const textArea = document.createElement('textarea');
+        textArea.value = email;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          setOpenSnackbar(true);
+        } catch (error) {
+          console.error('Fallback failed:', error);
+        }
+        document.body.removeChild(textArea);
+      });
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   return (
     <Box
@@ -16,11 +57,9 @@ export default function Footer() {
         position: 'relative',
         zIndex: 20,
         width: '100%',
-        // NO usar mt: 'auto' aquí - se gestiona en App.jsx
         py: 2.5,
         px: 2,
         textAlign: 'center',
-        // Efecto acuático degradado profesional
         background: isDarkMode
           ? 'linear-gradient(135deg, rgba(10, 35, 66, 0.95) 0%, rgba(26, 58, 95, 0.9) 50%, rgba(5, 26, 56, 0.95) 100%)'
           : 'linear-gradient(135deg, rgba(79, 163, 240, 0.95) 0%, rgba(135, 206, 235, 0.9) 50%, rgba(30, 144, 255, 0.95) 100%)',
@@ -109,33 +148,47 @@ export default function Footer() {
             gap: 1.5,
           }}
         >
-          {/* Email */}
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <EmailIcon
+          {/* Email - AHORA CLICKABLE PARA COPIAR */}
+          <Tooltip title="Click para copiar email" arrow placement="top">
+            <Stack 
+              direction="row" 
+              alignItems="center" 
+              spacing={0.5}
+              onClick={copyEmailToClipboard}
               sx={{
-                fontSize: 20,
-                color: isDarkMode ? '#e0f7ff' : '#003366',
-                opacity: 0.8,
-              }}
-            />
-            <Link
-              href="mailto:aday.it25@gmail.com"
-              underline="hover"
-              sx={{
-                color: isDarkMode ? '#e0f7ff' : '#003366',
-                fontWeight: 500,
-                fontSize: '0.85rem',
+                cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 opacity: 0.9,
                 '&:hover': {
                   opacity: 1,
-                  color: isDarkMode ? '#4fd1ff' : '#0066cc',
+                  transform: 'translateY(-2px)',
                 }
               }}
             >
-              Contacto
-            </Link>
-          </Stack>
+              <EmailIcon
+                sx={{
+                  fontSize: 20,
+                  color: isDarkMode ? '#e0f7ff' : '#003366',
+                  opacity: 0.8,
+                  transition: 'all 0.3s ease',
+                }}
+              />
+              <Typography
+                component="span"
+                sx={{
+                  color: isDarkMode ? '#e0f7ff' : '#003366',
+                  fontWeight: 500,
+                  fontSize: '0.85rem',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    color: isDarkMode ? '#4fd1ff' : '#0066cc',
+                  }
+                }}
+              >
+                {t('Contacto')}
+              </Typography>
+            </Stack>
+          </Tooltip>
 
           {/* Separador sutil */}
           <Box
@@ -149,54 +202,79 @@ export default function Footer() {
           />
 
           {/* GitHub */}
-          <IconButton
-            component="a"
-            href="https://github.com/Aday25"
-            target="_blank"
-            rel="noopener noreferrer"
-            size="small"
-            sx={{
-              color: isDarkMode ? '#e0f7ff' : '#003366',
-              transition: 'all 0.3s ease',
-              opacity: 0.8,
-              '&:hover': {
-                opacity: 1,
-                color: isDarkMode ? '#4fd1ff' : '#0066cc',
-                backgroundColor: isDarkMode
-                  ? 'rgba(79, 209, 255, 0.1)'
-                  : 'rgba(0, 102, 204, 0.1)',
-                transform: 'translateY(-2px)',
-              }
-            }}
-          >
-            <GitHubIcon fontSize="small" />
-          </IconButton>
+          <Tooltip title="GitHub" arrow placement="top">
+            <IconButton
+              component="a"
+              href="https://github.com/Aday25"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small"
+              sx={{
+                color: isDarkMode ? '#e0f7ff' : '#003366',
+                transition: 'all 0.3s ease',
+                opacity: 0.8,
+                '&:hover': {
+                  opacity: 1,
+                  color: isDarkMode ? '#4fd1ff' : '#0066cc',
+                  backgroundColor: isDarkMode
+                    ? 'rgba(79, 209, 255, 0.1)'
+                    : 'rgba(0, 102, 204, 0.1)',
+                  transform: 'translateY(-2px)',
+                }
+              }}
+            >
+              <GitHubIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
 
           {/* LinkedIn */}
-          <IconButton
-            component="a"
-            href="https://www.linkedin.com/in/adayasc/"
-            target="_blank"
-            rel="noopener noreferrer"
-            size="small"
-            sx={{
-              color: isDarkMode ? '#e0f7ff' : '#003366',
-              transition: 'all 0.3s ease',
-              opacity: 0.8,
-              '&:hover': {
-                opacity: 1,
-                color: isDarkMode ? '#4fd1ff' : '#0077b5',
-                backgroundColor: isDarkMode
-                  ? 'rgba(79, 209, 255, 0.1)'
-                  : 'rgba(0, 119, 181, 0.1)',
-                transform: 'translateY(-2px)',
-              }
-            }}
-          >
-            <LinkedInIcon fontSize="small" />
-          </IconButton>
+          <Tooltip title="LinkedIn" arrow placement="top">
+            <IconButton
+              component="a"
+              href="https://www.linkedin.com/in/adayasc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small"
+              sx={{
+                color: isDarkMode ? '#e0f7ff' : '#003366',
+                transition: 'all 0.3s ease',
+                opacity: 0.8,
+                '&:hover': {
+                  opacity: 1,
+                  color: isDarkMode ? '#4fd1ff' : '#0077b5',
+                  backgroundColor: isDarkMode
+                    ? 'rgba(79, 209, 255, 0.1)'
+                    : 'rgba(0, 119, 181, 0.1)',
+                  transform: 'translateY(-2px)',
+                }
+              }}
+            >
+              <LinkedInIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
         </Stack>
       </Box>
+
+      {/* Snackbar de confirmación */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity="success" 
+          variant="filled"
+          sx={{ 
+            width: '100%',
+            fontSize: '0.95rem',
+            fontWeight: 500
+          }}
+        >
+          ✓ {t('¡Email copiado al portapapeles!')}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

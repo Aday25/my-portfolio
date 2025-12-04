@@ -37,6 +37,7 @@ const resources = {
       "Asunto": "Subject",
       "Mensaje": "Message",
       "Click para copiar": "Click to copy",
+      "¡Email copiado al portapapeles!": "Email copied to clipboard!",
 
       // Welcome
       "Portada del portfolio": "Portfolio cover",
