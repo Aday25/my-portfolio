@@ -220,16 +220,17 @@ export default function NotFound() {
           {/* Mensaje pequeño */}
           <Typography 
             variant="caption" 
-            color="text.secondary"
+            color="black"
             sx={{ 
               display: 'block',
               mt: 1,
               opacity: 0.7,
-              fontSize: '0.75rem',
-              textAlign: 'center'
+              fontSize: '0.80rem',
+              textAlign: 'center',
+              fontWeight: 'bold'
             }}
           >
-            {t('Mientras tanto, explora el resto del portfolio')}
+            {t('Puedes ver la demo de este proyecto o seguir explorando el resto del portfolio.')}
           </Typography>
         </MotionPaper>
       </Box>

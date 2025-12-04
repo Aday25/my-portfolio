@@ -327,7 +327,7 @@ const resources = {
       "Volver Atrás": "Go Back",
       "Mientras tanto, ¿por qué no echas un vistazo al resto del portfolio?": "In the meantime, why not check out the rest of the portfolio?",
       "Atrás": "Back",
-      "Mientras tanto, explora el resto del portfolio": "Meanwhile, explore the rest of the portfolio"
+      "Puedes ver la demo de este proyecto o seguir explorando el resto del portfolio.": "You can view the demo of this project or continue exploring the rest of the portfolio."
     }
   },
   es: {
