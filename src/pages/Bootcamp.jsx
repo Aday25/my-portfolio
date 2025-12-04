@@ -81,7 +81,7 @@ const bootcampProjectsData = [
     image: tarotImg,
     technologies: ['React', 'JavaScript', 'CSS3', 'Hooks'],
     webUrl: 'https://tarot-react.vercel.app/',
-    demoUrl: 'https://www.canva.com/design/DAG6LHitJyo/YsafbUzb9KhPq-jEttJp0g/view?utm_content=DAG6LHitJyo&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2f6c3b4b6b',
+    demoUrl: 'https://www.canva.com/design/DAG6jL2xHc0/0bmF2thRmb86nnf82AhWcQ/view?utm_content=DAG6jL2xHc0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hf0078aef87',
     githubUrl: 'https://github.com/Aday25/tarot-react',
     category: 'react',
     date: 'Ago 2025',
