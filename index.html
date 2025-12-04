@@ -1,176 +1,166 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aday Álvarez - Full Stack Developer & DevOps</title>
 
-    <!-- Meta tags para SEO -->
-    <meta name="description" content="Portfolio interactivo de Aday Álvarez - Desarrolladora Full Stack & DevOps. Especialista en React, Node.js, TypeScript, Docker y metodologías ágiles. Explora mis proyectos y certificaciones." />
-    <meta name="keywords" content="desarrolladora full stack, devops, react, node.js, typescript, docker, portfolio, programadora, frontend, backend, web developer" />
-    <meta name="author" content="Aday Álvarez" />
-    <meta name="robots" content="index, follow" />
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aday Álvarez - Full Stack Developer & DevOps</title>
 
-    <meta property="og:url" content="https://aday-my-portfolio.vercel.app/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Aday Álvarez - Full Stack Developer & DevOps Portfolio" />
-    <meta property="og:description" content="✨ Portfolio interactivo con acuario animado | Full Stack & DevOps | React, Node.js, TypeScript | Proyectos reales y certificaciones" />
-    <meta property="og:image" content="https://aday-my-portfolio.vercel.app/cover-social.png?v=3" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:alt" content="Vista previa del portfolio de Aday Álvarez" />
-    <meta property="og:site_name" content="Portfolio de Aday Álvarez" />
-    <meta property="og:locale" content="es_ES" />
-    
-    <meta property="og:image:secure_url" content="https://aday-my-portfolio.vercel.app/cover-social.png?v=3" />
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aday Álvarez - Full Stack & DevOps Developer" />
-    <meta name="twitter:description" content="Portfolio interactivo con animaciones | Proyectos Full Stack, DevOps y tecnologías modernas" />
-    <meta name="twitter:image" content="https://aday-my-portfolio.vercel.app/cover-social.png?v=3" />
-    <meta name="twitter:image:alt" content="Portfolio de Aday Álvarez - Desarrolladora Full Stack" />
-    
-    <!-- Favicon y theme color -->
-    <meta name="theme-color" content="#1976d2" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-    <link rel="manifest" href="/manifest.json" />
+  <!-- META TAGS PARA WHATSAPP (DEBEN IR PRIMERO) -->
+  <meta property="og:url" content="https://aday-my-portfolio.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Aday Álvarez - Full Stack Developer & DevOps Portfolio" />
+  <meta property="og:description"
+    content="✨ Portfolio interactivo con acuario animado | Full Stack & DevOps | React, Node.js, TypeScript" />
+  <meta property="og:image" content="https://aday-my-portfolio.vercel.app/cover-social.png" />
+  <meta property="og:image:secure_url" content="https://aday-my-portfolio.vercel.app/cover-social.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Portfolio de Aday Álvarez - Desarrolladora Full Stack" />
+  <meta property="og:site_name" content="Portfolio de Aday Álvarez" />
 
-    <!-- Script de Audio Player Global -->
-    <script>
-      // AudioPlayer unificado
-      class AudioPlayer {
-        constructor() {
-          this.audio = null;
+  <!-- Favicon y theme color -->
+  <meta name="theme-color" content="#1976d2" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Script de Audio Player Global -->
+  <script>
+    // AudioPlayer unificado
+    class AudioPlayer {
+      constructor() {
+        this.audio = null;
+        this.isPlaying = false;
+        this.volume = 0.3;
+        this.initialized = false;
+      }
+
+      init() {
+        if (this.initialized) return;
+
+        this.audio = document.createElement('audio');
+        this.audio.id = 'backgroundMusic';
+        this.audio.loop = true;
+        this.audio.volume = this.volume;
+        this.audio.preload = 'auto';
+
+        this.audio.src = '/audio/background-music.mp3';
+
+        document.body.appendChild(this.audio);
+
+        this.audio.addEventListener('canplaythrough', () => {
+          console.log('✅ Audio cargado y listo para reproducir');
+        });
+
+        this.audio.addEventListener('error', (e) => {
+          console.error('❌ Error al cargar el audio:', e);
+        });
+
+        this.audio.addEventListener('play', () => {
+          console.log('🎵 Audio reproduciendo');
+          this.isPlaying = true;
+          this.updateUI();
+        });
+
+        this.audio.addEventListener('pause', () => {
+          console.log('⏸️ Audio pausado');
           this.isPlaying = false;
-          this.volume = 0.3;
-          this.initialized = false;
+          this.updateUI();
+        });
+
+        this.initialized = true;
+        console.log('✅ AudioPlayer inicializado correctamente');
+      }
+
+      play() {
+        if (!this.initialized) {
+          this.init();
         }
 
-        init() {
-          if (this.initialized) return;
-
-          this.audio = document.createElement('audio');
-          this.audio.id = 'backgroundMusic';
-          this.audio.loop = true;
-          this.audio.volume = this.volume;
-          this.audio.preload = 'auto';
-          
-          this.audio.src = '/audio/background-music.mp3';
-          
-          document.body.appendChild(this.audio);
-
-          this.audio.addEventListener('canplaythrough', () => {
-            console.log('✅ Audio cargado y listo para reproducir');
-          });
-
-          this.audio.addEventListener('error', (e) => {
-            console.error('❌ Error al cargar el audio:', e);
-          });
-
-          this.audio.addEventListener('play', () => {
-            console.log('🎵 Audio reproduciendo');
-            this.isPlaying = true;
-            this.updateUI();
-          });
-
-          this.audio.addEventListener('pause', () => {
-            console.log('⏸️ Audio pausado');
-            this.isPlaying = false;
-            this.updateUI();
-          });
-
-          this.initialized = true;
-          console.log('✅ AudioPlayer inicializado correctamente');
-        }
-
-        play() {
-          if (!this.initialized) {
-            this.init();
+        if (this.audio) {
+          const playPromise = this.audio.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                this.isPlaying = true;
+                console.log('🎵 Reproduciendo música');
+                this.updateUI();
+              })
+              .catch(error => {
+                console.error('❌ Error al reproducir:', error);
+                this.isPlaying = false;
+                this.updateUI();
+              });
           }
-
-          if (this.audio) {
-            const playPromise = this.audio.play();
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => {
-                  this.isPlaying = true;
-                  console.log('🎵 Reproduciendo música');
-                  this.updateUI();
-                })
-                .catch(error => {
-                  console.error('❌ Error al reproducir:', error);
-                  this.isPlaying = false;
-                  this.updateUI();
-                });
-            }
-          }
-        }
-
-        pause() {
-          if (this.audio) {
-            this.audio.pause();
-            this.isPlaying = false;
-            console.log('⏸️ Música pausada');
-            this.updateUI();
-          }
-        }
-
-        togglePlay() {
-          if (this.isPlaying) {
-            this.pause();
-          } else {
-            this.play();
-          }
-        }
-
-        setVolume(volume) {
-          if (this.audio) {
-            this.volume = Math.max(0, Math.min(1, volume));
-            this.audio.volume = this.volume;
-          }
-        }
-
-        updateUI() {
-          const event = new CustomEvent('audioStateChange', {
-            detail: { isPlaying: this.isPlaying }
-          });
-          window.dispatchEvent(event);
-        }
-
-        getState() {
-          return {
-            playing: this.isPlaying,
-            volume: this.volume,
-            initialized: this.initialized
-          };
         }
       }
 
-      // Crear instancia global disponible para React
-      window.audioPlayer = new AudioPlayer();
-      console.log('🎵 Sistema de audio cargado - window.audioPlayer disponible');
-
-      // Detectar y guardar preferencia de idioma
-      (function() {
-        const savedLang = localStorage.getItem('preferred-language');
-        const browserLang = navigator.language || navigator.userLanguage;
-        const defaultLang = 'es';
-        
-        if (!savedLang) {
-          const supportedLangs = ['es', 'en'];
-          const detectedLang = supportedLangs.includes(browserLang.split('-')[0]) 
-            ? browserLang.split('-')[0] 
-            : defaultLang;
-          localStorage.setItem('preferred-language', detectedLang);
+      pause() {
+        if (this.audio) {
+          this.audio.pause();
+          this.isPlaying = false;
+          console.log('⏸️ Música pausada');
+          this.updateUI();
         }
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+      }
+
+      togglePlay() {
+        if (this.isPlaying) {
+          this.pause();
+        } else {
+          this.play();
+        }
+      }
+
+      setVolume(volume) {
+        if (this.audio) {
+          this.volume = Math.max(0, Math.min(1, volume));
+          this.audio.volume = this.volume;
+        }
+      }
+
+      updateUI() {
+        const event = new CustomEvent('audioStateChange', {
+          detail: { isPlaying: this.isPlaying }
+        });
+        window.dispatchEvent(event);
+      }
+
+      getState() {
+        return {
+          playing: this.isPlaying,
+          volume: this.volume,
+          initialized: this.initialized
+        };
+      }
+    }
+
+    // Crear instancia global disponible para React
+    window.audioPlayer = new AudioPlayer();
+    console.log('🎵 Sistema de audio cargado - window.audioPlayer disponible');
+
+    // Detectar y guardar preferencia de idioma
+    (function () {
+      const savedLang = localStorage.getItem('preferred-language');
+      const browserLang = navigator.language || navigator.userLanguage;
+      const defaultLang = 'es';
+
+      if (!savedLang) {
+        const supportedLangs = ['es', 'en'];
+        const detectedLang = supportedLangs.includes(browserLang.split('-')[0])
+          ? browserLang.split('-')[0]
+          : defaultLang;
+        localStorage.setItem('preferred-language', detectedLang);
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
