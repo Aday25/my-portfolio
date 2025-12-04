@@ -14,7 +14,7 @@ import ActionButtons from '../components/ActionButtons';
 // Importar imágenes de los proyectos
 import piedrasAngularesImg from '../assets/projects/piedras-angulares.jpg';
 import nitrogenoImg from '../assets/projects/nitrogeno.jpg';
-import bookAppImg from '../assets/projects/book-api.jpg';
+import bookAppImg from '../assets/projects/books-api.jpg';
 import outdoorCinemaImg from '../assets/projects/outdoor-cinema.jpg';
 import nectaraImg from '../assets/projects/nectara.jpg';
 import tarotImg from '../assets/projects/tarot.jpg';
