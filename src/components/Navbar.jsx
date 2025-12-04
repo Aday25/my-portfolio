@@ -90,8 +90,8 @@ export default function Navbar() {
   // Función para descargar CV
   const downloadCV = (language) => {
     const cvFiles = {
-      es: '/my-portfolio/public/cv/CV-aday-alvarez.pdf',
-      en: '/my-portfolio/public/cv/CV-aday-alvarez-english.pdf'
+      es: '/cv/CV-aday-alvarez.pdf',
+      en: '/cv/CV-aday-alvarez-english.pdf'
     };
     
     const cvUrl = cvFiles[language];
