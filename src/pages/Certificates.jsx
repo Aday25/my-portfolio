@@ -7,7 +7,7 @@ import { AnimatedTitle } from '../components/AnimatedTitle';
 import ActionButtons from '../components/ActionButtons';
 
 // Importamos imágenes de certificados actualizadas
-import bootcampImg from '../assets/certificates/certificado-bootcamp.jpeg'
+import bootcampImg from '../assets/certificates/certificado-bootcamp.png'
 import portafolioImg from '../assets/certificates/portafolio.png'
 import hackathonImg from '../assets/certificates/hackathon.jpg'
 import canvaImg from '../assets/certificates/canva.png'
