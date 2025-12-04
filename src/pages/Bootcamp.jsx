@@ -96,7 +96,7 @@ const bootcampProjectsData = [
     description: 'Solución digital para gestión médica desarrollada durante hackathon. Proyecto finalista.',
     image: sanimedImg,
     technologies: ['React', 'Node.js', 'MongoDB', 'Team Work'],
-    demoUrl: '/not-found',
+    demoUrl: 'https://www.canva.com/design/DAG6lsKAdQw/p9__uTZ9rqhv8nsXQp4D2A/view?utm_content=DAG6lsKAdQw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc563ccd22f',
     webUrl: '/not-found',
     githubUrl: 'https://github.com/Aday25/sanimed',
     category: 'hackathon',
