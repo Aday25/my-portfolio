@@ -1,12 +1,3 @@
-<p align="center">
-  <a href="#spanish">
-    <img src="src/assets/flags/es.png" alt="Español" width="37" height="37">
-  </a>
-  <a href="#english">
-    <img src="src/assets/flags/en.png" alt="English" width="37" height="37">
-  </a>
-</p>
-
 <h1 align="center">✨ Portfolio Interactivo de Desarrolladora</h1>
 <p align="center">
   <strong>Full Stack Developer & DevOps | React | Node.js | TypeScript | Docker</strong>
@@ -19,6 +10,17 @@
 
 <p align="center">
   <img src="public/cover-social.png" alt="Vista Previa del Portfolio" width="800">
+</p>
+
+---
+
+<p align="center">
+  <a href="#spanish">
+    <img src="src/assets/flags/es.png" alt="Español" width="37" height="37">
+  </a>
+  <a href="#english">
+    <img src="src/assets/flags/en.png" alt="English" width="37" height="37">
+  </a>
 </p>
 
 ---
