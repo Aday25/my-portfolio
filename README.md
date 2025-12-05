@@ -94,18 +94,30 @@ Este portfolio interactivo representa mi evolución como **Full Stack Developer 
 - **⚡ Tiempo de carga**: < 2s en conexión 3G
 - **🔍 SEO**: Meta tags optimizados para redes sociales
 
-## 🚀 Mis Proyectos Destacados
+## 💻 Mis Proyectos Destacados
+
+### [🟡 **SprintFlow** - Gestión Ágil para Equipos](https://github.com/Aday25/sprintflow)
+**Nov 2025 • Full Stack | React | Node.js | MongoDB | Material UI**
+Sistema de gestión ágil para equipos de desarrollo con métricas en tiempo real, autenticación JWT y tableros Kanban.
+
+### [🌊 **El Gran Azul** - Biología Marina Interactiva](https://github.com/Aday25/el-gran-azul)
+**Oct 2025 • Full Stack | TypeScript | React | Material UI | APIs**
+Aplicación web educativa sobre biología marina desarrollada con TypeScript, consumo de APIs y diseño moderno con Material UI.
+
+### [🔮 **Tarot Científico** - Fusión de Tarot y Ciencia](https://github.com/Aday25/tarot-cientifico)
+**Ago 2025 • React | JavaScript | CSS3 | Hooks**
+Aplicación React que combina cartas de tarot con científicas históricas, utilizando Hooks, componentes reutilizables y diseño responsive.
+
+### [🦈 **Chompy The Game** - Aprendizaje de Programación](https://github.com/Aday25/chompy-the-game)
+**Jul 2025 • JavaScript | OOP | Canvas | Game Development**
+Juego educativo para aprender programación orientada a objetos con Canvas, animaciones y desarrollo de videojuegos.
 
 ### [💊 **Sanimed** - Gestión Hospitalaria](https://github.com/Aday25/sanimed)
-**Full Stack | React | Node.js | MySQL**
-Sistema de gestión hospitalaria con roles de usuario, citas online y dashboard administrativo.
+**Full Stack | React | Node.js | MySQL | Gestión de Usuarios**
+Sistema completo de gestión hospitalaria con roles de usuario, citas online y dashboard administrativo.
 
-### [🎮 **Seal Game** - Juego Interactivo](https://github.com/Aday25/seal-game)
-**JavaScript | Canvas API | Game Development**
-Juego educativo desarrollado con vanilla JavaScript y Canvas API.
-
-### [📚 **Bootcamp Projects**](https://github.com/Aday25?tab=repositories)
-Ver todos mis proyectos del bootcamp de Factoría F5 con código abierto.
+### [📚 **Proyectos**](https://github.com/Aday25?tab=repositories)
+Ver todos mis proyectos con código abierto.
 
 ## 📞 Conectemos
 
@@ -200,18 +212,30 @@ This interactive portfolio represents my evolution as a **Full Stack Developer &
 - **⚡ Load Time**: < 2s on 3G connection
 - **🔍 SEO**: Optimized meta tags for social media
 
-## 🚀 Featured Projects
+## 💻 Featured Projects
+
+### [🟡 **SprintFlow** - Agile Team Management](https://github.com/Aday25/sprintflow)
+**Nov 2025 • Full Stack | React | Node.js | MongoDB | Material UI**
+Agile management system for development teams with real-time metrics, JWT authentication, and Kanban boards.
+
+### [🌊 **El Gran Azul** - Interactive Marine Biology](https://github.com/Aday25/el-gran-azul)
+**Oct 2025 • Full Stack | TypeScript | React | Material UI | APIs**
+Educational web application about marine biology developed with TypeScript, API consumption, and modern Material UI design.
+
+### [🔮 **Scientific Tarot** - Tarot & Science Fusion](https://github.com/Aday25/tarot-cientifico)
+**Aug 2025 • React | JavaScript | CSS3 | Hooks**
+React application that combines tarot cards with historical female scientists, using Hooks, reusable components, and responsive design.
+
+### [🦈 **Chompy The Game** - Programming Learning](https://github.com/Aday25/chompy-the-game)
+**Jul 2025 • JavaScript | OOP | Canvas | Game Development**
+Educational game to learn object-oriented programming with Canvas, animations, and video game development.
 
 ### [💊 **Sanimed** - Hospital Management](https://github.com/Aday25/sanimed)
-**Full Stack | React | Node.js | MySQL**
-Hospital management system with user roles, online appointments, and admin dashboard.
+**Full Stack | React | Node.js | MySQL | User Management**
+Complete hospital management system with user roles, online appointments, and administrative dashboard.
 
-### [🎮 **Seal Game** - Interactive Game](https://github.com/Aday25/seal-game)
-**JavaScript | Canvas API | Game Development**
-Educational game developed with vanilla JavaScript and Canvas API.
-
-### [📚 **Bootcamp Projects**](https://github.com/Aday25?tab=repositories)
-View all my Factoría F5 bootcamp projects with open source code.
+### [📚 **Projects**](https://github.com/Aday25?tab=repositories)
+View all my projects with open source code.
 
 ## 📞 Let's Connect
 
