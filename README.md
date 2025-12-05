@@ -1,9 +1,9 @@
 <p align="center">
   <a href="#spanish">
-    <img src="https://raw.githubusercontent.com/lipis/flag-icon-css/master/flags/4x3/es.svg" alt="Español" width="32" height="32">
+    <img src="src/assets/flags/es.png" alt="Español" width="37" height="37">
   </a>
   <a href="#english">
-    <img src="https://raw.githubusercontent.com/lipis/flag-icon-css/master/flags/4x3/gb.svg" alt="English" width="32" height="32">
+    <img src="src/assets/flags/en.png" alt="English" width="37" height="37">
   </a>
 </p>
 
