@@ -25,7 +25,7 @@
 
 ---
 
-# Spanish
+# Español
 
 ## 👾 Sobre Mi Portfolio
 
