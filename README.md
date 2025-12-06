@@ -1,6 +1,6 @@
 <h1 align="center">✨ Portfolio Interactivo de Desarrolladora</h1>
 <p align="center">
-  <strong>Full Stack Developer & DevOps | React | Node.js | TypeScript | Docker</strong>
+  <strong>Full Stack Developer | Javascript | React | Typescript | Bases de Datos
 </p>
 
 <p align="center">
