@@ -281,6 +281,8 @@ const resources = {
       "Habilidades de presentación": "Presentation Skills",
       "IA Generativa": "Generative AI",
       "Trabajo en equipo": "Teamwork",
+      "Relaciones profesionales": "Professional relationships",
+      "Curador de Datos": "Data Curator",
 
       // Certificate issuers
       "Factoría F5": "Factoría F5",
@@ -296,7 +298,9 @@ const resources = {
       "Capacitación en habilidades para estructurar y realizar presentaciones efectivas, controlar la información, manejar el protocolo y usar recursos adecuados.": "Training in skills to structure and deliver effective presentations, control information, handle protocol and use appropriate resources.",
       "Certificación en inteligencia artificial generativa y técnicas de prompt engineering.": "Certification in generative artificial intelligence and prompt engineering techniques.",
       "Formación en trabajo en equipo: desarrollo de habilidades para coordinar roles, seguir etapas clave y alcanzar objetivos comunes bajo un liderazgo efectivo.": "Teamwork training: development of skills to coordinate roles, follow key stages and achieve common goals under effective leadership.",
-
+      "Gestión y depuración de datos usando MariaDB y HeidiSQL, modelado UML/entidad-relación, creación y administración de bases de datos, uso de SQL (DDL y DML), consultas avanzadas, control de usuarios, importación/exportación, respaldo y mantenimiento.": "Data management and debugging using MariaDB and HeidiSQL, UML/entity-relationship modeling, database creation and administration, SQL usage (DDL and DML), advanced queries, user control, import/export, backup and maintenance.",
+      "Pautas para mantener un ambiente saludable de trabajo con tus compañeros y mejorar la comunicación para alcanzar una meta en común.": "Guidelines for maintaining a healthy work environment with your colleagues and improving communication to achieve a common goal.",
+      
       // Interface texts
       "Expedición:": "Issued:",
       "ID de credencial:": "Credential ID:",
@@ -319,6 +323,12 @@ const resources = {
       "Inteligencia Artificial": "Artificial Intelligence",
       "Coordinación": "Coordination",
       "Liderazgo": "Leadership",
+      "Negociación": "Negotiation",
+      "Trabajo en equipo": "Teamwork",
+      "Prevención de conflictos": "Conflict prevention",
+      "Entidad-relación": "Entity-Relationship",
+
+
 
       // 404 page
       "¡Ups! Página no encontrada": "Oops! Page Not Found",

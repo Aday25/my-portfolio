@@ -14,8 +14,31 @@ import canvaImg from '../assets/certificates/canva.png'
 import presentacionImg from '../assets/certificates/presentación.png'
 import iaImg from '../assets/certificates/ia.png'
 import equipoImg from '../assets/certificates/equipo.png'
+import curadorImg from '../assets/certificates/curador.png'
+import relacionesImg from '../assets/certificates/relaciones.png'
+
 
 const certificatesData = [
+   {
+    title: 'Curador de Datos',
+    issuer: 'Capacítate para el Empleo',
+    image: curadorImg,
+    date: 'dic. 2025',
+    skills: ['SQL', 'Entidad-relación', 'MariaDB'],
+    details: 'Gestión y depuración de datos usando MariaDB y HeidiSQL, modelado UML/entidad-relación, creación y administración de bases de datos, uso de SQL (DDL y DML), consultas avanzadas, control de usuarios, importación/exportación, respaldo y mantenimiento.',
+    type: 'SQL',
+    color: '#902294ff'
+  },
+   {
+    title: 'Relaciones profesionales',
+    issuer: 'Capacítate para el Empleo',
+    image: relacionesImg,
+    date: 'dic. 2025',
+    skills: ['Negociación', 'Trabajo en equipo', 'Prevención de conflictos', 'Liderazgo'],
+    details: 'Pautas para mantener un ambiente saludable de trabajo con tus compañeros y mejorar la comunicación para alcanzar una meta en común.',
+    type: '',
+    color: '#1976d2'
+  },
   {
     title: 'Bootcamp Fullstack Developer',
     issuer: 'Factoría F5',
@@ -35,7 +58,7 @@ const certificatesData = [
     skills: ['Portafolio Digital', 'Desarrollo', 'Promo Profesional'],
     details: 'Identificación de información necesaria, estructura y herramientas disponibles para la gestión de un portafolio digital para promocionar tu perfil como desarrollador.',
     type: 'certification',
-    color: '#9c27b0'
+    color: '#264dc2ff'
   },
   {
     title: 'Finalista - Hackathon',
