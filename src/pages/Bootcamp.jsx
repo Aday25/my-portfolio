@@ -113,7 +113,7 @@ const bootcampProjectsData = [
     image: chompyImg,
     technologies: ['JavaScript', 'OOP', 'Canvas', 'Game Development'],
     demoUrl: 'https://www.canva.com/design/DAG6LDR-4ls/iGJ8ft1wyyObl821OPYghw/view?utm_content=DAG6LDR-4ls&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h6932a83458',
-    webUrl: 'https://chompy-the-game-7zux.vercel.app/about-me.html',
+    webUrl: 'https://chompy-the-game-7zux.vercel.app/',
     githubUrl: 'https://github.com/Aday25/chompy-the-game',
     category: 'javascript',
     date: 'Jul 2025',
